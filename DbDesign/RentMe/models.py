@@ -8,22 +8,25 @@ class model_info(models.Model):
         (1, u'商务车'),
     )
     stateChoices = (
-        (u'Y',u'有'),
+        (u'Sing',u'单天窗'),
+        (u'all',u'全景天窗'),
+        (u'else',u'其他'),
         (u'N',u'无'),
     )
     DvdChoices = (
         (u'D',u'DVD'),
-        (u'C',u'VCD'),
+        (u'C',u'CD'),
+        (u'S',u'其他'),
     )
     car_model_id = models.CharField(max_length=40,primary_key=True,verbose_name='品牌/车系/年代款/配置款')
-    car_type = models.IntegerField(choices=CarTypes,verbose_name='车型')
+    car_type = models.IntegerField(choices=CarTypes,null=True,verbose_name='车型')
     car_brand = models.CharField(max_length=20,default='奔驰')
     car_series= models.CharField(max_length=20,default='X3')
     car_issue_date = models.CharField(max_length=4,default='2017')
     car_config_model = models.CharField(max_length=10,default='悦动型')
     car_seats_num = models.IntegerField(null=True)
     car_doors = models.IntegerField(null=True)
-    car_flues_types = models.CharField(max_length=5,null=True,verbose_name='燃料类型')
+    car_fuel_type = models.CharField(max_length=5,null=True,verbose_name='燃料类型')
     car_gearbox_type = models.CharField(max_length=5,null=True,verbose_name='变速箱类型')
     car_displacement = models.IntegerField(null=True,verbose_name='排量')
     car_fuel_num = models.CharField(max_length=10,null=True,verbose_name='使用燃油编号')
@@ -34,7 +37,7 @@ class model_info(models.Model):
     car_voicebox = models.IntegerField(null=True,verbose_name='音箱')
     car_seats_type = models.CharField(max_length=10,null=True,verbose_name='座椅')
     car_reverse_radar = models.CharField(max_length=4,choices=stateChoices,default='无',verbose_name='倒车雷达')
-    car_airbag = models.IntegerField(null=True,verbose_name='气囊')
+    car_airbag = models.CharField(max_length=4,null=True,verbose_name='气囊')
     car_dvd = models.CharField(max_length=4,choices=DvdChoices,default='DVD')
     car_gps = models.CharField(max_length=5,choices=stateChoices,default='无',verbose_name='GPS导航')
     car_deposit = models.IntegerField(default=5000,verbose_name='押金')
