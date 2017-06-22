@@ -2,20 +2,22 @@
 
 下载package到本地,或者还有其他获得代码的方法？
 
-windows:
-    我的mysql配置：
-     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':'rentme',
-        'USER':'root',
-        'PASSWORD':'root',
-        'HOST':'127.0.0.1',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+
+我的mysql配置：
+ DATABASES = {
+'default': {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME':'rentme',
+    'USER':'root',
+    'PASSWORD':'root',
+    'HOST':'127.0.0.1',
+    #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-    需要修改的话进入项目目录下，setting.py文件内修改
-    
+}
+需要修改的话进入项目目录下，setting.py文件内修改
+
+
+windows:
     dos下进入项目文件夹内，执行以下命令
     python manage.py makemigrations 
     python manage.py migrate
