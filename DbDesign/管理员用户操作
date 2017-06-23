@@ -1,0 +1,10 @@
+数据库创建之后，
+运行python manage.py createsuperuser创建超级用户-->管理员
+
+之后运行本地django服务器：
+  python manage.py runserver(默认端口8000)
+  
+ 在浏览器打开localhost:8000/admin登录管理员账户
+ 
+ 管理员登录之后，可在认证与授权-->组创建不同权限的管理员类型
+ 
