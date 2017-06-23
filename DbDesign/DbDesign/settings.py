@@ -56,8 +56,7 @@ ROOT_URLCONF = 'DbDesign.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': ['frontend/dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,10 +81,13 @@ DATABASES = {
         'NAME':'rentme',
         'USER':'root',
         'PASSWORD':'root',
-        'HOST':'127.0.0.1',
+        #'HOST':'127.0.0.1',
+        'HOST':'119.29.9.154',
+        'PORT':'3306',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 
 # Password validation
@@ -125,3 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/dist/static"),
+]

@@ -13,6 +13,8 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "copy-webpack-plugin": "^4.0.1",
+    "optimize-css-assets-webpack-plugin": "^2.0.0",
     "vue": "^2.1.10",
     "vue-router": "^2.2.0"
   },
