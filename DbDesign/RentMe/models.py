@@ -165,7 +165,7 @@ class user_info(models.Model):
 class driving_license(models.Model):
     drive_id = models.AutoField(primary_key=True,verbose_name='主键')
     user_drive = models.CharField(max_length=12,null=True,verbose_name='驾驶证编号')
-    drive_type = models.CharField(max_length=3,null=True,verbose_name='驾驶证类型')
+    drive_type = models.CharField(max_length=12,default='C级驾照',verbose_name='驾驶证类型')
     drive_age = models.IntegerField(null=True,verbose_name='驾龄')
     drive_start_date = models.DateField(null=True,verbose_name='发证日期')
     drive_end_date = models.DateField(null=True,verbose_name='失效日期')
