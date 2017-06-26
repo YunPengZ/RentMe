@@ -9,7 +9,7 @@
           <el-menu-item index="4"><i class="el-icon-message"></i>导航四</el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :span="20" class="maxheight">
+      <el-col :span="20" class="maxheight background">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -28,4 +28,7 @@
   }
 </script>
 <style scoped>
+  .background{
+    background-color: #d1dbe5;
+  }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="whole">
-    <h1 class="titile">一 家 租 车 行 管 理 系 统</h1>
+    <img src="../assets/logo.png" height="400" width="400">
+    <h1>一 家 租 车 行 管 理 系 统</h1>
     <p class="text smalltext">彭世晨 张豫坤 彭彬 王兰心 郑杰 朱云鹏</p>
     <div>
       <h4>车辆出租统计信息查询</h4>
@@ -16,7 +17,6 @@
   .whole{
     margin: 0px;
     height: 100%;
-    background-color: #d1dbe5;
     text-align: center;
   }
   h4{
@@ -24,7 +24,7 @@
   }
   h1{
     margin: 0px;
-    padding-top: 50px;
+    padding-top: 20px;
   }
   .smalltext{
     font-size: 2px;
