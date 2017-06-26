@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" class="maxheight">
     <el-row>
-      <router-view class="view-top"name="top"></router-view>
+      <router-view name="top"></router-view>
     </el-row>
-    <el-row>
-      <router-view class="view-mid"></router-view>
+    <el-row class="maxheight">
+      <router-view></router-view>
     </el-row>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-div {
+.maxheight {
   height: 100%;
 }
 </style>
