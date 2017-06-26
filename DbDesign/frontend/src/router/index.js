@@ -7,6 +7,9 @@ Vue.use(Router)
 import NotFound from '../components/NotFound.vue'
 import Hello from '../components/Hello.vue'
 import Login from '../components/Login.vue'
+import Home from '../components/Home.vue'
+import Navbar from '../components/Navbar.vue'
+import Welcome from '../components/Welcome.vue'
 
 const router = new Router({
   routes: [
@@ -19,6 +22,16 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/home',
+      components: {
+        top: Navbar,
+        default: Home
+      },
+      children: [
+        {path: '', component: Welcome}
+      ]
     },
     {
       path: '/hello',
