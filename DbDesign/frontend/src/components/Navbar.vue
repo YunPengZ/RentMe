@@ -1,6 +1,14 @@
 <template>
-  <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-    <el-menu-item index="1">LOGO</el-menu-item>
+  <el-menu theme="dark" :default-active="1" mode="horizontal">
+    <el-row type="flex" justify="space-between">
+      <el-col :span="2">
+        <el-menu-item index="1">LOGO</el-menu-item>
+      </el-col>
+      <el-col :span="2" :offset="18">
+        <el-menu-item index="2">{{ $store.state.user_Name }}</el-menu-item>
+        <el-menu-item index="3">注销</el-menu-item>
+      </el-col>
+    </el-row>
   </el-menu>
 </template>
 <script>
