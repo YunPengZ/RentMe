@@ -1,3 +1,4 @@
+# coding:utf-8
 from django.db import models
 import django.utils.timezone as timezone
 import datetime
@@ -106,6 +107,7 @@ class admin_info(models.Model):
         (2,u'违章处理管理员'),
     )
     admin_id = models.AutoField(primary_key=True, verbose_name='主键')
+    admin_pas = models.CharField(max_length=128,null=True)
     #admin_num = models.CharField(max_length=15,primary_key=True)
     admin_name = models.CharField(max_length=10,null=True,verbose_name='管理员姓名')
     admin_sex = models.CharField(max_length=2,choices=GenderChoices,null=True,verbose_name='管理员性别')
