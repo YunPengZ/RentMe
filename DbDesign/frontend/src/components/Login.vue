@@ -4,6 +4,9 @@
       <el-col :span="8">
         <el-card>
           <el-form :model="form" label-width="100px">
+            <el-form-item>
+              <p>{{ $store.state.user_ID }}</p>
+            </el-form-item>
             <el-form-item label="手机号">
               <el-input v-model="form.account" auto-complete="off"></el-input>
             </el-form-item>
