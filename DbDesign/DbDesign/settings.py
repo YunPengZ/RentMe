@@ -39,7 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'RentMe.apps.RentmeConfig',
     'RentMe',
+    #'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,6 +94,7 @@ DATABASES = {
         'HOST':'119.29.9.154',
         'PORT':'3306',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
     }
 }
 
