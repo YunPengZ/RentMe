@@ -48,7 +48,7 @@ const router = new Router({
           ]
         },
         {path: 'carManage', component: CarManage},
-        {path: 'carManage/:id', component: CarManage},
+        {path: 'editCar/:id', component: CarManage},
         {path: 'violation_info', component: violationInfo}
       ]
     },
