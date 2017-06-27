@@ -10,11 +10,7 @@
             <el-input type="password" v-model="form.password" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item>
-<<<<<<< HEAD
             <el-button type="primary" @click="login">提交</el-button>
-=======
-            <el-button type="primary" @click="submitForm('form')">提交</el-button>
->>>>>>> origin/master
           </el-form-item>
         </el-form>
       </el-col>

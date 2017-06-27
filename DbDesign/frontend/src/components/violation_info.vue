@@ -7,49 +7,46 @@
     </el-button>
   </el-col>
 </el-row>-->
-<el-row justify="center">
-<el-form :inline="true"  class="demo-form-inline">
-  <el-form-item label="车辆号码">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+<el-row type="flex">
+    <el-col :offset="4">
+<el-form :inline="true"   >
+  <el-form-item  :span="3">
+      <el-input placeholder="请输入内容" v-model="formInline.millegal_car_num" >
+    <template slot="prepend">车牌号码</template>
+  </el-input>
   </el-form-item>
 
-    <el-form-item label="车辆型号">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+  <el-form-item :span="2">
+      <!--<el-input placeholder="请输入内容" v-model="formInline.user" type="date">-->
+    <el-date-picker
+      v-model="formInline.illegal_date"
+      type="date"
+      placeholder="违章时间"
+      :picker-options="pickerOptions0">
+    </el-date-picker>
+  </el-input>
   </el-form-item>
-    <el-form-item label="车辆颜色">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+  <el-form-item :span="3">
+      <el-input placeholder="请输入内容" v-model="formInline.illegal_bill">
+    <template slot="prepend">违章金额</template>
+  </el-input>
   </el-form-item>
-    <el-form-item label="发动机号">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+   <el-form-item :span="3">
+      <el-input placeholder="请输入内容" v-model="formInline.illegal_info">
+    <template slot="prepend">违章信息</template>
+  </el-input>
   </el-form-item>
    </el-form-item>
-    <el-form-item label="车架编号">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-  </el-form-item>
-
-</el-form>
-<el-form :inline="true"  class="demo-form-inline">
-  <el-form-item label="购买日期">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-  </el-form-item>
-    <el-form-item label="销售商">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-  </el-form-item>
-    <el-form-item label="状态">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-  </el-form-item>
-    <el-form-item label="保单号">
-    <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-  </el-form-item>
-  </el-row>
-  <el-form-item>
-    <el-button type="primary" @click="onSubmit">查询</el-button>
+  <el-form-item :span="4">
+    <el-button type="primary" @click="onSubmit">提交</el-button>
   </el-form-item>
 </el-form>
-<el-row type="flex" justify="center">
-<el-col>
+</el-col>
+</el-row>
+<el-row type="flex">
+<el-col :offset="4" :span="16">
   <el-table
-    :data="users"
+    :data="table"
     border
     highlight-current-row
     @current-change="handleCurrentChange"
@@ -57,19 +54,29 @@
     :default-sort = "{prop: 'date', order: 'descending'}"
     >
     <el-table-column
-      prop="match_ID"
-      label="比赛编号"
+      prop="millegal_car_num"
+      label="车牌号码"
+      width="120"
       sortable
       >
     </el-table-column>
     <el-table-column
-      prop="user_ID"
-      label="选手编号">
+      prop="illegal_date"
+      label="违章时间"
+      width="100"
+      >
+      
     </el-table-column>
     <el-table-column
-      prop="match_Grade"
-      label="成绩"
-      width="180"
+      prop="illegal_bill"
+      label="违章金额"
+      width="100"
+    >
+    </el-table-column>
+        <el-table-column
+      prop="illegal_info"
+      label="违章信息"
+      
     >
     </el-table-column>
   </el-table>
@@ -82,11 +89,18 @@
 export default {
   data () {
     return {
-      users: [
+      table: [
         {
-          match_ID: 'fuckyou',
-          user_ID: '234',
-          match_Grade: null
+          millegal_car_num: 'fuckyou',
+          illegal_date: '234',
+          illegal_bill: '1001000$',
+          illegal_info: 'xyz'
+        },
+        {
+          millegal_car_num: 'fuckyou-1',
+          illegal_date: '234',
+          illegal_bill: '1001000$',
+          illegal_info: 'xyz'
         }
       ],
       currentRow: {
@@ -95,8 +109,10 @@ export default {
         match_Grade: null
       },
       formInline: {
-        user: 'fucker',
-        region: 'you'
+        millegal_car_num: 'fuckyou',
+        illegal_date: '',
+        illegal_bill: '1001000$',
+        illegal_info: 'xyz'
       },
       displayStatus: false
     }
