@@ -7,21 +7,22 @@ from RentMe import models
 from RentMe.serializers import *
 from django.views.decorators.csrf import csrf_protect
 
+#license_info查询
 @api_view(['GET','POST'])
 def license_list(request,format=None):
     #展示或者创建driving_license
     if request.method == 'GET':
         licenses = driving_license.objects.all()
         serializer = DrivingSerializer(licenses,many=True)
-        print('get')
-        print(serializer.data)
+        #print('get')
+        #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = DrivingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            print('post')
-            print(Response(serializer.data))
+            #print('post')
+            #print(Response(serializer.data))
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
@@ -42,6 +43,83 @@ def license_detail(request,pk,format=None):
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'DELETE':
         license.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+#model_info查询
+@api_view(['GET','POST'])
+def model_info_list(request,format=None):
+    #展示或者创建driving_license
+    if request.method == 'GET':
+        models_ = model_info.objects.all()
+        serializer = ModelSerializer(models_,many=True)
+        #print('get')
+        #print(serializer.data)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = ModelSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            #print('post')
+            #print(Response(serializer.data))
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','PUT','DELETE'])
+def model_info_detail(request,pk,format=None):
+    try:
+        models_ = model_info.objects.get(pk=pk)
+    except model_info.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = ModelSerializer(models_)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ModelSerializer(models_,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        models_.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+#user_info查询
+@api_view(['GET','POST'])
+def user_info_list(request,format=None):
+    #展示或者创建driving_license
+    if request.method == 'GET':
+        users = user_info.objects.all()
+        serializer = UserSerializer(users,many=True)
+        #print('get')
+        #print(serializer.data)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            #print('post')
+            #print(Response(serializer.data))
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','PUT','DELETE'])
+def user_info_detail(request,pk,format=None):
+    try:
+        users = user_info.objects.get(pk=pk)
+    except user_info.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = UserSerializer(users)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = UserSerializer(users,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        users.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @csrf_protect
@@ -82,8 +160,7 @@ class StoreList(generics.ListCreateAPIView):
 class StoreDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = store_info.objects.all()
     serializer_class = StoreSerializer
-    
+
 class CarList(generics.ListCreateAPIView):
     queryset = car_info.objects.all()
     serializer_class=CarSerializer
-
