@@ -8,40 +8,17 @@
   </el-col>
 </el-row>-->
 <el-row type="flex" class="firstRow">
-    <el-col :offset="4">
-<el-form :inline="true"   >
-  <el-form-item  :span="3">
-      <el-input placeholder="请输入内容" v-model="formInline.millegal_car_num" >
-    <template slot="prepend">车牌号码</template>
-  </el-input>
-  </el-form-item>
-
-  <el-form-item :span="2">
-      <!--<el-input placeholder="请输入内容" v-model="formInline.user" type="date">-->
-    <el-date-picker
-      v-model="formInline.illegal_date"
-      type="date"
-      placeholder="违章时间"
-      :picker-options="pickerOptions0">
-    </el-date-picker>
-  </el-input>
-  </el-form-item>
-  <el-form-item :span="3">
-      <el-input placeholder="请输入内容" v-model="formInline.illegal_bill">
-    <template slot="prepend">违章金额</template>
-  </el-input>
-  </el-form-item>
-   <el-form-item :span="3">
-      <el-input placeholder="请输入内容" v-model="formInline.illegal_info">
-    <template slot="prepend">违章信息</template>
-  </el-input>
-  </el-form-item>
-   </el-form-item>
-  <el-form-item :span="4">
-    <el-button type="primary" @click="onSubmit">提交</el-button>
-  </el-form-item>
-</el-form>
-</el-col>
+<el-autocomplete
+  popper-class="my-autocomplete"
+  v-model="state3"
+  :fetch-suggestions="querySearch"
+  custom-item="my-item-zh"
+  placeholder="请输入内容"
+  @select="handleSelect"
+  icon="edit"
+  :on-icon-click="handleIconClick"
+>
+</el-autocomplete>
 </el-row>
 <el-row type="flex">
 <el-col :offset="4" :span="16">
@@ -160,6 +137,7 @@ export default {
 <style scoped>
   .firstRow {
     margin-top: 40px;
+    justify-content: center; 
   }
   .button {
     width: 100%;
