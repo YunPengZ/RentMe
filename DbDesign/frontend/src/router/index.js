@@ -43,8 +43,7 @@ const router = new Router({
             {path: '', component: UserInfo},
             {path: 'car_model', component: CarModel}
           ]
-        },
-        {path: '', component: Welcome}
+        }
       ]
     },
     {
