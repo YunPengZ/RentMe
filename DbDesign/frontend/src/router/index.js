@@ -46,24 +46,22 @@ const router = new Router({
             {path: 'car_model', component: CarModel},
             {path: 'car_choose', component: CarChoose}
           ]
-        }
+        },
+        {path: 'carManage', component: CarManage},
+        {path: 'carManage/:id', component: CarManage},
+        {path: 'violation_info', component: violationInfo}
       ]
     },
     {
       path: '/hello',
       component: Hello,
       meta: { requiresAuth: true }
-    },
-    {
-      path: '/violation_info',
-      name: 'violation_info',
-      component: violationInfo
-    },
-    {
-      path: '/carManage',
-      name: 'carManage',
-      component: CarManage
     }
+    // {
+    //   path: '/carManage',
+    //   name: 'carManage',
+    //   component: CarManage
+    // }
   ]
 })
 

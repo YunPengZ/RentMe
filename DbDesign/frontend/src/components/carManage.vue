@@ -13,48 +13,79 @@
   v-model="state3"
   :fetch-suggestions="querySearch"
   custom-item="my-item-zh"
-  placeholder="请输入内容"
+  placeholder="搜索车辆"
   @select="handleSelect"
   icon="edit"
   :on-icon-click="handleIconClick"
 >
 </el-autocomplete>
+
+<el-button type="primary" icon="edit" class="addButton">添加车辆信息</el-button>
 </el-row>
-<el-row type="flex">
+<el-row type="flex" class="secondRow">
 <el-col :offset="4" :span="16">
   <el-table
     :data="table"
-    border
-    highlight-current-row
-    @current-change="handleCurrentChange"
-    style="width: 100%"
-    :default-sort = "{prop: 'date', order: 'descending'}"
-    >
-    <el-table-column
-      prop="millegal_car_num"
-      label="车牌号码"
-      width="120"
-      sortable
-      >
+    style="width: 100%">
+    <el-table-column type="expand">
+      <template scope="props">
+        <el-form label-position="left" inline class="demo-table-expand">
+          <el-form-item label="购买日期">
+            <span>{{ props.row.car_buy_date }}</span>
+          </el-form-item>
+          <el-form-item label="销售商">
+            <span>{{ props.row.car_retailer }}</span>
+          </el-form-item>
+          <el-form-item label="状态">
+            <span>{{ props.row.car_status }}</span>
+          </el-form-item>
+          <el-form-item label="保单号">
+            <span>{{ props.row.car_ins_num }}</span>
+          </el-form-item>
+          <el-form-item label="创建者">
+            <span>{{ props.row.car_creater }}</span>
+          </el-form-item>
+        </el-form>
+      </template>
     </el-table-column>
     <el-table-column
-      prop="illegal_date"
-      label="违章时间"
-      width="100"
-      >
-      
+      label="车辆号码"
+      prop="car_num">
     </el-table-column>
     <el-table-column
-      prop="illegal_bill"
-      label="违章金额"
-      width="100"
-    >
+      label="车辆型号"
+      prop="car_model_id">
+    </el-table-column>
+    <el-table-column
+      label="车辆颜色"
+      prop="car_color">
+    </el-table-column>
+    <el-table-column
+      label="发动机号"
+      prop="car_engine_num">
     </el-table-column>
         <el-table-column
-      prop="illegal_info"
-      label="违章信息"
-      
-    >
+      label="车架编号"
+      prop="car_frame_num">
+    </el-table-column>
+        <el-table-column
+      label="操作"
+      prop="desc">
+            <template scope="scope">
+                <router-link :to="'/home/carManage/'+match_ID" class="rid">
+        <el-button
+          size="small">            
+          
+              编辑
+            
+            </el-button>
+            </router-link>
+
+        <el-button
+          size="small"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+      </template>
     </el-table-column>
   </el-table>
 </el-col>
@@ -66,32 +97,55 @@
 export default {
   data () {
     return {
-      table: [
-        {
-          millegal_car_num: 'fuckyou',
-          illegal_date: '234',
-          illegal_bill: '1001000$',
-          illegal_info: 'xyz'
-        },
-        {
-          millegal_car_num: 'fuckyou-1',
-          illegal_date: '234',
-          illegal_bill: '1001000$',
-          illegal_info: 'xyz'
-        }
-      ],
-      currentRow: {
-        match_ID: '123',
-        user_ID: '234',
-        match_Grade: null
+      table: [{
+        car_num: '12987132',
+        car_model_id: '123',
+        car_color: '红色',
+        car_engine_num: '45432',
+        car_frame_num: '47186',
+        car_buy_date: '2016-2-3',
+        car_retailer: '10333',
+        car_status: '已租',
+        car_ins_num: '123456',
+        car_creater: 'kinmin'
       },
-      formInline: {
-        millegal_car_num: 'fuckyou',
-        illegal_date: '',
-        illegal_bill: '1001000$',
-        illegal_info: 'xyz'
+      {
+        car_num: '12987133',
+        car_model_id: '123',
+        car_color: '红色',
+        car_engine_num: '45432',
+        car_frame_num: '47186',
+        car_buy_date: '2016-2-3',
+        car_retailer: '10333',
+        car_status: '已租',
+        car_ins_num: '123456',
+        car_creater: 'kinmin'
       },
-      displayStatus: false
+      {
+        car_num: '12987134',
+        car_model_id: '123',
+        car_color: '红色',
+        car_engine_num: '45432',
+        car_frame_num: '47186',
+        car_buy_date: '2016-2-3',
+        car_retailer: '10333',
+        car_status: '已租',
+        car_ins_num: '123456',
+        car_creater: 'kinmin'
+      },
+      {
+        car_num: '12987135',
+        car_model_id: '123',
+        car_color: '红色',
+        car_engine_num: '45432',
+        car_frame_num: '47186',
+        car_buy_date: '2016-2-3',
+        car_retailer: '10333',
+        car_status: '已租',
+        car_ins_num: '123456',
+        car_creater: 'kinmin'
+      }
+      ]
     }
   }
 //     created() {
@@ -137,9 +191,16 @@ export default {
 <style scoped>
   .firstRow {
     margin-top: 40px;
+
     justify-content: center; 
+  }
+  .secondRow {
+      margin-top: 40px; 
   }
   .button {
     width: 100%;
+  }
+  .addButton {
+    margin-left:300px; 
   }
 </style>
