@@ -2,18 +2,65 @@
   <div>
     <el-row>
       <el-card>
+        <h3>填写驾驶员信息</h3>
         <el-col :span="12">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+            <el-form-item prop="checkPass">
+              <el-input v-model="ruleForm.password" auto-complete="off">
+                <template slot="prepend">姓名</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="checkPass">
+              <el-input v-model="ruleForm.password" auto-complete="off">
+                <template slot="prepend">驾驶证号</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="checkPass">
+              <el-input v-model="ruleForm.password" auto-complete="off">
+                <template slot="prepend">驾驶证类型</template>
+              </el-input>
+            </el-form-item>
+          </el-form>
+        </el-col>
+        <el-col :span="12">
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+            <el-form-item prop="checkPass">
+              <el-input v-model="ruleForm.password" auto-complete="off" class="input">
+                <template slot="prepend">驾龄</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="checkPass">
+              <el-date-picker
+                v-model="drive_start_date"
+                type="date"
+                placeholder="选择发证日期">
+              </el-date-picker>
+            </el-form-item>
+            <el-form-item prop="checkPass">
+              <el-date-picker
+                v-model="drive_end_date"
+                type="date"
+                placeholder="选择失效日期">
+              </el-date-picker>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-card>
+    </el-row>
+    <el-row class="row">
+      <el-card>
+        <h3>填写用户信息</h3>
+        <el-col :span="12">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
           <el-form-item prop="name">
             <el-input v-model="ruleForm.name" auto-complete="off">
               <template slot="prepend">姓名</template>
             </el-input>
           </el-form-item>
           <el-form-item>
-            <template>
-              <el-radio class="radio" v-model="ruleForm.sex" label="男">男</el-radio>
-              <el-radio class="radio" v-model="ruleForm.sex" label="女">女</el-radio>
-            </template>
+            <span>性别：</span>
+            <el-radio class="radio" v-model="ruleForm.sex" label="男">男</el-radio>
+            <el-radio class="radio" v-model="ruleForm.sex" label="女">女</el-radio>
           </el-form-item>
           <el-form-item prop="age">
             <el-input v-model.number="ruleForm.aage">
@@ -33,7 +80,7 @@
         </el-form>
         </el-col>
         <el-col :span="12">
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
           <el-form-item prop="pass">
             <el-input type="password" v-model="ruleForm.password" auto-complete="off">
               <template slot="prepend">地址</template>
@@ -60,8 +107,6 @@
         </el-form>
         </el-col>
       </el-card>
-    </el-row>
-    <el-row>
     </el-row>
   </div> 
 </template>
@@ -118,7 +163,13 @@ export default{
 }
 </script>
 <style scoped>
-el-form-item{
-  margin-left: 0px;
+.input{
+  min-width: 193px;
+}
+.row{
+  margin-top: 50px;
+}
+h3{
+  margin-left: 100px;
 }
 </style>

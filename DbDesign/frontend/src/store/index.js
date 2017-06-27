@@ -6,12 +6,22 @@ Vue.use(Vuex)
 // root state object.
 // each Vuex instance is just a single state tree.
 const state = {
+  // 跟踪新订单的状态
+  // 新订单目前在第几步
+  step: '',
+  // 该订单绑定的用户和驾驶员ID(第一步时完成)
+  order_user_id: '',
+  order_drive_id: '',
+  // 符合所选车型的车辆ID(第二步时完成)
+  matched_car: [],
+  // 该订单所绑定的车辆ID(第三步时完成)
+  car_ID: '',
+  // 管理员ID
   user_ID: '',
-        // 用户ID
+  // 管理员姓名
   user_Name: '小明',
-        // 用户姓名
+  // 管理员等级
   user_Status: ''
-            // 管理员等级
 }
     // mutations are operations that actually mutates the state.
     // each mutation handler gets the entire state tree as the

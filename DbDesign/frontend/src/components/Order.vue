@@ -10,9 +10,11 @@
         </el-input>
       </el-col>
       <el-col :span="2" :offset="2">
-        <el-button type="primary">
-          <router-link to="/home/new_order" class="text">添加订单</router-link>
-        </el-button>
+        <router-link to="/home/new_order" class="text">
+          <el-button type="primary">
+            <i class="el-icon-plus"> 添加订单</i> 
+          </el-button>
+        </router-link>
       </el-col>
     </el-row>
     <el-row type="flex" justify="space-between"  class="row">

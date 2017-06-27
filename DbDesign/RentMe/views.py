@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication
 from RentMe import models
 from RentMe.serializers import *
-from django.views.decorators.csrf import csrf_protect
 
 #license_info查询
 @api_view(['GET','POST'])
@@ -122,7 +121,6 @@ def user_info_detail(request,pk,format=None):
         users.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@csrf_protect
 @api_view(['GET','POST'])
 def login(request):
     if request.method == 'POST':
@@ -162,5 +160,9 @@ class StoreDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = StoreSerializer
 
 class CarList(generics.ListCreateAPIView):
+    queryset = car_info.objects.all()
+    serializer_class=CarSerializer
+
+class CarDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = car_info.objects.all()
     serializer_class=CarSerializer
