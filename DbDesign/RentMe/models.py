@@ -57,44 +57,13 @@ class model_info(models.Model):
     car_day_price = models.IntegerField(default=1000,verbose_name='日租金')
     car_time_out_price = models.IntegerField(default=150,verbose_name='超时费用(元/天)')
     car_over_kilo_price = models.FloatField(default=0.5,verbose_name='超公里费用(元/公里)')
-    car_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
+    #car_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
     def __str__(self):
         return self.car_model_id
     class Meta:
         verbose_name = '车型'
         verbose_name_plural = '车型'
-
-class car_info(models.Model):
-    ColorChoices = (
-        (u'red',u'红色'),
-        (u'bla',u'黑色'),
-        (u'sli',u'银色'),
-    )
-    statusChoices = (
-        (u'N',u'未租'),
-        (u'R',u'已租'),
-        (u'F',u'维修'),
-    )
-    car_id = models.AutoField(primary_key=True, verbose_name='主键')
-    car_num = models.CharField(max_length=10,null=True)
-    car_model_id = models.ForeignKey(model_info,related_name='car_model')
-    car_color = models.CharField(max_length=4,choices=ColorChoices,default='黑色',verbose_name='颜色')
-    car_engine_num = models.CharField(max_length=10,null=True,verbose_name='发动机号')
-    car_frame_num = models.CharField(max_length=20,null=True,verbose_name='车架编号')
-    car_buy_date = models.CharField(max_length=4,null=True,verbose_name='购车年份')
-    car_retailer = models.CharField(max_length=20,null=True,verbose_name='销售商')
-    car_status = models.CharField(max_length=4,choices=statusChoices,default='未租',verbose_name='车辆状态')
-    car_ins_num = models.CharField(max_length=50,null=True,verbose_name='保单编号')
-    car_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
-    record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
-
-    #car_record_create_admin = models.
-    def __str__(self):
-        return self.car_num
-    class Meta:
-        verbose_name = '车辆信息'
-        verbose_name_plural = '车辆信息'
 
 class admin_info(models.Model):
     GenderChoices = (
@@ -125,6 +94,40 @@ class admin_info(models.Model):
         verbose_name = '管理员信息'
         verbose_name_plural = '管理员信息'
 
+
+class car_info(models.Model):
+    ColorChoices = (
+        (u'red',u'红色'),
+        (u'bla',u'黑色'),
+        (u'sli',u'银色'),
+    )
+    statusChoices = (
+        (u'N',u'未租'),
+        (u'R',u'已租'),
+        (u'F',u'维修'),
+    )
+    car_id = models.AutoField(primary_key=True, verbose_name='主键')
+    car_num = models.CharField(max_length=10,null=True)
+    car_model_id = models.ForeignKey(model_info,related_name='car_model')
+    car_color = models.CharField(max_length=4,choices=ColorChoices,default='黑色',verbose_name='颜色')
+    car_engine_num = models.CharField(max_length=10,null=True,verbose_name='发动机号')
+    car_frame_num = models.CharField(max_length=20,null=True,verbose_name='车架编号')
+    car_buy_date = models.CharField(max_length=4,null=True,verbose_name='购车年份')
+    car_retailer = models.CharField(max_length=20,null=True,verbose_name='销售商')
+    car_status = models.CharField(max_length=4,choices=statusChoices,default='未租',verbose_name='车辆状态')
+    car_ins_num = models.CharField(max_length=50,null=True,verbose_name='保单编号')
+    car_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
+    record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_car")
+    record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
+
+    #car_record_create_admin = models.
+    def __str__(self):
+        return self.car_num
+    class Meta:
+        verbose_name = '车辆信息'
+        verbose_name_plural = '车辆信息'
+
+
 class store_info(models.Model):
     store_id = models.AutoField(primary_key=True, verbose_name='主键')
     store_addr = models.CharField(max_length=50,null=True,verbose_name='门店地址')
@@ -132,6 +135,7 @@ class store_info(models.Model):
     store_start_time = models.CharField(max_length=20,null=True,verbose_name='门店营业时间')
     store_admin = models.ForeignKey(admin_info,related_name='store_manage',verbose_name='门店管理员')
     store_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
+    record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_store")
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
 
     def __str__(self):
@@ -155,6 +159,7 @@ class user_info(models.Model):
     user_addr = models.CharField(max_length=50,null=True,verbose_name='地址')
     user_post = models.CharField(max_length=6,null=True,verbose_name='邮编')
     user_email = models.CharField(max_length=50,null=True,verbose_name='EMAIL')
+    record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_user")
     user_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
 
@@ -169,10 +174,14 @@ class driving_license(models.Model):
     user_drive = models.CharField(max_length=12,null=True,verbose_name='驾驶证编号')
     drive_type = models.CharField(max_length=12,default='C级驾照',verbose_name='驾驶证类型')
     drive_age = models.IntegerField(null=True,verbose_name='驾龄')
+    drive_name = models.CharField(max_length=15,default="朱")
     drive_start_date = models.DateField(null=True,verbose_name='发证日期')
     drive_end_date = models.DateField(null=True,verbose_name='失效日期')
+    record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_license")
+    license_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
+    record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
     def __str__(self):
-        return self.user_drive
+        return self.drive_name
     class Meta:
         verbose_name = '驾驶证信息'
         verbose_name_plural = '驾驶证信息'
@@ -191,7 +200,7 @@ class rent_order(models.Model):
     illegal_info = models.TextField(null=True, verbose_name='违章信息')
     illegal_bill = models.IntegerField(null=True, verbose_name='违章费用')
     actual_money = models.IntegerField(null=True,verbose_name='实收总费用')
-
+    record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_order")
     order_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
 
@@ -204,8 +213,10 @@ class rent_order(models.Model):
 class relet_record(models.Model):
     relet_id = models.AutoField(primary_key=True, verbose_name='主键')
     order_num = models.ForeignKey(rent_order,related_name='relet_order')
-    relet_day = models.IntegerField(null=True,verbose_name='续租天数')
+    relet_start_time = models.DateTimeField(null=True,verbose_name='续租起始时间')
+    relet_end_time = models.DateTimeField(null=True)
     #relet_apply_day = models.DateField(auto_now_add=True)
+    record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_relet")
     relet_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
     #重租记录被创建时记录时间
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
@@ -224,6 +235,7 @@ class illegal_record(models.Model):
     illegal_bill = models.IntegerField(null=True,verbose_name='违章金额/元')
     illegal_info = models.TextField(null=True,verbose_name='违章信息')
     illegal_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
+    record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_illegal")
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
 
     def __str__(self):
