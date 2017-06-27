@@ -11,6 +11,8 @@ urlpatterns = {
     url(r'^admins/(?P<pk>[0-9]+)$',views.AdminDetail.as_view(),name='admin-detail'),
     url(r'^stores/$',views.StoreList.as_view()),
     url(r'^stores/(?P<pk>[0-9]+$)',views.StoreDetail.as_view()),
+    url(r'^cars/$',views.CarList.as_view()),
+    url(r'^cars/(?P<pk>[0-9]+)$',views.CarDetail.as_view()),
     url(r'^login/$',views.login),
 }
 

@@ -82,7 +82,8 @@ class StoreList(generics.ListCreateAPIView):
 class StoreDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = store_info.objects.all()
     serializer_class = StoreSerializer
+    
+class CarList(generics.ListCreateAPIView):
+    queryset = car_info.objects.all()
+    serializer_class=CarSerializer
 
-class CsrfExemptSessionAuthentication(SessionAuthentication):
-    def enforce_csrf(self, request):
-        return
