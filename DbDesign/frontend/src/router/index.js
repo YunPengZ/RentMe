@@ -14,6 +14,7 @@ import Order from '../components/Order.vue'
 import NewOrder from '../components/NewOrder.vue'
 import UserInfo from '../components/UserInfo.vue'
 import CarModel from '../components/CarModel.vue'
+import violationInfo from '../components/violation_info.vue'
 
 const router = new Router({
   routes: [
@@ -42,13 +43,19 @@ const router = new Router({
             {path: '', component: UserInfo},
             {path: 'car_model', component: CarModel}
           ]
-        }
+        },
+        {path: '', component: Welcome}
       ]
     },
     {
       path: '/hello',
       component: Hello,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/violation_info',
+      name: 'violation_info',
+      component: violationInfo
     }
   ]
 })
