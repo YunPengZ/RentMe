@@ -15,6 +15,7 @@ import NewOrder from '../components/NewOrder.vue'
 import UserInfo from '../components/UserInfo.vue'
 import CarModel from '../components/CarModel.vue'
 import violationInfo from '../components/violation_info.vue'
+import CarManage from '../components/carManage.vue'
 
 const router = new Router({
   routes: [
@@ -55,6 +56,11 @@ const router = new Router({
       path: '/violation_info',
       name: 'violation_info',
       component: violationInfo
+    },
+    {
+      path: '/carManage',
+      name: 'carManage',
+      component: CarManage
     }
   ]
 })
