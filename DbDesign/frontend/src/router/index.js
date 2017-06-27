@@ -11,6 +11,12 @@ import Home from '../components/Home.vue'
 import Navbar from '../components/Navbar.vue'
 import Welcome from '../components/Welcome.vue'
 import Order from '../components/Order.vue'
+import NewOrder from '../components/NewOrder.vue'
+import UserInfo from '../components/UserInfo.vue'
+import CarModel from '../components/CarModel.vue'
+import violationInfo from '../components/violation_info.vue'
+import CarManage from '../components/carManage.vue'
+import CarChoose from '../components/CarChoose.vue'
 
 const router = new Router({
   routes: [
@@ -32,13 +38,31 @@ const router = new Router({
       },
       children: [
         {path: '', component: Welcome},
-        {path: 'order', component: Order}
+        {path: 'order', component: Order},
+        {path: 'new_order',
+          component: NewOrder,
+          children: [
+            {path: '', component: UserInfo},
+            {path: 'car_model', component: CarModel},
+            {path: 'car_choose', component: CarChoose}
+          ]
+        }
       ]
     },
     {
       path: '/hello',
       component: Hello,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/violation_info',
+      name: 'violation_info',
+      component: violationInfo
+    },
+    {
+      path: '/carManage',
+      name: 'carManage',
+      component: CarManage
     }
   ]
 })

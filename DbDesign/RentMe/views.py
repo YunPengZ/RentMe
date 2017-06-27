@@ -1,9 +1,11 @@
 # coding:utf-8
-from rest_framework import status
+from rest_framework import status,generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication
 from RentMe import models
 from RentMe.serializers import *
+from django.views.decorators.csrf import csrf_protect
 
 @api_view(['GET','POST'])
 def license_list(request,format=None):
@@ -42,6 +44,7 @@ def license_detail(request,pk,format=None):
         license.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+@csrf_protect
 @api_view(['GET','POST'])
 def login(request):
     if request.method == 'POST':
@@ -59,4 +62,28 @@ def login(request):
         serializer = AdminSerializer(admins,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     return  Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class AdminList(generics.ListCreateAPIView):
+    queryset = admin_info.objects.all()
+    serializer_class = AdminSerializer
+
+class AdminDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = admin_info.objects.all()
+    serializer_class = AdminSerializer
+
+class StoreList(generics.ListCreateAPIView):
+    queryset = store_info.objects.all()
+    serializer_class = StoreSerializer
+
+    #def perform_create(self, serializer):
+       # serializer.save(store_admin=self.request.)
+
+class StoreDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = store_info.objects.all()
+    serializer_class = StoreSerializer
+    
+class CarList(generics.ListCreateAPIView):
+    queryset = car_info.objects.all()
+    serializer_class=CarSerializer
 
