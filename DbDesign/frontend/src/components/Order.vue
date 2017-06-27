@@ -22,12 +22,22 @@
           <el-table
             ref="multipleTable"
             :data="tableData3"
-            border
             tooltip-effect="dark"
             @selection-change="handleSelectionChange">
             <el-table-column
               type="selection"
               width="50">
+            </el-table-column>
+            <el-table-column type="expand">
+              <template scope="props">
+              <el-form label-position="left" inline>
+                <el-row v-for="(relet_record, index) in props.row.relet_records" :key="relet_record.relet_id">
+                  <el-form-item  label="续租号">{{ index + 1 }}</el-form-item>
+                  <el-form-item  label="续租起始时间">{{ relet_record.relet_start_time }}</el-form-item>
+                  <el-form-item  label="续租结束时间">{{ relet_record.relet_end_time }}</el-form-item>
+                </el-row>
+              </el-form>
+              </template>
             </el-table-column>
             <el-table-column
               prop="date"
@@ -75,7 +85,11 @@ export default{
       tableData3: [{
         date: '2016-05-03',
         name: '王小虎',
-        address: ' 1518 弄'
+        address: ' 1518 弄',
+        relet_records: [
+          {relet_id: 1, relet_start_time: '2016-05-03', relet_end_time: '2016-05-04'},
+          {relet_id: 2, relet_start_time: '2016-05-04', relet_end_time: '2016-05-05'}
+        ]
       }, {
         date: '2016-05-02',
         name: '王小虎',
