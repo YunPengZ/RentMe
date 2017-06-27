@@ -10,7 +10,7 @@ import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import Navbar from '../components/Navbar.vue'
 import Welcome from '../components/Welcome.vue'
-import Order from '../components/Order.vue'
+import violationInfo from '../components/violation_info.vue'
 
 const router = new Router({
   routes: [
@@ -31,14 +31,18 @@ const router = new Router({
         default: Home
       },
       children: [
-        {path: '', component: Welcome},
-        {path: 'order', component: Order}
+        {path: '', component: Welcome}
       ]
     },
     {
       path: '/hello',
       component: Hello,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/violation_info',
+      name: 'violation_info',
+      component: violationInfo
     }
   ]
 })
