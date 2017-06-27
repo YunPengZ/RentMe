@@ -10,7 +10,9 @@
         </el-input>
       </el-col>
       <el-col :span="2" :offset="2">
-        <el-button type="primary">添加订单</el-button>
+        <el-button type="primary">
+          <router-link to="/home/new_order" class="text">添加订单</router-link>
+        </el-button>
       </el-col>
     </el-row>
     <el-row type="flex" justify="space-between"  class="row">
@@ -108,6 +110,10 @@ export default{
 }
 </script>
 <style scoped>
+  .text{
+    color: aliceblue;
+    text-decoration: none;
+  }
   .row{
     margin-top: 50px;
   }

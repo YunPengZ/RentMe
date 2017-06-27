@@ -11,6 +11,9 @@ import Home from '../components/Home.vue'
 import Navbar from '../components/Navbar.vue'
 import Welcome from '../components/Welcome.vue'
 import Order from '../components/Order.vue'
+import NewOrder from '../components/NewOrder.vue'
+import UserInfo from '../components/UserInfo.vue'
+import CarModel from '../components/CarModel.vue'
 
 const router = new Router({
   routes: [
@@ -32,7 +35,14 @@ const router = new Router({
       },
       children: [
         {path: '', component: Welcome},
-        {path: 'order', component: Order}
+        {path: 'order', component: Order},
+        {path: 'new_order',
+          component: NewOrder,
+          children: [
+            {path: '', component: UserInfo},
+            {path: 'car_model', component: CarModel}
+          ]
+        }
       ]
     },
     {
