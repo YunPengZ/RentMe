@@ -16,6 +16,7 @@ import UserInfo from '../components/UserInfo.vue'
 import CarModel from '../components/CarModel.vue'
 import violationInfo from '../components/violation_info.vue'
 import CarManage from '../components/carManage.vue'
+import CarChoose from '../components/CarChoose.vue'
 
 const router = new Router({
   routes: [
@@ -42,7 +43,8 @@ const router = new Router({
           component: NewOrder,
           children: [
             {path: '', component: UserInfo},
-            {path: 'car_model', component: CarModel}
+            {path: 'car_model', component: CarModel},
+            {path: 'car_choose', component: CarChoose}
           ]
         }
       ]
