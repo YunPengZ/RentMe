@@ -8,7 +8,7 @@ Vue.use(Vuex)
 const state = {
   user_ID: '',
         // 用户ID
-  user_Name: '',
+  user_Name: '小明',
         // 用户姓名
   user_Status: ''
             // 管理员等级

@@ -91,9 +91,9 @@ DATABASES = {
         'NAME':'rentme',
         'USER':'root',
         'PASSWORD':'root',
-        'HOST':'127.0.0.1',
-        #'HOST':'119.29.9.154',
-        #'PORT':'3306',
+        #'HOST':'127.0.0.1',
+        'HOST':'119.29.9.154',
+        'PORT':'3306',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
     }
