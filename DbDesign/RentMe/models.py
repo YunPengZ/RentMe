@@ -1,3 +1,4 @@
+# coding:utf-8
 from django.db import models
 import django.utils.timezone as timezone
 import datetime
@@ -106,6 +107,7 @@ class admin_info(models.Model):
         (2,u'违章处理管理员'),
     )
     admin_id = models.AutoField(primary_key=True, verbose_name='主键')
+    admin_pas = models.CharField(max_length=128,null=True)
     #admin_num = models.CharField(max_length=15,primary_key=True)
     admin_name = models.CharField(max_length=10,null=True,verbose_name='管理员姓名')
     admin_sex = models.CharField(max_length=2,choices=GenderChoices,null=True,verbose_name='管理员性别')
@@ -165,7 +167,7 @@ class user_info(models.Model):
 class driving_license(models.Model):
     drive_id = models.AutoField(primary_key=True,verbose_name='主键')
     user_drive = models.CharField(max_length=12,null=True,verbose_name='驾驶证编号')
-    drive_type = models.CharField(max_length=3,null=True,verbose_name='驾驶证类型')
+    drive_type = models.CharField(max_length=12,default='C级驾照',verbose_name='驾驶证类型')
     drive_age = models.IntegerField(null=True,verbose_name='驾龄')
     drive_start_date = models.DateField(null=True,verbose_name='发证日期')
     drive_end_date = models.DateField(null=True,verbose_name='失效日期')

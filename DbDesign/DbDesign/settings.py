@@ -37,9 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'RentMe.apps.RentmeConfig',
-    'RentMe',
+    #'RentMe',
+    'rest_framework',
+    'RentMe.apps.RentmeConfig',
 ]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+       # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+       # 'rest_framework.permissions.IsAdminUser'
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,6 +95,7 @@ DATABASES = {
         'HOST':'119.29.9.154',
         'PORT':'3306',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
     }
 }
 
@@ -122,6 +133,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEFAULT_CHARSET = 'utf-8'
+FILE_CHARSET = 'utf-8'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
