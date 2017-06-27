@@ -2,7 +2,7 @@
   <div>
     <el-row class="row" type="flex" justify="center">
       <el-col :span="16">
-        <el-steps :space="stepSpace" :active="activeStep" finish-status="success">
+        <el-steps :center="true" :active="activeStep" finish-status="success">
           <el-step title="步骤 1" description="填写用户的相关信息"></el-step>
           <el-step title="步骤 2" description="选择车型的相关信息"></el-step>
           <el-step title="步骤 3" description="选择相应车型的车辆"></el-step>
@@ -25,9 +25,6 @@ export default{
     }
   },
   computed: {
-    stepSpace: function () {
-      return document.body.clientWidth * 5 / 27
-    }
   }
 }
 </script>
