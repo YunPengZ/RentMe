@@ -19,15 +19,19 @@
   :on-icon-click="handleIconClick"
 >
 </el-autocomplete>
-<router-link :to="'/home/addCar'"  class="rid" v-if="2<0">
+<router-link :to="'/home/addCar'"  class="rid" v-if="2>0">
 <el-button type="primary" icon="edit" class="addButton">添加车辆信息</el-button>
 </router-link>
 </el-row>
 <el-row type="flex" class="secondRow">
-<el-col :offset="4" :span="16">
+<el-col :offset="4" :span="17">
   <el-table
     :data="table"
     style="width: 100%">
+        <el-table-column
+      type="index"
+      >
+    </el-table-column>
     <el-table-column type="expand">
       <template scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
@@ -49,6 +53,7 @@
         </el-form>
       </template>
     </el-table-column>
+
     <el-table-column
       label="车辆号码"
       prop="car_num">
@@ -72,7 +77,7 @@
         <el-table-column
       label="操作"
       prop="desc"
-      v-if="2<0"
+      v-if="2>0"
       >
             <template scope="scope">
                 <router-link :to="'/home/editCar'"  class="rid">
