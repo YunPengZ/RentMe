@@ -7,8 +7,11 @@ from RentMe import views
 urlpatterns = {
     url(r'^licenses/$',views.license_list),#驾驶证
     url(r'licenses/(?P<pk>[0-9]+)$',views.license_detail),
+    #url(r'^model/$',views.ModelList.as_view(),name='model-list'),
     url(r'^model/$',views.model_info_list),#车型
     url(r'^model/(?P<pk>[0-9]+)$',views.model_info_detail),
+    url(r'^car/$',views.CarList.as_view()),#车型
+    url(r'^car/(?P<pk>[0-9]+)$',views.CarDetail.as_view()),
     url(r'^user/$',views.user_info_list),#用户
     url(r'^user/(?P<pk>[0-9]+)$',views.user_info_detail),
     url(r'^admins/$',views.AdminList.as_view()),#管理员
