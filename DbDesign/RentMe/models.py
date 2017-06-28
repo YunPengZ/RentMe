@@ -7,7 +7,7 @@ deleteState = (
         (u'dele','已删除'),
         (u'no','正常'),
     )
-
+#车型信息
 class model_info(models.Model):
     CarTypes = (
         (0, u'SUV'),
@@ -64,7 +64,7 @@ class model_info(models.Model):
     class Meta:
         verbose_name = '车型'
         verbose_name_plural = '车型'
-
+#管理员信息
 class admin_info(models.Model):
     GenderChoices = (
         (u'F', u'女'),
@@ -94,7 +94,7 @@ class admin_info(models.Model):
         verbose_name = '管理员信息'
         verbose_name_plural = '管理员信息'
 
-
+#车辆信息
 class car_info(models.Model):
     ColorChoices = (
         (u'red',u'红色'),
@@ -127,7 +127,7 @@ class car_info(models.Model):
         verbose_name = '车辆信息'
         verbose_name_plural = '车辆信息'
 
-
+#门店信息
 class store_info(models.Model):
     store_id = models.AutoField(primary_key=True, verbose_name='主键')
     store_addr = models.CharField(max_length=50,null=True,verbose_name='门店地址')
@@ -143,7 +143,7 @@ class store_info(models.Model):
     class Meta:
         verbose_name = '门店信息'
         verbose_name_plural = '门店信息'
-
+#用户信息
 class user_info(models.Model):
     GenderChoices = (
         (u'F',u'女'),
@@ -168,7 +168,7 @@ class user_info(models.Model):
     class Meta:
         verbose_name = '用户信息'
         verbose_name_plural = '用户信息'
-
+#驾驶证信息
 class driving_license(models.Model):
     drive_id = models.AutoField(primary_key=True,verbose_name='主键')
     user_drive = models.CharField(max_length=12,null=True,verbose_name='驾驶证编号')
@@ -185,7 +185,7 @@ class driving_license(models.Model):
     class Meta:
         verbose_name = '驾驶证信息'
         verbose_name_plural = '驾驶证信息'
-
+#租车订单信息
 class rent_order(models.Model):
     order_id = models.AutoField(primary_key=True, verbose_name='主键')
     user_num = models.ForeignKey(user_info,related_name='user_rent',verbose_name='租车用户')
@@ -209,7 +209,7 @@ class rent_order(models.Model):
     class Meta:
         verbose_name = '订单信息'
         verbose_name_plural = '订单信息'
-
+#租车记录
 class relet_record(models.Model):
     relet_id = models.AutoField(primary_key=True, verbose_name='主键')
     order_num = models.ForeignKey(rent_order,related_name='relet_order')
@@ -227,7 +227,7 @@ class relet_record(models.Model):
         verbose_name = '续租信息'
         verbose_name_plural = '续租信息'
 
-
+#违章信息
 class illegal_record(models.Model):
     illegal_id = models.AutoField(primary_key=True, verbose_name='主键')
     illegal_car_num = models.ForeignKey(car_info,related_name='illegal_car',verbose_name='违章车辆车牌')

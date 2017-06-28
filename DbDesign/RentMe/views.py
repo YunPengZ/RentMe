@@ -139,15 +139,17 @@ def login(request):
         return Response(serializer.data,status=status.HTTP_200_OK)
     return  Response(status=status.HTTP_404_NOT_FOUND)
 
-
+#管理员列表
 class AdminList(generics.ListCreateAPIView):
     queryset = admin_info.objects.all()
     serializer_class = AdminSerializer
 
+#管理详情
 class AdminDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = admin_info.objects.all()
     serializer_class = AdminSerializer
 
+#门店列表
 class StoreList(generics.ListCreateAPIView):
     queryset = store_info.objects.all()
     serializer_class = StoreSerializer
@@ -155,14 +157,17 @@ class StoreList(generics.ListCreateAPIView):
     #def perform_create(self, serializer):
        # serializer.save(store_admin=self.request.)
 
+#门店详情
 class StoreDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = store_info.objects.all()
     serializer_class = StoreSerializer
 
+#车辆列表
 class CarList(generics.ListCreateAPIView):
     queryset = car_info.objects.all()
     serializer_class=CarSerializer
 
+#车辆详情
 class CarDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = car_info.objects.all()
     serializer_class=CarSerializer
