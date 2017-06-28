@@ -179,3 +179,19 @@ class CarList(generics.ListCreateAPIView):
 class CarDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = car_info.objects.all()
     serializer_class=CarSerializer
+
+class OrderList(generics.ListCreateAPIView):
+    queryset = rent_order.objects.all()
+    serializer_class = OrderSerializer
+
+class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = rent_order.objects.all()
+    serializer_class = OrderSerializer
+
+class ReletList(generics.ListCreateAPIView):
+    queryset = relet_record.objects.all()
+    serializer_class = ReletSerializer
+
+class ReletDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = relet_record.objects.all()
+    serializer_class = ReletSerializer

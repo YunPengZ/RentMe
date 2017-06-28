@@ -16,9 +16,13 @@ urlpatterns = {
     url(r'^user/(?P<pk>[0-9]+)$',views.user_info_detail),
     url(r'^admins/$',views.AdminList.as_view()),#管理员
     url(r'^admins/(?P<pk>[0-9]+)$',views.AdminDetail.as_view(),name='admin-detail'),
+    url(r'^stores/$',views.StoreList.as_view()),#门店
+    url(r'^stores/(?P<pk>[0-9]+$)',views.StoreDetail.as_view()),
+    url(r'^order/$',views.OrderList.as_view()),#订单
+    url(r'^order/(?P<pk>[0-9]+$)',views.OrderDetail.as_view()),
+    url(r'^relet/$',views.ReletList.as_view()),
+    url(r'^relet/(?P<pk>[0-9]+$)',views.ReletDetail.as_view()),
 
-    #url(r'^stores/$',views.StoreList.as_view()),#门店
-    #url(r'^stores/(?P<pk>[0-9]+$)',views.StoreDetail.as_view()),
     #url(r'^cars/$',views.CarList.as_view()),#车辆
     #url(r'^cars/(?P<pk>[0-9]+)$',views.CarDetail.as_view()),
     url(r'^login/$',views.login),
