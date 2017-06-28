@@ -64,7 +64,7 @@ const router = new Router({
         {path: 'addManager', component: addManager},
         {path: 'editManager', component: editManager},
         {path: 'violation_info', component: violationInfo},
-        {path: 'Analysis', component: Analysis}
+        {path: 'analysis', component: Analysis}
       ]
     },
     {
