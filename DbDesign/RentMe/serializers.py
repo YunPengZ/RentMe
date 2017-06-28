@@ -6,7 +6,8 @@ from RentMe.models import *
 class ModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = model_info
-        fields = ('model_id','car_model_id','car_type','car_brand','car_series','car_issue_date','car_config_model','car_seats_num','car_doors','car_fuel_type','car_gearbox_type','car_displacement','car_fuel_num','car_drive_way','car_engine_intake','car_skylight','car_tank_capa','car_voicebox','car_seats_type','car_reverse_radar','car_airbag','car_dvd','car_gps','car_deposit','car_day_price','car_time_out_price','car_over_kilo_price','car_record_create_time','record_delete_status')
+        #DELETED : 'car_record_create_time'
+        fields = ('model_id','car_model_id','car_type','car_brand','car_series','car_issue_date','car_config_model','car_seats_num','car_doors','car_fuel_type','car_gearbox_type','car_displacement','car_fuel_num','car_drive_way','car_engine_intake','car_skylight','car_tank_capa','car_voicebox','car_seats_type','car_reverse_radar','car_airbag','car_dvd','car_gps','car_deposit','car_day_price','car_time_out_price','car_over_kilo_price','record_delete_status')
 #关联user_info
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -34,7 +35,8 @@ class StoreSerializer(serializers.HyperlinkedModelSerializer):
 class CarSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model =car_info
-        field = ('car_id','car_num','car_model_id','car_color','car_engine_num','car_engine_num','car_fame_num','car_buy_date','car_retailer','car_status','car_ins_num','car_record_create_time','record_delete_status')
+        #DELETED : 'car_record_create_time' 
+        field = ('car_id','car_num','car_model_id','car_color','car_engine_num','car_engine_num','car_fame_num','car_buy_date','car_retailer','car_status','car_ins_num','record_delete_status')
 
 
 #class DrivingSerializer(serializers.Serializer):
