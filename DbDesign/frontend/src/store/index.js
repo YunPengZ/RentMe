@@ -21,7 +21,7 @@ const state = {
   // 管理员姓名
   user_Name: '小明',
   // 管理员等级
-  user_Status: ''
+  user_Status: '门店管理员'
 }
     // mutations are operations that actually mutates the state.
     // each mutation handler gets the entire state tree as the

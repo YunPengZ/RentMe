@@ -5,13 +5,22 @@
         <el-menu-item index="1"><img src="../assets/logo.png" width="45" height="45"></el-menu-item>
       </el-col>
       <el-col :span="12">
-        <el-menu-item index="3"  style="float: right;">注销</el-menu-item>
+        <el-menu-item index="3"  style="float: right;">
+          <el-button type="text" @click="handleLogOut()">注销</el-button>
+        </el-menu-item>
         <el-menu-item index="2"  style="float: right;">{{ $store.state.user_Name }}</el-menu-item>
       </el-col>
     </el-row>
   </el-menu>
 </template>
 <script>
+export default{
+  methods: {
+    handleLogOut () {
+      console.log('log out!')
+    }
+  }
+}
 </script>
 <style scoped>
   div{
