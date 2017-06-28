@@ -4,7 +4,9 @@
       <el-col :offset="9" :span="6">
         <!--<img src="../assets/car.jpg"></img>-->
         <el-card class="position">
-        <el-form :model="form" >
+        <el-form :model="form"  >
+          <el-form-item index="1" ><img src="../assets/logo.png" width="90" height="90"></el-form-item>
+
           <el-form-item label="手机号">
             <el-input v-model="form.account" auto-complete="off"></el-input>
           </el-form-item>
