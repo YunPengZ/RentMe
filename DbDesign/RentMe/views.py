@@ -180,18 +180,22 @@ class CarDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = car_info.objects.all()
     serializer_class=CarSerializer
 
+#租车订单列表
 class OrderList(generics.ListCreateAPIView):
     queryset = rent_order.objects.all()
     serializer_class = OrderSerializer
 
+#租车订单详情
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = rent_order.objects.all()
     serializer_class = OrderSerializer
 
+#续租记录列表
 class ReletList(generics.ListCreateAPIView):
     queryset = relet_record.objects.all()
     serializer_class = ReletSerializer
 
+#续租记录详情
 class ReletDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = relet_record.objects.all()
     serializer_class = ReletSerializer

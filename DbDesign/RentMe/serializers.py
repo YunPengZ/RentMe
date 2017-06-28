@@ -42,12 +42,14 @@ class CarSerializer(serializers.ModelSerializer):
         model =car_info
         fields = ('car_id','car_num','car_model_id','car_color','car_engine_num','car_engine_num','car_frame_num','car_buy_date','car_retailer','car_status','car_ins_num','record_create_admin','car_record_create_time','record_delete_status')
 
+#关联rent_order
 class OrderSerializer(serializers.ModelSerializer):
     relet_order = serializers.PrimaryKeyRelatedField(many=True,queryset=relet_record.objects.all())
     class Meta:
         model = rent_order
         fields = ('order_id','relet_order','user_num','car_num','user_drive','pick_addr','pick_time','drop_time','actual_deposit','breaken_bill','illegal_info','illegal_bill','actual_money','record_create_admin','order_record_create_time','record_delete_status')
 
+#关联relet_record
 class ReletSerializer(serializers.ModelSerializer):
     class Meta:
         model = relet_record

@@ -209,7 +209,7 @@ class rent_order(models.Model):
     class Meta:
         verbose_name = '订单信息'
         verbose_name_plural = '订单信息'
-#租车记录
+#续租记录
 class relet_record(models.Model):
     relet_id = models.AutoField(primary_key=True, verbose_name='主键')
     order_num = models.ForeignKey(rent_order,related_name='relet_order')
