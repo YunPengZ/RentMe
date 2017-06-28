@@ -6,26 +6,41 @@
               
         <el-col :offset="4" :span="16">
             <el-card class="cardPosition">
-                  <h3>添加门店信息</h3>
+                  <h3>添加门店管理员信息</h3>
           <el-form :model="ruleForm" label-width="100px">
             <el-form-item >
-            <el-input placeholder="请输入内容" v-model="formInline.store_addr" >
-                <template slot="prepend">门店地址</template>
+            <el-input placeholder="请输入内容" v-model="formInline.admin_name" >
+                <template slot="prepend">姓名</template>
             </el-input>
             </el-form-item>
             <el-form-item>
-            <el-input placeholder="请输入内容" v-model="formInline.store_tel" >
-                <template slot="prepend">门店联系方式</template>
+            <el-input placeholder="请输入内容" v-model="formInline.admin_sex" >
+                <template slot="prepend">性别</template>
             </el-input>
             </el-form-item>
             <el-form-item >
-            <el-input placeholder="请输入内容" v-model="formInline.store_start_time" >
-                <template slot="prepend">门店营业时间</template>
+            <el-input placeholder="请输入内容" v-model="formInline.admin_age" >
+                <template slot="prepend">年龄</template>
             </el-input>
             </el-form-item>
             <el-form-item>
-            <el-input placeholder="请输入内容" v-model="formInline.store_admin" >
-                <template slot="prepend">门店管理员</template>
+            <el-input placeholder="请输入内容" v-model="formInline.admin_ident" >
+                <template slot="prepend">身份证</template>
+            </el-input>
+            </el-form-item>
+                        <el-form-item>
+            <el-input placeholder="请输入内容" v-model="formInline.admin_tel" >
+                <template slot="prepend">电话</template>
+            </el-input>
+            </el-form-item>
+                        <el-form-item>
+            <el-input placeholder="请输入内容" v-model="formInline.admin_email" >
+                <template slot="prepend">EMAIL</template>
+            </el-input>
+            </el-form-item>
+                        <el-form-item>
+            <el-input placeholder="请输入内容" v-model="formInline.admin_type" >
+                <template slot="prepend">管理员类型</template>
             </el-input>
             </el-form-item>
             <el-form-item>
@@ -43,10 +58,13 @@ export default{
   data () {
     return {
       formInline: {
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
+        admin_name: '12987132',
+        admin_sex: '123',
+        admin_age: '红色',
+        admin_ident: '45432',
+        admin_tel: '18756010918',
+        admin_email: '2087447114@qq.com',
+        admin_type: '大中华区管理员'
       }
     }
   },

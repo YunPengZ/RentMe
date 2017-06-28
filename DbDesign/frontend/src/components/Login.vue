@@ -1,8 +1,12 @@
-<template>
-  <div>
-    <el-row>
-      <el-col :span="6">
-        <el-form :model="form" label-width="100px">
+<template  >
+  <div style="background-color:#050304;height:100%;">
+    <el-row  >
+      <el-col :offset="9" :span="6">
+        <!--<img src="../assets/car.jpg"></img>-->
+        <el-card class="position">
+        <el-form :model="form"  >
+          <el-form-item index="1" ><img src="../assets/logo.png" width="90" height="90"></el-form-item>
+
           <el-form-item label="手机号">
             <el-input v-model="form.account" auto-complete="off"></el-input>
           </el-form-item>
@@ -13,6 +17,7 @@
             <el-button type="primary" @click="login">提交</el-button>
           </el-form-item>
         </el-form>
+        </el-card>
       </el-col>
     </el-row>
   </div>
@@ -53,7 +58,10 @@
 
     }
 </script>
-
-<style scoped>
-
+<style>
+.position{
+  margin-top:100px;
+}
 </style>
+
+   
