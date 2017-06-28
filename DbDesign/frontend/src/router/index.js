@@ -20,6 +20,8 @@ import OrderCharge from '../components/OrderCharge.vue'
 import editCar from '../components/editCar.vue'
 import addCar from '../components/addCar.vue'
 import storeManage from '../components/storeManage.vue'
+import addStore from '../components/addStore.vue'
+import editStore from '../components/editStore.vue'
 
 const router = new Router({
   routes: [
@@ -54,6 +56,8 @@ const router = new Router({
         {path: 'storeManage', component: storeManage},
         {path: 'editCar', component: editCar},
         {path: 'addCar', component: addCar},
+        {path: 'addStore', component: addStore},
+        {path: 'editStore', component: editStore},
         {path: 'violation_info', component: violationInfo}
       ]
     },

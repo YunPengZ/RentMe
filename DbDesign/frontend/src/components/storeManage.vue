@@ -82,7 +82,7 @@
   :on-icon-click="handleIconClick"
 >
 </el-autocomplete>
-<router-link :to="'/home/addCar'"  class="rid">
+<router-link :to="'/home/addStore'"  class="rid">
 <el-button type="primary" icon="edit" class="addButton">添加门店管理员信息</el-button>
 </router-link>
 </el-row>
