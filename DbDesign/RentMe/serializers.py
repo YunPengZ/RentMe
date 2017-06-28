@@ -54,3 +54,10 @@ class ReletSerializer(serializers.ModelSerializer):
     class Meta:
         model = relet_record
         fields = ('relet_id','order_num','relet_start_time','record_create_admin','relet_record_create_time','record_delete_status')
+
+
+#关联illegal_record
+class illegalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = illegal_record
+        fields = ('illegal_id','illegal_car_num','illegal_date','illegal_bill','illegal_info','illegal_record_create_time','record_create_admin','record_delete_status')

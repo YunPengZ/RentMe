@@ -18,19 +18,12 @@ urlpatterns = {
     url(r'^admins/(?P<pk>[0-9]+)$',views.AdminDetail.as_view(),name='admin-detail'),
     url(r'^stores/$',views.StoreList.as_view()),#门店
     url(r'^stores/(?P<pk>[0-9]+$)',views.StoreDetail.as_view()),
-<<<<<<< HEAD
-    url(r'^order/$',views.OrderList.as_view()),
-    url(r'^order/type$',views.get_car_info_by_type),
-    url(r'^order/date$',views.get_car_info_by_date),
-    url(r'^order/pay$',views.order_pay),
-    url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
-=======
     url(r'^order/$',views.OrderList.as_view()),#租车订单
->>>>>>> fd11982f897f3b3ca3c5b71c1c6bd840a5461d8c
     url(r'^order/(?P<pk>[0-9]+$)',views.OrderDetail.as_view()),
     url(r'^relet/$',views.ReletList.as_view()),#续租记录
     url(r'^relet/(?P<pk>[0-9]+$)',views.ReletDetail.as_view()),
-
+    url(r'^illegal/$',views.IllegalList.as_view()),
+    url(r'^illegal/(?P<pk>[0-9]+$)',views.IllegalDetail.as_view()),
     #url(r'^cars/$',views.CarList.as_view()),#车辆
     #url(r'^cars/(?P<pk>[0-9]+)$',views.CarDetail.as_view()),
     url(r'^login/$',views.login),#登录
