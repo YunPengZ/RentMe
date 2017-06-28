@@ -1,12 +1,14 @@
 # coding:utf-8
 from rest_framework import serializers
+from rest_framework.serializers import *
 from RentMe.models import *
 
 #关联Model_info
-class ModelSerializer(serializers.HyperlinkedModelSerializer):
+class ModelSerializer(serializers.ModelSerializer):
+    car_model = serializers.PrimaryKeyRelatedField(many=True, queryset=car_info.objects.all())
     class Meta:
         model = model_info
-        fields = ('model_id','car_model_id','car_type','car_brand','car_series','car_issue_date','car_config_model','car_seats_num','car_doors','car_fuel_type','car_gearbox_type','car_displacement','car_fuel_num','car_drive_way','car_engine_intake','car_skylight','car_tank_capa','car_voicebox','car_seats_type','car_reverse_radar','car_airbag','car_dvd','car_gps','car_deposit','car_day_price','car_time_out_price','car_over_kilo_price','car_record_create_time','record_delete_status')
+        fields = ('model_id','car_model_id','car_model','car_type','car_brand','car_series','car_issue_date','car_config_model','car_seats_num','car_doors','car_fuel_type','car_gearbox_type','car_displacement','car_fuel_num','car_drive_way','car_engine_intake','car_skylight','car_tank_capa','car_voicebox','car_seats_type','car_reverse_radar','car_airbag','car_dvd','car_gps','car_deposit','car_day_price','car_time_out_price','car_over_kilo_price','record_delete_status')
 #关联user_info
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -31,10 +33,12 @@ class StoreSerializer(serializers.HyperlinkedModelSerializer):
         model = store_info
         fields = ('store_id','store_addr','store_tel','store_start_time','store_admin','store_record_create_time','record_delete_status')
 #关联car_info
-class CarSerializer(serializers.HyperlinkedModelSerializer):
+class CarSerializer(serializers.ModelSerializer):
+   # car_model_id = serializers.ReadOnlyField(source='car_model_id.model_id')
     class Meta:
         model =car_info
-        field = ('car_id','car_num','car_model_id','car_color','car_engine_num','car_engine_num','car_fame_num','car_buy_date','car_retailer','car_status','car_ins_num','car_record_create_time','record_delete_status')
+        fields = ('car_id','car_num','car_model_id','car_color','car_engine_num','car_engine_num','car_frame_num','car_buy_date','car_retailer','car_status','car_ins_num','record_create_admin','car_record_create_time','record_delete_status')
+
 
 
 #class DrivingSerializer(serializers.Serializer):
