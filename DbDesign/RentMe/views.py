@@ -281,10 +281,12 @@ class ReletDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = relet_record.objects.all()
     serializer_class = ReletSerializer
 
+#违章列表
 class IllegalList(generics.ListCreateAPIView):
     queryset = illegal_record.objects.all()
     serializer_class = illegalSerializer
 
+#违章详情
 class IllegalDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = illegal_record.objects.all()
     serializer_class = illegalSerializer
