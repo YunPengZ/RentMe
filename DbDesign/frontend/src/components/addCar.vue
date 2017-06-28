@@ -1,7 +1,7 @@
 <template>
   <div>
       <el-row type="flex" justify="center">
-          <h1>修改车辆信息</h1>
+          <h1>添加车辆信息</h1>
           </el-row>
       <el-row type="flex" justify="center">
           <el-form :model="ruleForm" label-width="100px">
@@ -67,16 +67,16 @@ export default{
   data () {
     return {
       formInline: {
-        car_num: '12987132',
-        car_model_id: '123',
-        car_color: '红色',
-        car_engine_num: '45432',
-        car_frame_num: '47186',
-        car_buy_date: '2016-2-3',
-        car_retailer: '10333',
-        car_status: '已租',
-        car_ins_num: '123456',
-        car_creater: 'kinmin'
+        car_num: '',
+        car_model_id: '',
+        car_color: '',
+        car_engine_num: '',
+        car_frame_num: '',
+        car_buy_date: '',
+        car_retailer: '',
+        car_status: '',
+        car_ins_num: '',
+        car_creater: ''
       }
     }
   },
