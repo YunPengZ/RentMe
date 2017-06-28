@@ -19,7 +19,7 @@
   :on-icon-click="handleIconClick"
 >
 </el-autocomplete>
-<router-link :to="'/home/addCar'"  class="rid">
+<router-link :to="'/home/addCar'"  class="rid" v-if="2<0">
 <el-button type="primary" icon="edit" class="addButton">添加车辆信息</el-button>
 </router-link>
 </el-row>
@@ -71,7 +71,9 @@
     </el-table-column>
         <el-table-column
       label="操作"
-      prop="desc">
+      prop="desc"
+      v-if="2<0"
+      >
             <template scope="scope">
                 <router-link :to="'/home/editCar'"  class="rid">
         <el-button
