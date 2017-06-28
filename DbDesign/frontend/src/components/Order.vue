@@ -25,14 +25,14 @@
             tooltip-effect="dark"
             @selection-change="handleSelectionChange">
             <el-table-column
-              type="selection"
+              type="index"
               width="50">
             </el-table-column>
             <el-table-column type="expand">
               <template scope="props">
               <el-form label-position="left" inline>
                 <el-row v-for="(relet_record, index) in props.row.relet_records" :key="relet_record.relet_id">
-                  <el-form-item  label="续租号">{{ index + 1 }}</el-form-item>
+                  <el-form-item>第{{ index + 1 }}次续租:</el-form-item>
                   <el-form-item  label="续租起始时间">{{ relet_record.relet_start_time }}</el-form-item>
                   <el-form-item  label="续租结束时间">{{ relet_record.relet_end_time }}</el-form-item>
                 </el-row>
@@ -40,36 +40,35 @@
               </template>
             </el-table-column>
             <el-table-column
-              prop="date"
-              label="订单时间">
-              <template scope="scope">{{ scope.row.date }}</template>
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="订单编号">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="用户名">
-            </el-table-column>
-            <el-table-column
-              prop="address"
+              prop="car_num"
               label="车牌号">
             </el-table-column>
             <el-table-column
-              prop="name"
-              label="门店号">
+              prop="user_name"
+              label="用户名称">
             </el-table-column>
             <el-table-column
-              prop="name"
+              prop="drive_name"
+              label="驾驶人名称">
+            </el-table-column>
+            <el-table-column
+              prop="pick_addr"
+              label="取车门店号">
+            </el-table-column>
+            <el-table-column
+              prop="pick_time"
               label="取车时间">
+            </el-table-column>
+            <el-table-column
+              prop="drop_time"
+              label="还车时间">
             </el-table-column>
             <el-table-column
               label="操作"
               width="100">
-              <template scope="scope">
-                <el-button type="text" size="small">修改</el-button>
-                <el-button type="text" size="small">回收</el-button>
+              <template scope="props">
+                <el-button type="text" size="small" @click="relet(props.row)">续租</el-button>
+                <el-button type="text" size="small" @click="charge(props.row)">回收</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -83,44 +82,149 @@ export default{
     return {
       input: '',
       tableData3: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        address: ' 1518 弄',
+        car_num: '皖A01234',
+        user_name: '小A',
+        drive_name: '小B',
+        pick_addr: '1',
+        pick_time: '2016-05-03',
+        drop_time: '2016-05-05',
+        car_day_price: 100,
+        illegal_bill: 1000,
+        breaken_bill: 500,
+        actual_deposit: 5000,
         relet_records: [
           {relet_id: 1, relet_start_time: '2016-05-03', relet_end_time: '2016-05-04'},
           {relet_id: 2, relet_start_time: '2016-05-04', relet_end_time: '2016-05-05'}
         ]
       }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: ' 1518 弄'
+        car_num: '皖A56789',
+        user_name: '小C',
+        drive_name: '小A',
+        pick_addr: '1',
+        pick_time: '2016-05-01',
+        drop_time: '2016-05-05',
+        car_day_price: 120,
+        illegal_bill: 1000,
+        breaken_bill: 500,
+        actual_deposit: 5000,
+        relet_records: [
+          {relet_id: 1, relet_start_time: '2016-05-02', relet_end_time: '2016-05-03'},
+          {relet_id: 2, relet_start_time: '2016-05-03', relet_end_time: '2016-05-05'}
+        ]
       }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: ' 1518 弄'
+        car_num: '皖A23333',
+        user_name: '小D',
+        drive_name: '小B',
+        pick_addr: '1',
+        pick_time: '2016-05-06',
+        drop_time: '2016-05-10',
+        car_day_price: 130,
+        illegal_bill: 1000,
+        breaken_bill: 500,
+        actual_deposit: 5000,
+        relet_records: [
+          {relet_id: 1, relet_start_time: '2016-05-06', relet_end_time: '2016-05-08'},
+          {relet_id: 2, relet_start_time: '2016-05-08', relet_end_time: '2016-05-10'}
+        ]
       }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: ' 1518 弄'
-      }],
-      multipleSelection: []
+        car_num: '皖A33323',
+        user_name: '小F',
+        drive_name: '小D',
+        pick_addr: '1',
+        pick_time: '2016-01-03',
+        drop_time: '2016-01-07',
+        car_day_price: 90,
+        illegal_bill: 1000,
+        breaken_bill: 500,
+        actual_deposit: 5000,
+        relet_records: [
+          {relet_id: 1, relet_start_time: '2016-01-03', relet_end_time: '2016-05-04'},
+          {relet_id: 2, relet_start_time: '2016-05-04', relet_end_time: '2016-05-07'}
+        ]
+      }]
     }
   },
   methods: {
+    charge (order) {
+      const h = this.$createElement
+      this.$msgbox({
+        title: '费用收取',
+        message: h('div', null, [
+          h('el-row', {style: 'margin-top: 20px'}, [
+            h('el-col', null, '违章费用: ' + order.illegal_bill)
+          ]),
+          h('el-row', {style: 'margin-top: 20px'}, [
+            h('el-col', null, '维修费用: ' + order.breaken_bill)
+          ]),
+          h('el-row', {style: 'margin-top: 20px'}, [
+            h('el-col', null, '时间费用: ' + (0 - order.actual_deposit))
+          ]),
+          h('el-row', {style: 'margin-top: 20px'}, [
+            h('el-col', null, '押金退还: ' + (0 - order.actual_deposit))
+          ]),
+          h('el-row', {style: 'margin-top: 20px'}, [
+            h('el-col', null, '最终款: ' + (order.illegal_bill + order.breaken_bill - order.actual_deposit))
+          ])
+        ]),
+        showCancelButton: true,
+        confirmButtonText: '确认回收',
+        cancelButtonText: '取消',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true
+            instance.confirmButtonText = '执行中...'
+            setTimeout(() => {
+              done()
+              setTimeout(() => {
+                instance.confirmButtonLoading = false
+              }, 300)
+            }, 3000)
+          } else {
+            done()
+          }
+        }
+      }).then(action => {
+        this.$message({
+          type: 'info',
+          message: '订单回收: ' + action
+        })
+      })
+    },
+    relet (order) {
+      const h = this.$createElement
+      this.$msgbox({
+        title: '费用收取',
+        message: h('div', null, [
+          h('el-row', {style: 'margin-top: 20px'}, [
+            h('el-col', null, '续租费用: ' + order.car_day_price)
+          ])
+        ]),
+        showCancelButton: true,
+        confirmButtonText: '确认续租',
+        cancelButtonText: '取消',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true
+            instance.confirmButtonText = '执行中...'
+            setTimeout(() => {
+              done()
+              setTimeout(() => {
+                instance.confirmButtonLoading = false
+              }, 300)
+            }, 3000)
+          } else {
+            done()
+          }
+        }
+      }).then(action => {
+        this.$message({
+          type: 'info',
+          message: '续租: ' + action
+        })
+      })
+    },
     handleIconClick (event) {
       console.log(event)
-    },
-    toggleSelection (rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row)
-        })
-      } else {
-        this.$refs.multipleTable.clearSelection()
-      }
-    },
-    handleSelectionChange (val) {
-      this.multipleSelection = val
     }
   }
 }
