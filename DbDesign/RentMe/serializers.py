@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = user_info
-        fields = ('user_id','user_name','user_rent','user_sex','user_age','user_ident','user_tel','user_office','user_addr','user_post','user_email','user_record_create_time','record_delete_status')
+        fields = ('user_id','user_name','user_rent','user_sex','user_age','user_ident','user_tel','user_office','user_addr','user_post','user_email','user_record_create_time','record_delete_status','record_create_admin')
 
 #关联driving_license
 class DrivingSerializer(serializers.ModelSerializer):

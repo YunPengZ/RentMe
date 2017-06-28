@@ -139,7 +139,7 @@ class store_info(models.Model):
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
 
     def __str__(self):
-        return self.store_num
+        return self.store_addr
     class Meta:
         verbose_name = '门店信息'
         verbose_name_plural = '门店信息'
@@ -205,7 +205,7 @@ class rent_order(models.Model):
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
 
     def __str__(self):
-        return self.order_num
+        return str(self.order_id)
     class Meta:
         verbose_name = '订单信息'
         verbose_name_plural = '订单信息'
