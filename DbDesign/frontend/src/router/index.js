@@ -18,6 +18,7 @@ import violationInfo from '../components/violation_info.vue'
 import CarManage from '../components/carManage.vue'
 import OrderCharge from '../components/OrderCharge.vue'
 import editCar from '../components/editCar.vue'
+import addCar from '../components/addCar.vue'
 
 const router = new Router({
   routes: [
@@ -50,6 +51,7 @@ const router = new Router({
         },
         {path: 'carManage', component: CarManage},
         {path: 'editCar', component: editCar},
+        {path: 'addCar', component: addCar},
         {path: 'violation_info', component: violationInfo}
       ]
     },

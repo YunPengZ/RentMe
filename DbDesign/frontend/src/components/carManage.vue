@@ -19,8 +19,9 @@
   :on-icon-click="handleIconClick"
 >
 </el-autocomplete>
-
+<router-link :to="'/home/addCar'"  class="rid">
 <el-button type="primary" icon="edit" class="addButton">添加车辆信息</el-button>
+</router-link>
 </el-row>
 <el-row type="flex" class="secondRow">
 <el-col :offset="4" :span="16">
