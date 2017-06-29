@@ -9,7 +9,7 @@ import json
 import datetime
 
 #展示或者创建driving_license
-#request.data 返回 字典包含前端传来的jason数据
+#request.data 返回 字典包含前端传来的json数据
 #XXXX.objects.all.values()返回字典类型
 #如果查询到多个记录时会以[dict(),dict(),……]的格式返回
 #用 属性__in = []的方式来访问一个属性多个值匹配的情况
@@ -22,12 +22,12 @@ import datetime
 @api_view(['GET','POST'])
 def model_list(request=[],format=None):
     if request.method == 'GET':
-        if len(request.data)==0:
+        if len(request.query_params)==0:
             licenses = model_info.objects.all()
             serializer = ModelSerializer(licenses,many=True)
             return Response(serializer.data)
         else:
-            request_dict = request.data
+            request_dict = request.query_params
             licenses = driving_license.objects.all()
             if 'model_id' in request_dict:
                 licenses = licenses.filter(model_id=request_dict['model_id'])
@@ -239,12 +239,55 @@ def car_list(request=[],format=None):
             return Response(licenses_list)
 
     elif request.method == 'POST':
-        serializer = CarSerializer(data=request.data)
+        licenses = car_info.objects.all()
+        if len(request.data)==0:
+            serializer = CarSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            #licenses = car_info.objects.all()
+            if 'car_id' in request_dict:
+                licenses = licenses.objects.filter(car_id__in=request_dict['car_id'])
+            elif 'car_num' in request_dict:
+                licenses = licenses.filter(car_num__in=request_dict['car_num'])
+            elif 'car_model_id' in request_dict:
+                licenses = licenses.filter(car_model_id__in=request_dict['car_model_id'])
+            elif 'car_color' in request_dict:
+                licenses = licenses.filter(car_color__in=request_dict['ar_color'])
+            elif 'car_engine_num' in request_dict:
+                licenses = licenses.filter(car_engine_num__in=request_dict['car_engine_num'])
+            elif 'car_frame_num' in request_dict:
+                licenses = licenses.filter(car_frame_num__in=request_dict['car_frame_num'])
+            elif 'car_buy_date' in request_dict:
+                licenses = licenses.filter(car_buy_date__in=request_dict['car_buy_date'])
+            elif 'car_retailer' in request_dict:
+                licenses = licenses.filter(car_retailer__in=request_dict['car_retailer'])
+            elif 'car_status' in request_dict:
+                licenses = licenses.filter(car_status__in=request_dict['car_status'])
+            elif 'car_ins_num' in request_dict:
+                licenses = licenses.filter(car_ins_num__in=request_dict['car_ins_num'])
+            elif 'car_record_create_time' in request_dict:
+                licenses = licenses.filter(car_record_create_time__in=request_dict['car_record_create_time'])
+            elif 'record_create_admin' in request_dict:
+                licenses = licenses.filter(record_create_admin__in=request_dict['record_create_admin'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
+            #print(licenses.values())
+            licenses_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
+                print(licenses_list)
+            #serializer = CarSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+            #print('>>>>>>>>>>>>>>')
+            #print(licenses_list)
+            return Response(licenses_list)
+        '''serializer = CarSerializer(data=request.data)
         print(type(serializer))
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)'''
 #admin_info查询&添加
 @api_view(['GET','POST'])
 def admin_list(request=[],format=None):
@@ -650,8 +693,11 @@ def get_car_info_by_dateAndStore(request):
     #print(dict_list)
     #修改json格式的数据
     count=1
+    for item in range(5):
+        dict_list[str(item+1)]=0
+
     for item in dict_list['store_count']:
-        dict_list[str(count)]=dict_list['store_count'][item]
+        dict_list[str(count)]=dict_list[str(count)]+dict_list['store_count'][item]
         count=count+1
 
     return Response(dict_list,status=status.HTTP_200_OK)
