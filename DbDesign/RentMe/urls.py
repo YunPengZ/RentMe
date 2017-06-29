@@ -29,7 +29,7 @@ urlpatterns = {
     url(r'^order/date$',views.get_car_info_by_date),
     url(r'^order/pay$',views.OrderList.as_view()),
     url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
-
+    url(r'^order/create$',views.order_by_create_user),
 
     #>>>>>>>>>>>>>>>未使用的url
     #modify 临时修改数据库时建立的接口
