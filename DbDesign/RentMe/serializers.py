@@ -26,7 +26,7 @@ class AdminSerializer(serializers.ModelSerializer):
         fields = ('admin_id','admin_tel','admin_pas','admin_name','store_manage','admin_sex','admin_age','admin_type','admin_email','admin_ident',)
 #关联car_info
 class CarSerializer(serializers.HyperlinkedModelSerializer):
-    #car_model_id = serializers.PrimaryKeyRelatedField(many=True, queryset=model_info.objects.all())
+    car_model_id = serializers.PrimaryKeyRelatedField(many=True, queryset=model_info.objects.all())
     class Meta:
         model = car_info
         fields = ('car_id','car_num','car_model_id','car_color','car_engine_num','car_frame_num','car_buy_date','car_retailer','car_status','car_ins_num','car_record_create_time','record_create_admin','record_delete_status')

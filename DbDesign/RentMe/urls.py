@@ -14,7 +14,8 @@ urlpatterns = {
     url(r'^licenses/$',views.license_list),#驾驶证
     url(r'^car/$',views.car_list),#车辆
     url(r'^user/$',views.user_list),#用户
-    url(r'^admins/$',views.AdminList.as_view()),#管理员
+    #url(r'^admins/$',views.AdminList.as_view()),#管理员
+    url(r'^admins/$',views.admin_list),#管理员
     url(r'^stores/$',views.store_list),#门店
     url(r'^relet/$',views.relet_list),#续租记录
     url(r'^illegal/$',views.illegal_list),
