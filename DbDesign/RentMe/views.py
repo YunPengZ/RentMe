@@ -261,11 +261,11 @@ def car_list(request,format=None):
         return Response(serializer.data)
     elif request.method == 'POST':
         if request.data['statu'][0] == 'delete':
-            licenses = car_info.objects.get(car_id=request.data['car_id'][0])
+            licenses = car_info.objects.get(car_num=request.data['car_num'][0])
             try:
                 licenses.record_delete_status='dele'
                 licenses.save()
-                return Response(status=status.HTTP_200_OK)
+                return Response(licenses.data,status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -278,8 +278,8 @@ def car_list(request,format=None):
             else:
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         if request.data['statu'][0] == 'update':
-            a=request.data['car_num'][0]
-            licenses = car_info.objects.get(car_num=a)
+            a=request.data['car_id'][0]
+            licenses = car_info.objects.get(car_id=a)
             licenses.car_color=request.data['car_color'][0]
             licenses.car_engine_num=request.data['car_engine_num'][0]
             licenses.car_frame_num=request.data['car_frame_num'][0]
