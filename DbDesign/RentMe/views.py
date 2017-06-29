@@ -310,6 +310,7 @@ def get_car_info_by_dateAndStore(request):
     query_dict = dict()
     dict_list = list()
     result_dict = dict()
+            
     for order in rent_order.objects.filter(pick_time__month=datetime.datetime.now().month):
             query_dict[order.pick_time.date().isoformat()] = dict()
     for store in store_info.objects.all():
@@ -350,6 +351,8 @@ def order_pay(request):
 
             return Response(json_query,status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 
 class ModelList(generics.ListCreateAPIView):
     queryset = model_info.objects.all()
