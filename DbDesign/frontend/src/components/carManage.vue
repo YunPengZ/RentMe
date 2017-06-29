@@ -129,6 +129,7 @@ export default {
     axios.get('/test/car/', {})
          .then(function (response) {
            self.table = response.data
+           this.$store.state.car_model_id = response.data[0].car_model_id
          })
          .catch(e => {
            this.errors.push(e)

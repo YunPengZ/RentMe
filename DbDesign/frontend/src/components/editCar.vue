@@ -101,7 +101,11 @@ export default{
       var self = this
       console.log(self.form.account)
       axios.post('/test/car/', {
+<<<<<<< HEAD
+        status: 'update',
+=======
         'statu': 'update',
+>>>>>>> ddad9c1b8072de89d11906fefb4fa110b7f7fa8d
         car_id: self.formInline.car_id,
         car_num: self.formInline.car_num,
         car_model_id: self.formInline.car_model_id,

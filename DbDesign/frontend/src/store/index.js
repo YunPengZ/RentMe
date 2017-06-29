@@ -10,14 +10,15 @@ const state = {
   // 新订单目前在第几步
   step: '',
   // 该订单绑定的用户和驾驶员ID(第一步时完成)
-  order_user_id: '',
-  order_drive_id: '',
+  order_user_id: 1,
+  order_drive_id: 1,
   // 符合所选车型的车辆ID(第二步时完成)
   matched_car: [],
   // 该订单所绑定的车辆ID(第三步时完成)
-  car_ID: '',
+  car_ID: 1,
+  car_model_id: 1,
   // 管理员ID
-  user_ID: '',
+  user_ID: 2,
   // 管理员姓名
   user_Name: '朱云鹏',
   // 管理员等级
