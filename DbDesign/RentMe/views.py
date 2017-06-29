@@ -15,6 +15,10 @@ import datetime
 #用 属性__in = []的方式来访问一个属性多个值匹配的情况
 #filter(user_drive__in=['123456789','12345'])
 
+'''def modify(request=[],format=None):
+    model_info.objects.all().update(record_delete_status='no')'''
+
+
 #license_info查询&添加
 @api_view(['GET','POST'])
 def license_list(request=[],format=None):
