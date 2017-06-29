@@ -27,11 +27,7 @@ urlpatterns = {
     url(r'^order/$',views.get_order_defined),
     url(r'^order/type$',views.get_car_info_by_type),
     url(r'^order/date$',views.get_car_info_by_date),
-<<<<<<< HEAD
-    url(r'^order/pay$',views.OrderList.as_view()),#租车订单
-=======
     url(r'^order/pay$',views.OrderList.as_view()),
->>>>>>> b9cce4a0a0af92a09cabfaa81b4153e3952f1ad7
     url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
 
 

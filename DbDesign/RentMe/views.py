@@ -860,7 +860,7 @@ def get_order_defined(request):
             relet_record['relet_start_time'] = relet.relet_start_time
             relet_record['relet_end_time'] = relet.relet_end_time
             relet_records.append(relet_record)
-        result_list.append({'car_name':car_name,'user_name':user_name,'drive_name':drive_name,'pick_addr':pick_addr,'pick_time':pick_time,'drop_time':drop_time,'car_day_price':car_day_price,'illegal_bill':illegal_bill,'breaken_bill':breaken_bill,'actual_deposit':actual_deposit,'relet_records':relet_records})
+        result_list.append({'car_num':car_name,'user_name':user_name,'drive_name':drive_name,'pick_addr':pick_addr,'pick_time':pick_time,'drop_time':drop_time,'car_day_price':car_day_price,'illegal_bill':illegal_bill,'breaken_bill':breaken_bill,'actual_deposit':actual_deposit,'relet_records':relet_records})
         print(result_list)
     return Response(result_list,status=status.HTTP_200_OK)
 
