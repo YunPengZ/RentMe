@@ -182,9 +182,11 @@ export default{
         user_email: self.user_email,
         record_create_admin: mainself.$store.state.user_ID
       }).then(function (response) {
-        self.$message('修改成功')
+        mainself.$message('修改成功')
+        mainself.$route.push('/home/new_order/car_model')
+        mainself.$route.go(1)
       }).catch(e => {
-        self.$message('修改失败')
+        mainself.$message('修改失败')
         this.errors.push(e)
       })
     }

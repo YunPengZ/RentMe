@@ -27,7 +27,7 @@
 <el-col :offset="4" :span="17">
   <el-table
     :data="table"
-    height="800"
+    height="600"
     style="width: 100%">
     
         <el-table-column
@@ -143,7 +143,7 @@ export default {
       console.log(event)
       axios.post('/test/car/', {
         'statu': 'delete',
-        car_num: event
+        'car_num': [event]
       })
             .then(function (response) {
               self.$message('删除成功')

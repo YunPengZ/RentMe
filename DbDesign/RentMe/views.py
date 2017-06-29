@@ -261,11 +261,11 @@ def car_list(request,format=None):
         return Response(serializer.data)
     elif request.method == 'POST':
         if request.data['statu'][0] == 'delete':
-            licenses = car_info.objects.get(car_id=request.data['car_id'][0])
+            licenses = car_info.objects.get(car_num=request.data['car_num'][0])
             try:
                 licenses.record_delete_status='dele'
                 licenses.save()
-                return Response(status=status.HTTP_200_OK)
+                return Response(licenses.data,status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -278,8 +278,8 @@ def car_list(request,format=None):
             else:
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         if request.data['statu'][0] == 'update':
-            a=request.data['car_num'][0]
-            licenses = car_info.objects.get(car_num=a)
+            a=request.data['car_id'][0]
+            licenses = car_info.objects.get(car_id=a)
             licenses.car_color=request.data['car_color'][0]
             licenses.car_engine_num=request.data['car_engine_num'][0]
             licenses.car_frame_num=request.data['car_frame_num'][0]
@@ -995,8 +995,11 @@ def order_by_create_user(request):
     if request.method == 'POST':
         data = request.data
         admin = admin_info.objects.get(pk=data['record_create_admin'])
+<<<<<<< HEAD
         drive_start_date = data['drive_start_date']
         drive_end_date = data['drive_end_date']
+=======
+>>>>>>> 19d8abf10149443a194c9c527357377af52ee267
         license = driving_license(drive_name=data['drive_name'],user_drive=data['user_drive'],drive_type=data['drive_type'],drive_start_date=data['drive_start_date'][0:10],drive_end_date=data['drive_end_date'][0:10])
         license.save()
         user = user_info(user_name=data['user_name'],user_sex=data['user_sex'],user_age=data['user_age'],user_ident=data['user_ident'],user_tel=data['user_tel'],user_office=data['user_office'],user_addr=data['user_addr'],user_post=data['user_post'],user_email=data['user_email'],record_create_admin=admin)
