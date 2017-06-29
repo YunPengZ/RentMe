@@ -135,20 +135,6 @@ export default {
          })
   },
   methods: {
-    updateCar () {
-      var self = this
-      console.log(self.form.account)
-      axios.post('/test/car', {
-        car_id: self.formInline.car_id
-      })
-            .then(function (response) {
-              self.$message('修改成功')
-            })
-            .catch(e => {
-              self.$message('修改失败')
-              this.errors.push(e)
-            })
-    },
     deleteCar (event) {
       var self = this
       console.log(self.form.account)

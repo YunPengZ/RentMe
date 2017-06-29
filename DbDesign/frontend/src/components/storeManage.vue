@@ -207,30 +207,27 @@ export default {
          .catch(e => {
            this.errors.push(e)
          })
+  },
+  methods: {
+    deleteCar (event) {
+      var self = this
+      console.log(self.form.account)
+      axios.delete('/test/car', {
+        params: {
+          car_id: self.formInline.car_id
+        }
+      })
+            .then(function (response) {
+              self.$message('删除成功')
+            })
+            .catch(e => {
+              self.$message('删除失败')
+              this.errors.push(e)
+            })
+    }
   }
-//   methods: {
-//     handleCurrentChange (val) {
-//       this.currentRow = val
-//       this.displayStatus = true
-//     },
-//     submit(){
-//             var self = this;
-//             var grade = self.currentRow.match_Grade;
-//             var m_id = self.currentRow.match_ID;
-//             var u_id = self.currentRow.user_ID;
-//             axios.post('/api/user/inputGrade',{
-//             match_Grade: grade,
-//             match_ID: m_id,
-//             user_ID: u_id
-//             })
-//             .then(function (response) {
-//             self.$message('成绩提交成功')
-//             })
-//             .catch(e => {
-//               this.errors.push(e)
-//             })
-//     }
-//   }
+
+
 }
 </script>
 <style scoped>
