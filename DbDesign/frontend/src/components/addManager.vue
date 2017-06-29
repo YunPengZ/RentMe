@@ -72,16 +72,15 @@ export default{
   methods: {
     addManager () {
       var self = this
-      console.log(self.form.account)
       axios.post('/test/admins/', {
-        admin_id: '',
-        admin_name: '',
-        admin_sex: '',
-        admin_age: '',
-        admin_ident: '',
-        admin_tel: '',
-        admin_email: '',
-        admin_type: ''
+        status: 'add',
+        admin_name: self.formInline.admin_name,
+        admin_sex: self.formInline.admin_sex,
+        admin_age: self.formInline.admin_age,
+        admin_ident: self.formInline.admin_ident,
+        admin_tel: self.formInline.admin_tel,
+        admin_email: self.formInline.admin_email,
+        admin_type: self.formInline.admin_type
       })
             .then(function (response) {
               self.$message('添加成功')

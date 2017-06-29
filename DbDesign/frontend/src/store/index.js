@@ -19,7 +19,7 @@ const state = {
   // 管理员ID
   user_ID: '',
   // 管理员姓名
-  user_Name: '小明',
+  user_Name: '朱云鹏',
   // 管理员等级
   user_Status: '门店管理员'
 }
