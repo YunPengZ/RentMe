@@ -58,6 +58,7 @@ export default{
   data () {
     return {
       formInline: {
+        admin_id:'',
         admin_name: '',
         admin_sex: '',
         admin_age: '',

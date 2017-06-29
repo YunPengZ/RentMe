@@ -1,6 +1,6 @@
-<template  >
-  <div style="background-color:#050304;height:100%;">
-    <el-row  >
+<template>
+  <div >
+    <el-row  class="background">
       <el-col :offset="9" :span="6">
         <!--<img src="../assets/car.jpg"></img>-->
         <el-card class="position">
@@ -61,6 +61,10 @@
 <style>
 .position{
   margin-top:100px;
+}
+.background{
+ background-color:#050304;
+ height:100%;
 }
 </style>
 
