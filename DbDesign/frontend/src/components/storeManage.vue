@@ -163,7 +163,7 @@
 </div>
 </template>
 <script>
-// import axios from 'axios';
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -192,7 +192,7 @@ export default {
   created () {
     var self = this
         // var id = self.$route.params.id;
-    axios.get('/test/admin/?format=json', {})
+    axios.get('/test/admins/?format=json', {})
          .then(function (response) {
            self.tableManager = response.data
          })
