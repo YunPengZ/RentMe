@@ -44,6 +44,8 @@
           })
             .then(function (response) {
               console.log('1233')
+              self.$router.push('/home')
+              self.$router.go(1)
             // console.log(response.data[0])
             // self.$store.commit('changeUser',response.data[0]) //改变选中的用户的姓名，值，以便寻找比赛
             // $router.go({name: 'register', params: {id:'apply'}})
