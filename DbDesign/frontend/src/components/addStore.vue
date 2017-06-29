@@ -56,7 +56,7 @@ export default{
       var self = this
       console.log(self.form.account)
       axios.post('/test/stores/', {
-        status: 'add',
+        statu: 'add',
         store_addr: self.formInline.store_addr,
         store_tel: self.formInline.store_tel,
         store_start_time: self.formInline.store_start_time,

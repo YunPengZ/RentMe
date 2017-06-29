@@ -10,7 +10,7 @@
             </el-input>
             </el-form-item>
             <el-form-item label="车辆型号">
-            <el-input placeholder="请输入内容" v-model="formInline.car_model_id" >
+            <el-input placeholder="请输入内容" v-model="formInline.car_model_id" type="number" >
             </el-input>
             </el-form-item>
             <el-form-item label="车辆颜色">

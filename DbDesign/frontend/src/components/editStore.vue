@@ -56,7 +56,10 @@ export default{
     var self = this
     var id = [self.$route.params.id]
     // console.log(id)
-    axios.post('/test/Store/', {store_id: id})
+    axios.post('/test/Store/', {
+      'statu': 'query',
+      store_id: id
+    })
          .then(function (response) {
            self.formInline = response.data[0]
          })
@@ -68,7 +71,8 @@ export default{
     updateStore () {
       var self = this
       axios.post('/test/stores/', {
-        status: 'update',
+        'statu': 'update',
+        store_id: id,
         store_id: self.formInline.store_id,
         store_addr: self.formInline.store_addr,
         store_tel: self.formInline.store_tel,
