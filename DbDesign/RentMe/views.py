@@ -251,7 +251,7 @@ def car_list(request,format=None):
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'] == 'delete':
+        if request.data['status'][0] == 'delete':
             licenses = car_info.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -259,13 +259,15 @@ def car_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'] == 'update':
+
+        if request.data['status'][0] == 'update':
             serializer = CarSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
         licenses = car_info.objects.all()
         if len(request.data)==0:
@@ -332,7 +334,7 @@ def admin_list(request,format=None):
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'] == 'delete':
+        if request.data['status'][0] == 'delete':
             licenses = admin_info.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -340,7 +342,7 @@ def admin_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'] == 'update':
+        if request.data['status'][0] == 'update':
             serializer = AdminSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
@@ -408,7 +410,7 @@ def store_list(request,format=None):
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'] == 'delete':
+        if request.data['status'][0] == 'delete':
             licenses = store_info.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -416,7 +418,7 @@ def store_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'] == 'update':
+        if request.data['status'][0] == 'update':
             serializer = StoreSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
