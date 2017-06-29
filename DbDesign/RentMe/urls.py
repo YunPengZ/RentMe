@@ -27,7 +27,7 @@ urlpatterns = {
     #url(r'^order/$',views.OrderList.as_view()),
     url(r'^order/type$',views.get_car_info_by_type),
     url(r'^order/date$',views.get_car_info_by_date),
-    url(r'^order/pay$',views.order_pay),
+    url(r'^order/pay$',views.OrderList.as_view()),
     url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
 
 
