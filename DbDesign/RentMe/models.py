@@ -137,7 +137,7 @@ class store_info(models.Model):
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
 
     def __str__(self):
-        return self.store_num
+        return self.store_addr
     class Meta:
         verbose_name = '门店信息'
         verbose_name_plural = '门店信息'
@@ -175,6 +175,7 @@ class driving_license(models.Model):
     drive_name = models.CharField(max_length=15,default="朱")
     drive_start_date = models.DateField(null=True,verbose_name='发证日期')
     drive_end_date = models.DateField(null=True,verbose_name='失效日期')
+
     #record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_license")
     #license_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
@@ -203,11 +204,11 @@ class rent_order(models.Model):
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
 
     def __str__(self):
-        return self.order_num
+        return str(self.order_id)
     class Meta:
         verbose_name = '订单信息'
         verbose_name_plural = '订单信息'
-#租车记录
+#续租记录
 class relet_record(models.Model):
     relet_id = models.AutoField(primary_key=True, verbose_name='主键')
     order_num = models.ForeignKey(rent_order,related_name='relet_order')

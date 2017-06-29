@@ -24,6 +24,7 @@ import addStore from '../components/addStore.vue'
 import editStore from '../components/editStore.vue'
 import addManager from '../components/addManager.vue'
 import editManager from '../components/editManager.vue'
+import Analysis from '../components/Analysis.vue'
 
 const router = new Router({
   routes: [
@@ -62,7 +63,8 @@ const router = new Router({
         {path: 'editStore', component: editStore},
         {path: 'addManager', component: addManager},
         {path: 'editManager', component: editManager},
-        {path: 'violation_info', component: violationInfo}
+        {path: 'violation_info', component: violationInfo},
+        {path: 'analysis', component: Analysis}
       ]
     },
     {
