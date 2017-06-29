@@ -29,7 +29,7 @@
             </el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary">提交</el-button>
+                <el-button type="primary" @click="updateStore">提交</el-button>
             </el-form-item>
           </el-form>
           </el-card>
@@ -51,13 +51,36 @@ export default{
       }
     }
   },
+  created () {
+    var self = this
+    var id = [self.$route.params.id]
+    // console.log(id)
+    axios.post('/test/Store/', {store_id: id})
+         .then(function (response) {
+           self.formInline = response.data[0]
+         })
+         .catch(e => {
+           this.errors.push(e)
+         })
+  },
   methods: {
-    handleCheckAllChange (event) {
-    },
-    handleCheckedCitiesChange (value) {
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.options['car_type'].length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.options['car_type'].length
+    updateStore () {
+      var self = this
+      axios.post('/test/stores/', {
+        status: 'update',
+        store_id: self.formInline.store_id,
+        store_addr: self.formInline.store_addr,
+        store_tel: self.formInline.store_tel,
+        store_start_time: self.formInline.store_start_time,
+        store_admin: self.formInline.store_admin
+      })
+            .then(function (response) {
+              self.$message('修改成功')
+            })
+            .catch(e => {
+              self.$message('修改失败')
+              this.errors.push(e)
+            })
     }
   }
 }
