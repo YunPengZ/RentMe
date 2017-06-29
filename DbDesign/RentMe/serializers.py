@@ -6,7 +6,6 @@ from RentMe.models import *
 #关联Model_info
 class ModelSerializer(serializers.ModelSerializer):
     car_model = serializers.PrimaryKeyRelatedField(many=True, queryset=car_info.objects.all())
-
     class Meta:
         model = model_info
         #DELETED : 'car_record_create_time'
