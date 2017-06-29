@@ -39,9 +39,14 @@
           </el-row>
           <el-row class="row">
             <el-col :span="24">
-              <el-input v-model="form.pick_addr" auto-complete="off">
-                <template slot="prepend">取车门店</template>
-              </el-input>
+              <el-select v-model="form.pick_addr" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-col>
           </el-row>
           <el-row  class="row">
@@ -71,15 +76,10 @@
             <p>时间押金：{{time_deposit}}</p>
           </el-row>
           <el-row>
-            <el-col :span="10">
-              <p>信用押金：</p>
-            </el-col>
-            <el-col :span="14">
-              <el-input v-model="input"></el-input>
-            </el-col>
-          </el-row>
-          <el-row>
             <p>实收押金：{{actual_deposit}}</p>
+          </el-row>
+          <el-row class="min-row">
+            <el-button type="primary" @click="handleSubmit()">提交订单</el-button>
           </el-row>
         </el-card>
       </el-col>
@@ -87,24 +87,74 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default{
   data () {
     return {
+      options: [{
+        value: 1,
+        label: '一号门店'
+      }, {
+        value: 2,
+        label: '二号门店'
+      }, {
+        value: 3,
+        label: '三号门店'
+      }, {
+        value: 4,
+        label: '四号门店'
+      }, {
+        value: 5,
+        label: '五号门店'
+      }],
       form: {
         pick_addr: null,
         pick_time: null,
         drop_time: null
       },
       user_deposit: null,
-      car_deposit: 5000,
-      car_day_price: 100,
-      user_name: '小明',
-      drive_name: '小红',
-      car_num: '皖A23124',
-      car_brand: '宝马',
-      car_series: '汉兰达',
-      car_config_model: '豪华型'
+      car_deposit: null,
+      car_model_id: null,
+      car_day_price: null,
+      user_name: null,
+      drive_name: null,
+      car_num: null,
+      car_brand: null,
+      car_series: null,
+      car_config_model: null
     }
+  },
+  created () {
+    var self = this
+    axios.get('/test/user/' + this.$store.state.order_user_id, {})
+    .then(function (response) {
+      self.user_name = response.data.user_name
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    axios.get('/test/licenses/' + this.$store.state.order_drive_id, {})
+    .then(function (response) {
+      self.drive_name = response.data.drive_name
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    axios.get('/test/car/' + this.$store.state.car_ID, {})
+    .then(function (response) {
+      self.car_num = response.data.car_num
+      self.car_model_id = response.data.car_model_id
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    axios.get('/test/model/' + this.$store.state.car_model_id, {})
+    .then(function (response) {
+      self.car_deposit = response.data.car_deposit
+      self.car_day_price = response.data.car_day_price
+      self.car_brand = response.data.car_brand
+      self.car_series = response.data.car_series
+      self.car_config_model = response.data.car_config_model
+    }).catch(e => {
+      this.errors.push(e)
+    })
   },
   computed: {
     time_deposit () {
@@ -121,12 +171,36 @@ export default{
         return this.user_deposit + this.time_deposit + this.car_deposit
       }
     }
+  },
+  methods: {
+    handleSubmit () {
+      var self = this
+      axios.post('/test/order/', {
+        user_num: self.$store.state.order_user_id,
+        car_num: self.$store.state.car_ID,
+        relet_order: [],
+        actual_deposit: self.actual_deposit,
+        pick_addr: self.form.pick_addr,
+        pick_time: self.form.pick_time,
+        drop_time: self.form.drop_time,
+        user_drive: self.$store.state.order_drive_id,
+        record_create_admin: self.$store.state.user_ID
+      }).then(function (response) {
+        self.$message('修改成功')
+      }).catch(e => {
+        self.$message('修改失败')
+        this.errors.push(e)
+      })
+    }
   }
 }
 </script>
 <style scoped>
 .row {
   margin-top: 50px;
+}
+.min-row {
+  margin-top: 15px;
 }
 h3 {
   margin: 0px 0px 10px 0px;

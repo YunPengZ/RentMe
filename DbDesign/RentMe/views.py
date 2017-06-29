@@ -22,7 +22,7 @@ import datetime
 @api_view(['GET','POST','DELETE'])
 def model_list(request,format=None):
     if request.method == 'GET':
-        licenses = model_info.objects.all()
+        licenses = model_info.objects.filter(record_delete_status='no')
         serializer = ModelSerializer(licenses,many=True)
         #print('get')
         #print(serializer.data)
@@ -118,7 +118,7 @@ def model_list(request,format=None):
 @api_view(['GET','POST','DELETE'])
 def license_list(request,format=None):
     if request.method == 'GET':
-        licenses = driving_license.objects.all()
+        licenses = driving_license.objects.filter(record_delete_status='no')
         serializer = DrivingSerializer(licenses,many=True)
         #print('get')
         #print(serializer.data)
@@ -176,13 +176,13 @@ def illegal_list(request,format=None):
 
     if request.method == 'GET':
         if request.method == 'GET':
-            licenses = illegal_record.objects.all()
+            licenses = illegal_record.objects.filter(record_delete_status='no')
             serializer = illegalSerializer(licenses,many=True)
             #print('get')
             #print(serializer.data)
             return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'] == 'delete':
+        if request.data['statu'] == 'delete':
             licenses = illegal_record.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -190,7 +190,7 @@ def illegal_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'] == 'update':
+        if request.data['statu'] == 'add':
             serializer = illegalSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
@@ -245,13 +245,13 @@ def illegal_list(request,format=None):
 @api_view(['GET','POST','DELETE'])
 def car_list(request,format=None):
     if request.method == 'GET':
-        licenses = car_info.objects.all()
+        licenses = car_info.objects.filter(record_delete_status='no')
         serializer = CarSerializer(licenses,many=True)
         #print('get')
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'] == 'delete':
+        if request.data['statu'][0] == 'delete':
             licenses = car_info.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -259,13 +259,15 @@ def car_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'] == 'update':
+
+        if request.data['statu'][0] == 'add':
             serializer = CarSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
         licenses = car_info.objects.all()
         if len(request.data)==0:
@@ -304,7 +306,7 @@ def car_list(request,format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-                print(licenses_list)
+                #print(licenses_list)
             serializer = CarSerializer(data=licenses_list,many=True)
             #if serializer.is_valid():
             #print('>>>>>>>>>>>>>>')
@@ -321,18 +323,17 @@ def car_list(request,format=None):
     elif request.method == 'DELETE':
         licenses = car_info.objects.get(model_id=1).update(record_delete_status='dele')
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 #admin_info查询&添加
 @api_view(['GET','POST','DELETE'])
 def admin_list(request,format=None):
     if request.method == 'GET':
-        licenses = admin_info.objects.all()
+        licenses = admin_info.objects.filter(record_delete_status='no')
         serializer = AdminSerializer(licenses,many=True)
         #print('get')
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'] == 'delete':
+        if request.data['statu'][0] == 'delete':
             licenses = admin_info.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -340,7 +341,7 @@ def admin_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'] == 'update':
+        if request.data['statu'][0] == 'add':
             serializer = AdminSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
@@ -402,13 +403,13 @@ def admin_list(request,format=None):
 @api_view(['GET','POST','DELETE'])
 def store_list(request,format=None):
     if request.method == 'GET':
-        licenses = store_info.objects.all()
+        licenses = store_info.objects.filter(record_delete_status='no')
         serializer = StoreSerializer(licenses,many=True)
         #print('get')
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'] == 'delete':
+        if request.data['statu'][0] == 'delete':
             licenses = store_info.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -416,7 +417,7 @@ def store_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'] == 'update':
+        if request.data['statu'][0] == 'add':
             serializer = StoreSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
@@ -471,7 +472,7 @@ def store_list(request,format=None):
 @api_view(['GET','POST','DELETE'])
 def rent_list(request,format=None):
     if request.method == 'GET':
-        licenses = rent_order.objects.all()
+        licenses = rent_order.objects.filter(record_delete_status='no')
         serializer = OrderSerializer(licenses,many=True)
         #print('get')
         #print(serializer.data)
@@ -538,7 +539,7 @@ def rent_list(request,format=None):
 @api_view(['GET','POST','DELETE'])
 def relet_list(request,format=None):
     if request.method == 'GET':
-        licenses = relet_record.objects.all()
+        licenses = relet_record.objects.filter(record_delete_status='no')
         serializer = ReletSerializer(licenses,many=True)
         #print('get')
         #print(serializer.data)
@@ -588,7 +589,7 @@ def relet_list(request,format=None):
 @api_view(['GET','POST','DELETE'])
 def user_list(request,format=None):
     if request.method == 'GET':
-        licenses = user_info.objects.all()
+        licenses = user_info.objects.filter(record_delete_status='no')
         serializer = UserSerializer(licenses,many=True)
         #print('get')
         #print(serializer.data)
@@ -794,7 +795,7 @@ def get_car_info_by_dateAndStore(request):
     query_dict = dict()
     dict_list = list()
     result_dict = dict()
-            
+
     for order in rent_order.objects.filter(pick_time__month=datetime.datetime.now().month):
             query_dict[order.pick_time.date().isoformat()] = dict()
     for store in store_info.objects.all():
@@ -808,7 +809,7 @@ def get_car_info_by_dateAndStore(request):
         dict_list.append({"pick_time":key,"store_count1":values['store_count1'],"store_count2":values['store_count2'],"store_count3":values['store_count3'],"store_count4":values['store_count4'],"store_count5":values['store_count5']})
     #print(dict_list)
     #修改json格式的数据
-    
+
 
     return Response(dict_list,status=status.HTTP_200_OK)
 @api_view(['GET','POST'])
