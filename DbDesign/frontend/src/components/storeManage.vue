@@ -213,7 +213,7 @@ export default {
       var self = this
       // console.log(self.form.account)
       axios.post('/test/stores', {
-        status: 'delete',
+        statu: 'delete',
         store_id: self.tableStore.store_id
       })
             .then(function (response) {
@@ -228,7 +228,7 @@ export default {
       var self = this
       // console.log(self.form.account)
       axios.delete('/test/admins', {
-        status: 'delete',
+        statu: 'delete',
         admin_id: self.tableStore.admin_id
       })
             .then(function (response) {

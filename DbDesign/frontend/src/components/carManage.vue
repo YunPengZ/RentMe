@@ -1,5 +1,5 @@
 <template>
-<div>
+<div >
 <!--<el-row class="singlerow">
   <el-col>
     <el-button class="button" type="primary">
@@ -27,7 +27,7 @@
 <el-col :offset="4" :span="17">
   <el-table
     :data="table"
-    style="width: 100%">
+    style="width: 100%;height:100%">
         <el-table-column
       type="index"
       >

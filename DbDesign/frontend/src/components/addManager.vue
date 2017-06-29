@@ -74,7 +74,7 @@ export default{
     addManager () {
       var self = this
       axios.post('/test/admins/', {
-        status: 'add',
+        statu: 'add',
         admin_name: self.formInline.admin_name,
         admin_sex: self.formInline.admin_sex,
         admin_age: self.formInline.admin_age,
