@@ -83,12 +83,9 @@ export default{
   },
   created () {
     var self = this
-    var id = self.$route.params.id
-    axios.get('/test/car/?format=json', {
-      params: {
-        car_num: id
-      }
-    })
+    var id = [self.$route.params.id]
+    console.log(id)
+    axios.post('/test/car/', {car_num: id})
          .then(function (response) {
            self.formInline = response.data[0]
          })
@@ -100,7 +97,7 @@ export default{
     updateCar () {
       var self = this
       console.log(self.form.account)
-      axios.post('/test/car', {
+      axios.post('/test/car/', {
         car_id: self.formInline.car_id,
         car_num: self.formInline.car_num,
         car_model_id: self.formInline.car_model_id,
@@ -111,7 +108,7 @@ export default{
         car_retailer: self.formInline.car_retailer,
         car_status: self.formInline.car_status,
         car_ins_num: self.formInline.car_ins_num,
-        car_creater: self.formInline.car_creater
+        car_creater: self.$store.state.user_ID
       })
             .then(function (response) {
               self.$message('修改成功')
