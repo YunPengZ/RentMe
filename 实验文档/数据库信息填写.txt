@@ -1,0 +1,21 @@
+5个门店：
+	地址1
+	地址2
+	地址3
+	地址4
+	地址5
+
+5个门店管理员：
+	admin1，admin1
+	admin2，admin2
+	admin3，admin3
+	admin4，admin4
+	admin5，admin5
+
+1个大中华：
+	彭世晨
+
+1个违章输入员：
+	老郑，laozheng
+
+一个门店10辆车
