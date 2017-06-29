@@ -162,7 +162,6 @@ export default{
   },
   methods: {
     submitForm (formName) {
-      axios.
     }
   }
 }
