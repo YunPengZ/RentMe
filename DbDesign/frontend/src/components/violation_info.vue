@@ -91,7 +91,7 @@
 </div>
 </template>
 <script>
-// import axios from 'axios';
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -121,7 +121,7 @@ export default {
   created () {
     var self = this
         // var id = self.$route.params.id;
-    axios.get('/test/illegal_record/', {})
+    axios.get('/test/illegal', {})
          .then(function (response) {
            self.table = response.data
          })
@@ -141,7 +141,6 @@ export default {
       })
             .then(function (response) {
               self.$message('添加成功')
-              created()
             })
             .catch(e => {
               self.$message('添加失败')
