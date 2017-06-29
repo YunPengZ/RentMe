@@ -84,8 +84,11 @@ export default{
   created () {
     var self = this
     var id = [self.$route.params.id]
-    console.log(id)
-    axios.post('/test/car/', {car_num: id})
+    // console.log(id)
+    axios.post('/test/car/', {
+      'statu': 'query',
+      car_num: id
+    })
          .then(function (response) {
            self.formInline = response.data[0]
          })
@@ -97,8 +100,8 @@ export default{
     updateCar () {
       var self = this
       console.log(self.form.account)
-      axios.post('/test/car/', { 
-        status: 'update',
+      axios.post('/test/car/', {
+        'statu': 'update',
         car_id: self.formInline.car_id,
         car_num: self.formInline.car_num,
         car_model_id: self.formInline.car_model_id,
