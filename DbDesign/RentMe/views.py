@@ -277,7 +277,20 @@ def car_list(request,format=None):
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             else:
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
+        if request.data['statu'][0] == 'update':
+            a=request.data['car_num'][0]
+            licenses = car_info.objects.get(car_num=a)
+            licenses.car_color=request.data['car_color'][0]
+            licenses.car_engine_num=request.data['car_engine_num'][0]
+            licenses.car_frame_num=request.data['car_frame_num'][0]
+            licenses.car_buy_date=request.data['car_buy_date'][0]
+            licenses.car_retailer=request.data['car_retailer'][0]
+            licenses.car_status=request.data['car_status'][0]
+            licenses.car_ins_num=request.data['car_ins_num'][0]
+            licenses.car_record_create_time=request.data['car_record_create_time'][0]
+            licenses.record_delete_status=request.data['record_delete_status'][0]
+            licenses.save()
+            return Response(status=status.HTTP_200_OK)
         licenses = car_info.objects.all()
         if len(request.data)==0:
             serializer = CarSerializer(licenses,many=True)
