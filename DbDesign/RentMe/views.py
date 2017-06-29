@@ -837,6 +837,31 @@ def order_pay(request):
             return Response(json_query,status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_404_NOT_FOUND)
 
+#避开框架的获得订单信息方法
+@api_view(['GET','POST'])
+def get_order_defined(request):
+    result_list = []
+    for order in rent_order.objects.all():
+        car_name = order.car_num.car_num
+        user_name = order.user_num.user_name
+        drive_name = order.user_drive.drive_name
+        pick_addr = order.pick_addr.store_id
+        pick_time = order.pick_time
+        drop_time = order.drop_time
+        car_day_price = order.car_num.car_model_id.car_day_price
+        illegal_bill = order.illegal_bill
+        breaken_bill = order.breaken_bill
+        actual_deposit = order.actual_deposit
+        relet_records = []
+        relet_record = dict()
+        for relet in order.relet_order.all():
+            relet_record['relet_id'] = relet.relet_id
+            relet_record['relet_start_time'] = relet.relet_start_time
+            relet_record['relet_end_time'] = relet.relet_end_time
+            relet_records.append(relet_record)
+        result_list.append({'car_name':car_name,'user_name':user_name,'drive_name':drive_name,'pick_addr':pick_addr,'pick_time':pick_time,'drop_time':drop_time,'car_day_price':car_day_price,'illegal_bill':illegal_bill,'breaken_bill':breaken_bill,'actual_deposit':actual_deposit,'relet_records':relet_records})
+        print(result_list)
+    return Response(result_list,status=status.HTTP_200_OK)
 
 
 class ModelList(generics.ListCreateAPIView):

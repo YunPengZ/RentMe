@@ -24,19 +24,19 @@ class AdminSerializer(serializers.ModelSerializer):
         model = admin_info
         fields = ('admin_id','admin_tel','admin_pas','admin_name','store_manage','admin_sex','admin_age','admin_type','admin_email','admin_ident',)
 #关联car_info
-class CarSerializer(serializers.HyperlinkedModelSerializer):
+class CarSerializer(serializers.ModelSerializer):
     car_model_id = serializers.PrimaryKeyRelatedField(many=True, queryset=model_info.objects.all())
     class Meta:
         model = car_info
         fields = ('car_id','car_num','car_model_id','car_color','car_engine_num','car_frame_num','car_buy_date','car_retailer','car_status','car_ins_num','car_record_create_time','record_create_admin','record_delete_status')
 #关联 user_info
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = user_info
-        #DELETED ,'user_record_create_time'
-        fields = ('user_id','user_name','user_sex','user_age','user_ident','user_tel','user_office','user_addr','user_post','user_email','record_create_admin','user_record_create_time','record_delete_status')
+#class UserSerializer(serializers.ModelSerializer):
+    #class Meta:
+       # model = user_info
+        ##DELETED ,'user_record_create_time'
+        #fields = ('user_id','user_name','user_sex','user_age','user_ident','user_tel','user_office','user_addr','user_post','user_email','record_create_admin','user_record_create_time','record_delete_status')
 #关联 driving_license
-class DrivingSerializer(serializers.HyperlinkedModelSerializer):
+class DrivingSerializer(serializers.ModelSerializer):
     class Meta:
         model = driving_license
         fields = ('drive_id','user_drive','drive_type','drive_age','drive_name','drive_start_date','drive_end_date')

@@ -23,11 +23,11 @@ urlpatterns = {
     url(r'^illegal/$',views.illegal_list),
     url(r'^login/$',views.login),#登录
 
-    url(r'^order/$',views.OrderList.as_view()),#租车订单
-    #url(r'^order/$',views.OrderList.as_view()),
+    #url(r'^order_pay/$',views.OrderList.as_view()),#租车订单
+    url(r'^order/$',views.get_order_defined),
     url(r'^order/type$',views.get_car_info_by_type),
     url(r'^order/date$',views.get_car_info_by_date),
-    url(r'^order/pay$',views.order_pay),
+    url(r'^order/pay$',views.OrderList.as_view()),#租车订单
     url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
 
 
@@ -42,7 +42,7 @@ urlpatterns = {
     #url(r'^car/(?P<pk>[0-9]+)$',views.CarDetail.as_view()),
     url(r'^user/(?P<pk>[0-9]+)$',views.user_info_detail),
     url(r'^admins/(?P<pk>[0-9]+)$',views.AdminDetail.as_view(),name='admin-detail'),
-    url(r'^order/(?P<pk>[0-9]+$)',views.OrderDetail.as_view()),
+    #url(r'^order/(?P<pk>[0-9]+$)',views.OrderDetail.as_view()),
     url(r'^stores/(?P<pk>[0-9]+$)',views.StoreDetail.as_view()),
     url(r'^relet/(?P<pk>[0-9]+$)',views.ReletDetail.as_view()),
     url(r'^illegal/(?P<pk>[0-9]+$)',views.IllegalDetail.as_view()),
