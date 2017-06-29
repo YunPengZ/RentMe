@@ -28,6 +28,8 @@ urlpatterns = {
 
 
     #>>>>>>>>>>>>>>>未使用的url
+    #modify 临时修改数据库时建立的接口
+    #url(r'^modify/$',views.modify),
     #url(r'licenses/(?P<pk>[0-9]+)$',views.license_detail),
     #url(r'^model/$',views.ModelList.as_view(),name='model-list'),
     #url(r'^model/$',views.model_list),#车型
