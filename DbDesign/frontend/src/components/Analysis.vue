@@ -75,27 +75,21 @@ export default {
     axios.get('/test/order/type', {})
     .then(function (response) {
       this.typeData.rows = response.data
-      console.log(response.data)
     }).catch(e => {
       this.errors.push(e)
     })
     axios.get('/test/order/date', {})
     .then(function (response) {
       this.dayData.rows = response.data
-      console.log(response.data)
     }).catch(e => {
       this.errors.push(e)
     })
-    // axios.get('/test/order/date_type/?format=json', {})
-    // .then(function (response) {
-    //   for (var LenCount = 0; LenCount < response.data.length; LenCount++) {
-    //     var justifyData = response.data[LenCount]['store_count']
-    //     this.dayData.rows.push(response.data[LenCount])
-    //   }
-    //   this.dayData.rows = response.data
-    // }).catch(e => {
-    //   this.errors.push(e)
-    // })
+    axios.get('/test/order/date_type', {})
+    .then(function (response) {
+      this.dayData.rows = response.data
+    }).catch(e => {
+      this.errors.push(e)
+    })
   }
 }
 </script>
