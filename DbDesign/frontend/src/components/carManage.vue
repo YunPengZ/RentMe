@@ -19,7 +19,7 @@
   :on-icon-click="handleIconClick"
 >
 </el-autocomplete>
-<router-link :to="'/home/addCar'"  class="rid" v-if="2>0">
+<router-link :to="'/home/addCar'"  class="rid" v-if="$route.path !== '/home/new_order/car_choose'">
 <el-button type="primary" icon="edit" class="addButton">添加车辆信息</el-button>
 </router-link>
 </el-row>
@@ -77,22 +77,24 @@
         <el-table-column
       label="操作"
       prop="desc"
-      v-if="2>0"
+      v-if="$route.path !== '/home/new_order/car_choose'"
       >
             <template scope="scope">
                 <router-link :to="'/home/editCar'"  class="rid">
-        <el-button
-          size="small">            
-          
-              编辑
-            
-            </el-button>
+        <el-button size="small">编辑</el-button>
             </router-link>
-
         <el-button
           size="small"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="操作"
+      v-else
+      >
+      <template scope="scope">
+        <el-button size="small" type="primary">选中</el-button>
       </template>
     </el-table-column>
   </el-table>

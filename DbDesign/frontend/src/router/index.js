@@ -52,6 +52,7 @@ const router = new Router({
           children: [
             {path: '', component: UserInfo},
             {path: 'car_model', component: CarModel},
+            {path: 'car_choose', component: CarManage},
             {path: 'order_charge', component: OrderCharge}
           ]
         },
