@@ -18,7 +18,7 @@ const state = {
   car_ID: 1,
   car_model_id: 1,
   // 管理员ID
-  user_ID: 2,
+  user_ID: 1,
   // 管理员姓名
   user_Name: '朱云鹏',
   // 管理员等级

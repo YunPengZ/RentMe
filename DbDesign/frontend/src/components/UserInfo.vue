@@ -163,6 +163,7 @@ export default{
   methods: {
     submitForm (formName) {
       var self = this.form
+      var mainself = this
       axios.post('/test/order/create', {
         drive_name: self.drive_name,
         user_drive: self.user_drive,
@@ -178,7 +179,8 @@ export default{
         user_office: self.user_office,
         user_addr: self.user_addr,
         user_post: self.user_post,
-        user_email: self.user_email
+        user_email: self.user_email,
+        record_create_admin: mainself.$store.state.user_ID
       }).then(function (response) {
         self.$message('修改成功')
       }).catch(e => {
