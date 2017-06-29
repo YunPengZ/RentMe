@@ -237,7 +237,7 @@ class illegal_record(models.Model):
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
 
     def __str__(self):
-        return self.illegal_id
+        return self.illegal_info
     class Meta:
         verbose_name = '违章记录'
         verbose_name_plural = '违章记录'
