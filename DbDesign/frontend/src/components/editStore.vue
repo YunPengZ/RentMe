@@ -43,7 +43,7 @@ export default{
   data () {
     return {
       formInline: {
-        store_id:'',
+        store_id: '',
         store_addr: '12987132',
         store_tel: '123',
         store_start_time: '红色',
