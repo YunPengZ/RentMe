@@ -93,7 +93,6 @@ class admin_info(models.Model):
     class Meta:
         verbose_name = '管理员信息'
         verbose_name_plural = '管理员信息'
-
 #车辆信息
 class car_info(models.Model):
     ColorChoices = (
@@ -126,7 +125,6 @@ class car_info(models.Model):
     class Meta:
         verbose_name = '车辆信息'
         verbose_name_plural = '车辆信息'
-
 #门店信息
 class store_info(models.Model):
     store_id = models.AutoField(primary_key=True, verbose_name='主键')
@@ -177,8 +175,9 @@ class driving_license(models.Model):
     drive_name = models.CharField(max_length=15,default="朱")
     drive_start_date = models.DateField(null=True,verbose_name='发证日期')
     drive_end_date = models.DateField(null=True,verbose_name='失效日期')
-    record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_license")
-   # license_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
+
+    #record_create_admin = models.ForeignKey(admin_info,related_name="admin_create_license")
+    #license_record_create_time = models.DateTimeField(auto_now_add=True,verbose_name='记录创建时间')
     record_delete_status = models.CharField(max_length=4,choices=deleteState,default='正常',verbose_name='删除状态位')
     def __str__(self):
         return self.drive_name
@@ -226,7 +225,6 @@ class relet_record(models.Model):
     class Meta:
         verbose_name = '续租信息'
         verbose_name_plural = '续租信息'
-
 #违章信息
 class illegal_record(models.Model):
     illegal_id = models.AutoField(primary_key=True, verbose_name='主键')

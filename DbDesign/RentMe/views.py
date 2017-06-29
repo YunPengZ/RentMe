@@ -7,16 +7,52 @@ from RentMe.models import *
 from RentMe.serializers import *
 import json
 import datetime
-#license_info查询
+
+#展示或者创建driving_license
+#request.data 返回 字典包含前端传来的jason数据
+#XXXX.objects.all.values()返回字典类型
+#如果查询到多个记录时会以[dict(),dict(),……]的格式返回
+#用 属性__in = []的方式来访问一个属性多个值匹配的情况
+#filter(user_drive__in=['123456789','12345'])
+
+#license_info查询&添加
+
+
+
 @api_view(['GET','POST'])
-def license_list(request,format=None):
-    #展示或者创建driving_license
+def license_list(request=[],format=None):
     if request.method == 'GET':
-        licenses = driving_license.objects.all()
-        serializer = DrivingSerializer(licenses,many=True)
-        #print('get')
-        #print(serializer.data)
-        return Response(serializer.data)
+        if len(request.data)==0:
+            licenses = driving_license.objects.all()
+            serializer = DrivingSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            licenses = driving_license.objects.all()
+            if 'drive_id' in request_dict:
+                licenses = licenses.filter(drive_id__in=request_dict['drive_id'])
+            elif 'user_drive' in request_dict:
+                licenses = licenses.filter(user_drive__in=request_dict['user_drive'])
+            elif 'drive_type' in request_dict:
+                licenses = licenses.filter(drive_type__in=request_dict['drive_type'])
+            elif 'drive_age' in request_dict:
+                licenses = licenses.filter(drive_age__in=request_dict['drive_age'])
+            elif 'drive_name' in request_dict:
+                licenses = licenses.filter(drive_name__in=request_dict['drive_name'])
+            elif 'drive_start_date' in request_dict:
+                licenses = licenses.filter(drive_start_date__in=request_dict['drive_start_date'])
+            elif 'drive_end_date' in request_dict:
+                licenses = licenses.filter(drive_end_date__in=request_dict['drive_end_date'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
+            #print(licenses.values())
+            licenses_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
+
+            serializer = DrivingSerializer(data=licenses_list,many=True)
+            if serializer.is_valid():
+                return Response(serializer.data)
     elif request.method == 'POST':
         serializer = DrivingSerializer(data=request.data)
         if serializer.is_valid():
@@ -25,6 +61,104 @@ def license_list(request,format=None):
             #print(Response(serializer.data))
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+#illegal_record查询&添加
+@api_view(['GET','POST'])
+def illegal_list(request=[],format=None):
+    if request.method == 'GET':
+        licenses = illegal_record.objects.all()
+        if len(request.data)==0:
+            serializer = LllegalSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            #licenses = illegal_record.objects.all()
+            if 'illegal_id' in request_dict:
+                licenses = licenses.objects.filter(illegal_id__in=request_dict['illegal_id'])
+            elif 'illegal_car_num' in request_dict:
+                licenses = licenses.filter(illegal_car_num__in=request_dict['illegal_car_num'])
+            elif 'illegal_date' in request_dict:
+                licenses = licenses.filter(illegal_date__in=request_dict['illegal_date'])
+            elif 'illegal_bill' in request_dict:
+                licenses = licenses.filter(illegal_bill__in=request_dict['illegal_bill'])
+            elif 'illegal_info' in request_dict:
+                licenses = licenses.filter(illegal_info__in=request_dict['illegal_info'])
+            elif 'illegal_record_create_time' in request_dict:
+                licenses = licenses.filter(illegal_record_create_time__in=request_dict['illegal_record_create_time'])
+            elif 'record_create_admin' in request_dict:
+                licenses = licenses.filter(record_create_admin__in=request_dict['record_create_admin'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
+            #print(licenses.values())
+            licenses_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
+            serializer = LllegalSerializer(data=licenses_list,many=True)
+            if serializer.is_valid():
+                return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = DrivingSerializer(data=request.data)
+        print(type(serializer))
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+#car_info查询&添加
+@api_view(['GET','POST'])
+def car_list(request=[],format=None):
+    if request.method == 'GET':
+        licenses = car_info.objects.all()
+        if len(request.data)==0:
+            serializer = CarSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            #licenses = car_info.objects.all()
+            if 'car_id' in request_dict:
+                licenses = licenses.objects.filter(car_id__in=request_dict['car_id'])
+            elif 'car_num' in request_dict:
+                licenses = licenses.filter(car_num__in=request_dict['car_num'])
+            elif 'car_model_id' in request_dict:
+                licenses = licenses.filter(car_model_id__in=request_dict['car_model_id'])
+            elif 'car_color' in request_dict:
+                licenses = licenses.filter(car_color__in=request_dict['ar_color'])
+            elif 'car_engine_num' in request_dict:
+                licenses = licenses.filter(car_engine_num__in=request_dict['car_engine_num'])
+            elif 'car_frame_num' in request_dict:
+                licenses = licenses.filter(car_frame_num__in=request_dict['car_frame_num'])
+            elif 'car_buy_date' in request_dict:
+                licenses = licenses.filter(car_buy_date__in=request_dict['car_buy_date'])
+            elif 'car_retailer' in request_dict:
+                licenses = licenses.filter(car_retailer__in=request_dict['car_retailer'])
+            elif 'car_status' in request_dict:
+                licenses = licenses.filter(car_status__in=request_dict['car_status'])
+            elif 'car_ins_num' in request_dict:
+                licenses = licenses.filter(car_ins_num__in=request_dict['car_ins_num'])
+            elif 'car_record_create_time' in request_dict:
+                licenses = licenses.filter(car_record_create_time__in=request_dict['car_record_create_time'])
+            elif 'record_create_admin' in request_dict:
+                licenses = licenses.filter(record_create_admin__in=request_dict['record_create_admin'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
+            #print(licenses.values())
+            licenses_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
+            serializer = CarSerializer(data=licenses_list,many=True)
+            if serializer.is_valid():
+                return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = DrivingSerializer(data=request.data)
+        print(type(serializer))
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(['GET','PUT','DELETE'])
 def license_detail(request,pk,format=None):
@@ -44,8 +178,6 @@ def license_detail(request,pk,format=None):
     elif request.method == 'DELETE':
         license.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
 #model_info查询
 @api_view(['GET','POST'])
 def model_info_list(request,format=None):
@@ -65,6 +197,7 @@ def model_info_list(request,format=None):
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET','PUT','DELETE'])
 def model_info_detail(request,pk,format=None):
     try:
@@ -83,7 +216,6 @@ def model_info_detail(request,pk,format=None):
     elif request.method == 'DELETE':
         models_.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 #user_info查询
 @api_view(['GET','POST'])
 def user_info_list(request,format=None):
@@ -102,7 +234,6 @@ def user_info_list(request,format=None):
             #print(Response(serializer.data))
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
 @api_view(['GET','PUT','DELETE'])
 def user_info_detail(request,pk,format=None):
     try:
@@ -121,7 +252,7 @@ def user_info_detail(request,pk,format=None):
     elif request.method == 'DELETE':
         users.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
+#登陆
 @api_view(['GET','POST'])
 def login(request):
     if request.method == 'POST':
@@ -160,14 +291,14 @@ def get_car_info_by_type(request):
         dict_list.append({'car_type':key,'car_count':values})
         print(dict_list)
     return Response(dict_list,status=status.HTTP_200_OK)
-    
+
 @api_view(['GET','POST'])
 def get_car_info_by_date(request):
     query_dict = dict()
     dict_list = list()
     for order in rent_order.objects.filter(pick_time__month=datetime.datetime.now().month):
         query_dict[order.pick_time.date().isoformat()] = 0
-    for order in rent_order.objects.filter(pick_time__month=datetime.datetime.now().month): 
+    for order in rent_order.objects.filter(pick_time__month=datetime.datetime.now().month):
         query_dict[order.pick_time.date().isoformat()] = query_dict[order.pick_time.date().isoformat()] + 1
     for key,values in query_dict.items():
         dict_list.append({'pick_time':key,'car_count':values})
@@ -187,7 +318,7 @@ def get_car_info_by_dateAndStore(request):
     for store in store_info.objects.all():
         for order in store.pick_store.filter(pick_time__month=datetime.datetime.now().month):
             print(order.pick_addr)
-            query_dict[order.pick_time.date().isoformat()]['store_count'+str(store.store_id)] += 1 
+            query_dict[order.pick_time.date().isoformat()]['store_count'+str(store.store_id)] += 1
     for key,values in query_dict.items():
         dict_list.append({"pick_time":key,"store_count":values})
     print(dict_list)
@@ -216,9 +347,9 @@ def order_pay(request):
             json_query['car_brand'] = order.car_num.car_model_id.car_brand
             json_query['car_series'] = order.car_num.car_model_id.car_series
             json_query['car_config_model'] = order.car_num.car_model_id.car_config_model
-            
+
             return Response(json_query,status=status.HTTP_201_CREATED)
-    return Response(status=status.HTTP_404_NOT_FOUND)  
+    return Response(status=status.HTTP_404_NOT_FOUND)
 
 class ModelList(generics.ListCreateAPIView):
     queryset = model_info.objects.all()
@@ -259,7 +390,9 @@ class CarList(generics.ListCreateAPIView):
 #车辆详情
 class CarDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = car_info.objects.all()
+
     serializer_class=CarSerializer
+
 
 #租车订单列表
 class OrderList(generics.ListCreateAPIView):

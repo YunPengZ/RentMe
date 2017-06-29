@@ -27,6 +27,7 @@ urlpatterns = {
     #url(r'^cars/$',views.CarList.as_view()),#车辆
     #url(r'^cars/(?P<pk>[0-9]+)$',views.CarDetail.as_view()),
     url(r'^login/$',views.login),#登录
+
 }
 
 
