@@ -30,19 +30,11 @@ class CarSerializer(serializers.ModelSerializer):
         model = car_info
         fields = ('car_id','car_num','car_model_id','car_color','car_engine_num','car_frame_num','car_buy_date','car_retailer','car_status','car_ins_num','car_record_create_time','record_create_admin','record_delete_status')
 #关联 user_info
-<<<<<<< HEAD
-#class UserSerializer(serializers.ModelSerializer):
-    #class Meta:
-       # model = user_info
-        ##DELETED ,'user_record_create_time'
-        #fields = ('user_id','user_name','user_sex','user_age','user_ident','user_tel','user_office','user_addr','user_post','user_email','record_create_admin','user_record_create_time','record_delete_status')
-=======
 # class UserSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
 #         model = user_info
 #         #DELETED ,'user_record_create_time'
 #         fields = ('user_id','user_name','user_sex','user_age','user_ident','user_tel','user_office','user_addr','user_post','user_email','record_create_admin','user_record_create_time','record_delete_status')
->>>>>>> b9cce4a0a0af92a09cabfaa81b4153e3952f1ad7
 #关联 driving_license
 class DrivingSerializer(serializers.ModelSerializer):
     class Meta:
