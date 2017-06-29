@@ -24,11 +24,12 @@ urlpatterns = {
     url(r'^login/$',views.login),#登录
 
     #url(r'^order_pay/$',views.OrderList.as_view()),#租车订单
-    #url(r'^order/$',views.get_order_defined),
-    #url(r'^order/type$',views.get_car_info_by_type),
-    #url(r'^order/date$',views.get_car_info_by_date),
-    #url(r'^order/pay$',views.OrderList.as_view()),
-    #url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
+    url(r'^order/$',views.get_order_defined),
+    url(r'^order/type$',views.get_car_info_by_type),
+    url(r'^order/date$',views.get_car_info_by_date),
+    url(r'^order/pay$',views.OrderList.as_view()),
+    url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
+    url(r'^order/create$',views.order_by_create_user),
 
 
     #>>>>>>>>>>>>>>>未使用的url

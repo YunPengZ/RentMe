@@ -28,12 +28,12 @@ def model_list(request,format=None):
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if len(request.data)==0:
+        if len(request.query_params)==0:
             licenses = model_info.objects.all()
             serializer = ModelSerializer(licenses,many=True)
             return Response(serializer.data)
         else:
-            request_dict = request.data
+            request_dict = request.query_params
             licenses = driving_license.objects.all()
             if 'model_id' in request_dict:
                 licenses = licenses.filter(model_id__in=request_dict['model_id'])
@@ -197,6 +197,15 @@ def illegal_list(request,format=None):
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        if request.data['statu'][0] == 'update':
+            a=request.data['illegal_date'][0]
+            licenses = illegal_info.objects.get(illegal_date=a)
+            licenses.illegal_bill=request.data['illegal_bill'][0]
+            licenses.illegal_info=request.data['illegal_info'][0]
+            licenses.illegal_record_create_time=request.data['illegal_record_create_time'][0]
+            licenses.record_delete_status=request.data['record_delete_status'][0]
+            licenses.save()
+            return Response(status=status.HTTP_200_OK)
         licenses = illegal_record.objects.all()
         if len(request.data)==0:
             serializer = illegalSerializer(licenses,many=True)
@@ -259,6 +268,7 @@ def car_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
+
         if request.data['statu'][0] == 'add':
             serializer = CarSerializer(data=request.data)
             #print(type(serializer))
@@ -267,24 +277,6 @@ def car_list(request,format=None):
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             else:
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-        if request.data['statu'][0] == 'update':
-            a=request.data['car_num'][0]
-            #print(a)
-            licenses = car_info.objects.get(car_num=a)
-            #print(licenses)
-            #licenses.car_model_id=request.data['car_model_id'][0]
-            licenses.car_color=request.data['car_color'][0]
-            licenses.car_engine_num=request.data['car_engine_num'][0]
-            licenses.car_frame_num=request.data['car_frame_num'][0]
-            licenses.car_buy_date=request.data['car_buy_date'][0]
-            licenses.car_retailer=request.data['car_retailer'][0]
-            licenses.car_status=request.data['car_status'][0]
-            licenses.car_ins_num=request.data['car_ins_num'][0]
-            #licenses.car_record_create_time=request.data['car_record_create_time'][0]
-            #licenses.record_create_admin=request.data['record_create_admin'][0]
-            licenses.record_delete_status=request.data['record_delete_status'][0]
-            licenses.save()
-            return Response(status=status.HTTP_200_OK)
 
         licenses = car_info.objects.all()
         if len(request.data)==0:
@@ -365,7 +357,20 @@ def admin_list(request,format=None):
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
+        if request.data['statu'][0] == 'update':
+            a=request.data['admin_pas'][0]
+            licenses = admin_info.objects.get(admin_pas=a)
+            licenses.admin_name=request.data['admin_name'][0]
+            licenses.admin_sex=request.data['admin_sex'][0]
+            licenses.admin_age=request.data['admin_age'][0]
+            licenses.admin_ident=request.data['admin_ident'][0]
+            licenses.admin_tel=request.data['admin_tel'][0]
+            licenses.admin_email=request.data['admin_email'][0]
+            licenses.admin_type=request.data['admin_type'][0]
+            licenses.admin_record_create_time=request.data['admin_record_create_time'][0]
+            licenses.record_delete_status=request.data['record_delete_status'][0]
+            licenses.save()
+            return Response(status=status.HTTP_200_OK)
         if len(request.data)==0:
             licenses = admin_info.objects.all()
             serializer = AdminSerializer(licenses,many=True)
@@ -441,7 +446,15 @@ def store_list(request,format=None):
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
+        if request.data['statu'][0] == 'update':
+            a=request.data['store_addr'][0]
+            licenses = store_info.objects.get(store_addr=a)
+            licenses.store_tel=request.data['store_tel'][0]
+            licenses.store_start_time=request.data['store_start_time'][0]
+            licenses.store_record_create_time=request.data['store_record_create_time'][0]
+            licenses.record_delete_status=request.data['record_delete_status'][0]
+            licenses.save()
+            return Response(status=status.HTTP_200_OK)
 
         licenses = store_info.objects.all()
         if len(request.data)==0:
@@ -855,6 +868,7 @@ def order_pay(request):
             return Response(json_query,status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_404_NOT_FOUND)
 
+<<<<<<< HEAD
 #提交车型数据，返回车辆信息接口
 @api_view(['GET','POST'])
 def modelFindcar(request):
@@ -935,6 +949,47 @@ def modelFindcar(request):
         licenses = car_info.objects.filter(car_model_id__in=licenses_list)
         
         return Response(licenses.values(),status=status.HTTP_200_OK)
+=======
+#避开框架的获得订单信息方法
+@api_view(['GET','POST'])
+def get_order_defined(request):
+    result_list = []
+    for order in rent_order.objects.all():
+        car_name = order.car_num.car_num
+        user_name = order.user_num.user_name
+        drive_name = order.user_drive.drive_name
+        pick_addr = order.pick_addr.store_id
+        pick_time = order.pick_time
+        drop_time = order.drop_time
+        car_day_price = order.car_num.car_model_id.car_day_price
+        illegal_bill = order.illegal_bill
+        breaken_bill = order.breaken_bill
+        actual_deposit = order.actual_deposit
+        relet_records = []
+        relet_record = dict()
+        for relet in order.relet_order.all():
+            relet_record['relet_id'] = relet.relet_id
+            relet_record['relet_start_time'] = relet.relet_start_time
+            relet_record['relet_end_time'] = relet.relet_end_time
+            relet_records.append(relet_record)
+        result_list.append({'car_num':car_name,'user_name':user_name,'drive_name':drive_name,'pick_addr':pick_addr,'pick_time':pick_time,'drop_time':drop_time,'car_day_price':car_day_price,'illegal_bill':illegal_bill,'breaken_bill':breaken_bill,'actual_deposit':actual_deposit,'relet_records':relet_records})
+        print(result_list)
+    return Response(result_list,status=status.HTTP_200_OK)
+
+#每次新订单帮用户注册？
+@api_view(['GET','POST'])
+def order_by_create_user(request):
+    if request.method == 'POST':
+        data = request.data
+        admin = admin_info.objects.get(pk=data['record_create_admin'])
+        license = driving_license(drive_name=data['drive_name'],user_drive=data['user_drive'],drive_type=data['drive_type'],drive_start_date=data['drive_start_date'],drive_end_date=data['drive_end_date'],record_create_admin=admin)
+        license.save()
+        user = user_info(user_name=data['user_name'],user_sex=data['user_sex'],user_age=data['user_age'],user_ident=data['user_ident'],user_tel=data['user_tel'],user_office=data['user_office'],user_addr=data['user_addr'],user_post=data['user_post'],user_email=data['user_email'])
+        user.save()
+        json_result = {'order_user_id':user.user_id,'order_drive_id':license.drive_id}
+        return Response(json_result,status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_204_NO_CONTENT)
+>>>>>>> e98af5848aa90f7cc4f1e2105a3441190210cc59
 
 
 class ModelList(generics.ListCreateAPIView):
