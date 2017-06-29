@@ -182,7 +182,7 @@ def illegal_list(request,format=None):
             #print(serializer.data)
             return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'] == 'delete':
+        if request.data['statu'] == 'delete':
             licenses = illegal_record.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -190,7 +190,7 @@ def illegal_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'] == 'update':
+        if request.data['statu'] == 'update':
             serializer = illegalSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
@@ -251,7 +251,7 @@ def car_list(request,format=None):
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'][0] == 'delete':
+        if request.data['statu'][0] == 'delete':
             licenses = car_info.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -260,7 +260,7 @@ def car_list(request,format=None):
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        if request.data['status'][0] == 'update':
+        if request.data['statu'][0] == 'update':
             serializer = CarSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
@@ -306,7 +306,7 @@ def car_list(request,format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-                print(licenses_list)
+                #print(licenses_list)
             serializer = CarSerializer(data=licenses_list,many=True)
             #if serializer.is_valid():
             #print('>>>>>>>>>>>>>>')
@@ -334,7 +334,7 @@ def admin_list(request,format=None):
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'][0] == 'delete':
+        if request.data['statu'][0] == 'delete':
             licenses = admin_info.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -342,7 +342,7 @@ def admin_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'][0] == 'update':
+        if request.data['statu'][0] == 'update':
             serializer = AdminSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
@@ -410,7 +410,7 @@ def store_list(request,format=None):
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if request.data['status'][0] == 'delete':
+        if request.data['statu'][0] == 'delete':
             licenses = store_info.objects.get(car_id=request.data['car_id'][0])
             try:
                 licenses.record_delete_status='dele'
@@ -418,7 +418,7 @@ def store_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-        if request.data['status'][0] == 'update':
+        if request.data['statu'][0] == 'update':
             serializer = StoreSerializer(data=request.data)
             #print(type(serializer))
             if serializer.is_valid():
@@ -796,7 +796,7 @@ def get_car_info_by_dateAndStore(request):
     query_dict = dict()
     dict_list = list()
     result_dict = dict()
-            
+
     for order in rent_order.objects.filter(pick_time__month=datetime.datetime.now().month):
             query_dict[order.pick_time.date().isoformat()] = dict()
     for store in store_info.objects.all():
@@ -810,7 +810,7 @@ def get_car_info_by_dateAndStore(request):
         dict_list.append({"pick_time":key,"store_count1":values['store_count1'],"store_count2":values['store_count2'],"store_count3":values['store_count3'],"store_count4":values['store_count4'],"store_count5":values['store_count5']})
     #print(dict_list)
     #修改json格式的数据
-    
+
 
     return Response(dict_list,status=status.HTTP_200_OK)
 @api_view(['GET','POST'])
