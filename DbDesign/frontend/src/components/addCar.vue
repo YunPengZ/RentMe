@@ -57,12 +57,13 @@
       </el-row>
       <el-row type="flex" justify="center">
         
-          <el-button type="primary">提交</el-button>
+          <el-button type="primary" @click="addCar">提交</el-button>
      
       </el-row>
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default{
   data () {
     return {
@@ -81,12 +82,28 @@ export default{
     }
   },
   methods: {
-    handleCheckAllChange (event) {
-    },
-    handleCheckedCitiesChange (value) {
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.options['car_type'].length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.options['car_type'].length
+    addCar () {
+      var self = this
+      console.log(self.form.account)
+      axios.post('/test/car/', {
+        car_num: self.formInline.car_num,
+        car_model_id: self.formInline.car_model_id,
+        car_color: self.formInline.car_color,
+        car_engine_num: self.formInline.car_engine_num,
+        car_frame_num: self.formInline.car_frame_num,
+        car_buy_date: self.formInline.car_buy_date,
+        car_retailer: self.formInline.car_retailer,
+        car_status: self.formInline.car_status,
+        car_ins_num: self.formInline.car_ins_num,
+        car_creater: self.$store.state.user_ID
+      })
+            .then(function (response) {
+              self.$message('添加成功')
+            })
+            .catch(e => {
+              self.$message('添加失败')
+              this.errors.push(e)
+            })
     }
   }
 }

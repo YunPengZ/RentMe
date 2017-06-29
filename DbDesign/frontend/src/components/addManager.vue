@@ -44,7 +44,7 @@
             </el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary">提交</el-button>
+                <el-button type="primary" @click="addManager">提交</el-button>
             </el-form-item>
           </el-form>
           </el-card>
@@ -70,12 +70,26 @@ export default{
     }
   },
   methods: {
-    handleCheckAllChange (event) {
-    },
-    handleCheckedCitiesChange (value) {
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.options['car_type'].length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.options['car_type'].length
+    addManager () {
+      var self = this
+      console.log(self.form.account)
+      axios.post('/test/admins/', {
+        admin_id: '',
+        admin_name: '',
+        admin_sex: '',
+        admin_age: '',
+        admin_ident: '',
+        admin_tel: '',
+        admin_email: '',
+        admin_type: ''
+      })
+            .then(function (response) {
+              self.$message('添加成功')
+            })
+            .catch(e => {
+              self.$message('添加失败')
+              this.errors.push(e)
+            })
     }
   }
 }

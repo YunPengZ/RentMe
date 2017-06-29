@@ -86,7 +86,7 @@
         <el-button
           size="small"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="deleteCar(props.row.car_num)">删除</el-button>
       </template>
     </el-table-column>
     <el-table-column
@@ -119,42 +119,6 @@ export default {
       //   car_status: '已租',
       //   car_ins_num: '123456',
       //   car_creater: 'kinmin'
-      // },
-      // {
-      //   car_num: '12987133',
-      //   car_model_id: '123',
-      //   car_color: '红色',
-      //   car_engine_num: '45432',
-      //   car_frame_num: '47186',
-      //   car_buy_date: '2016-2-3',
-      //   car_retailer: '10333',
-      //   car_status: '已租',
-      //   car_ins_num: '123456',
-      //   car_creater: 'kinmin'
-      // },
-      // {
-      //   car_num: '12987134',
-      //   car_model_id: '123',
-      //   car_color: '红色',
-      //   car_engine_num: '45432',
-      //   car_frame_num: '47186',
-      //   car_buy_date: '2016-2-3',
-      //   car_retailer: '10333',
-      //   car_status: '已租',
-      //   car_ins_num: '123456',
-      //   car_creater: 'kinmin'
-      // },
-      // {
-      //   car_num: '12987135',
-      //   car_model_id: '123',
-      //   car_color: '红色',
-      //   car_engine_num: '45432',
-      //   car_frame_num: '47186',
-      //   car_buy_date: '2016-2-3',
-      //   car_retailer: '10333',
-      //   car_status: '已租',
-      //   car_ins_num: '123456',
-      //   car_creater: 'kinmin'
       // }
       ]
     }
@@ -162,37 +126,31 @@ export default {
   created () {
     var self = this
         // var id = self.$route.params.id;
-    axios.get('/test/car/?format=json', {})
+    axios.get('/test/car/', {})
          .then(function (response) {
            self.table = response.data
          })
          .catch(e => {
            this.errors.push(e)
          })
+  },
+  methods: {
+    deleteCar (event) {
+      var self = this
+      console.log(self.form.account)
+      axios.post('/test/car/', {
+        status: 'delete',
+        car_id: self.formInline.car_id
+      })
+            .then(function (response) {
+              self.$message('删除成功')
+            })
+            .catch(e => {
+              self.$message('删除失败')
+              this.errors.push(e)
+            })
+    }
   }
-//   methods: {
-//     handleCurrentChange (val) {
-//       this.currentRow = val
-//       this.displayStatus = true
-//     },
-//     submit(){
-//             var self = this;
-//             var grade = self.currentRow.match_Grade;
-//             var m_id = self.currentRow.match_ID;
-//             var u_id = self.currentRow.user_ID;
-//             axios.post('/api/user/inputGrade',{
-//             match_Grade: grade,
-//             match_ID: m_id,
-//             user_ID: u_id
-//             })
-//             .then(function (response) {
-//             self.$message('成绩提交成功')
-//             })
-//             .catch(e => {
-//               this.errors.push(e)
-//             })
-//     }
-//   }
 }
 </script>
 <style scoped>
