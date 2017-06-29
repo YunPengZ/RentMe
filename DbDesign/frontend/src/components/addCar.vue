@@ -86,6 +86,7 @@ export default{
       var self = this
       console.log(self.form.account)
       axios.post('/test/car/', {
+        status: 'add',
         car_num: self.formInline.car_num,
         car_model_id: self.formInline.car_model_id,
         car_color: self.formInline.car_color,

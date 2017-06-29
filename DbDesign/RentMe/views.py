@@ -796,6 +796,7 @@ def get_car_info_by_dateAndStore(request):
     query_dict = dict()
     dict_list = list()
     result_dict = dict()
+            
     for order in rent_order.objects.filter(pick_time__month=datetime.datetime.now().month):
             query_dict[order.pick_time.date().isoformat()] = dict()
     for store in store_info.objects.all():
@@ -806,16 +807,10 @@ def get_car_info_by_dateAndStore(request):
             print(order.pick_addr)
             query_dict[order.pick_time.date().isoformat()]['store_count'+str(store.store_id)] += 1
     for key,values in query_dict.items():
-        dict_list.append({"pick_time":key,"store_count":values})
+        dict_list.append({"pick_time":key,"store_count1":values['store_count1'],"store_count2":values['store_count2'],"store_count3":values['store_count3'],"store_count4":values['store_count4'],"store_count5":values['store_count5']})
     #print(dict_list)
     #修改json格式的数据
-    count=1
-    for item in range(5):
-        dict_list[str(item+1)]=0
-
-    for item in dict_list['store_count']:
-        dict_list[str(count)]=dict_list[str(count)]+dict_list['store_count'][item]
-        count=count+1
+    
 
     return Response(dict_list,status=status.HTTP_200_OK)
 @api_view(['GET','POST'])
@@ -843,6 +838,8 @@ def order_pay(request):
 
             return Response(json_query,status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 
 class ModelList(generics.ListCreateAPIView):
     queryset = model_info.objects.all()

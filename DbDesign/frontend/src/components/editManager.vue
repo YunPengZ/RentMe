@@ -58,23 +58,49 @@ export default{
   data () {
     return {
       formInline: {
-        admin_name: '12987132',
-        admin_sex: '123',
-        admin_age: '红色',
-        admin_ident: '45432',
-        admin_tel: '18756010918',
-        admin_email: '2087447114@qq.com',
-        admin_type: '大中华区管理员'
+        // admin_name: '12987132',
+        // admin_sex: '123',
+        // admin_age: '红色',
+        // admin_ident: '45432',
+        // admin_tel: '18756010918',
+        // admin_email: '2087447114@qq.com',
+        // admin_type: '大中华区管理员'
       }
     }
   },
+  created () {
+    var self = this
+    var id = [self.$route.params.id]
+    // console.log(id)
+    axios.post('/test/Manager/', {admin_id: id})
+         .then(function (response) {
+           self.formInline = response.data[0]
+         })
+         .catch(e => {
+           this.errors.push(e)
+         })
+  },
   methods: {
-    handleCheckAllChange (event) {
-    },
-    handleCheckedCitiesChange (value) {
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.options['car_type'].length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.options['car_type'].length
+    updateManager () {
+      var self = this
+      axios.post('/test/admins/', {
+        status: 'update',
+        admin_id: self.formInline.admin_id,
+        admin_name: self.formInline.admin_name,
+        admin_sex: self.formInline.admin_sex,
+        admin_age: self.formInline.admin_age,
+        admin_ident: self.formInline.admin_ident,
+        admin_tel: self.formInline.admin_tel,
+        admin_email: self.formInline.admin_email,
+        admin_type: self.formInline.admin_type
+      })
+            .then(function (response) {
+              self.$message('修改成功')
+            })
+            .catch(e => {
+              self.$message('修改失败')
+              this.errors.push(e)
+            })
     }
   }
 }
