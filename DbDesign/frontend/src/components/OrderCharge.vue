@@ -87,6 +87,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default{
   data () {
     return {
@@ -97,6 +98,7 @@ export default{
       },
       user_deposit: null,
       car_deposit: 5000,
+      car_model_id: null,
       car_day_price: 100,
       user_name: '小明',
       drive_name: '小红',
@@ -105,6 +107,37 @@ export default{
       car_series: '汉兰达',
       car_config_model: '豪华型'
     }
+  },
+  created () {
+    axios.get('/test/user/' + this.$store.state.order_user_id, {})
+    .then(function (response) {
+      this.user_name = response.data.user_name
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    axios.get('/test/licenses/' + this.$store.state.order_drive_id, {})
+    .then(function (response) {
+      this.drive_name = response.data.drive_name
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    axios.get('/test/car/' + this.$store.state.car_ID, {})
+    .then(function (response) {
+      this.car_num = response.data.car_num
+      this.car_model_id = response.data.car_model_id
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    axios.get('/test/model/' + this.$store.state.car_model_id, {})
+    .then(function (response) {
+      this.car_deposit = response.data.car_deposit
+      this.car_day_price = response.data.car_day_price
+      this.car_brand = response.data.car_brand
+      this.car_series = response.data.car_series
+      this.car_config_model = response.data.car_config_model
+    }).catch(e => {
+      this.errors.push(e)
+    })
   },
   computed: {
     time_deposit () {
