@@ -48,8 +48,8 @@
       label="操作"
       prop="desc"
       >
-            <template scope="scope">
-                <router-link :to="'/home/editCar'"  class="rid">
+            <template scope="props">
+                <router-link :to="'/home/editStore/'+props.row.store_id"  class="rid">
         <el-button
           size="small">            
           
@@ -61,7 +61,7 @@
         <el-button
           size="small"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="deleteStore(props.row.store_id)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -141,8 +141,8 @@
       prop="desc"
       fixed="right"
       >
-            <template scope="scope">
-                <router-link :to="'/home/editCar'"  class="rid">
+            <template scope="props">
+                <router-link :to="'/home/editManager/'+props.row.admin_id"  class="rid">
         <el-button
           size="small">            
           
@@ -154,7 +154,7 @@
         <el-button
           size="small"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="deleteManager(props.row.admin_id)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -209,13 +209,27 @@ export default {
          })
   },
   methods: {
-    deleteCar (event) {
+    deleteStore (event) {
       var self = this
-      console.log(self.form.account)
-      axios.delete('/test/car', {
-        params: {
-          car_id: self.formInline.car_id
-        }
+      // console.log(self.form.account)
+      axios.post('/test/stores', {
+        status: 'delete',
+        store_id: self.tableStore.store_id
+      })
+            .then(function (response) {
+              self.$message('删除成功')
+            })
+            .catch(e => {
+              self.$message('删除失败')
+              this.errors.push(e)
+            })
+    },
+    deleteManager (event) {
+      var self = this
+      // console.log(self.form.account)
+      axios.delete('/test/admins', {
+        status: 'delete',
+        admin_id: self.tableStore.admin_id
       })
             .then(function (response) {
               self.$message('删除成功')
@@ -226,8 +240,6 @@ export default {
             })
     }
   }
-
-
 }
 </script>
 <style scoped>

@@ -138,10 +138,9 @@ export default {
     deleteCar (event) {
       var self = this
       console.log(self.form.account)
-      axios.delete('/test/car', {
-        params: {
-          car_id: self.formInline.car_id
-        }
+      axios.post('/test/car/', {
+        status: 'delete',
+        car_id: self.formInline.car_id
       })
             .then(function (response) {
               self.$message('删除成功')

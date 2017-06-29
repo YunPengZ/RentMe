@@ -57,12 +57,13 @@
       </el-row>
       <el-row type="flex" justify="center">
         
-          <el-button type="primary">提交</el-button>
+          <el-button type="primary" @click="addCar">提交</el-button>
      
       </el-row>
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default{
   data () {
     return {
@@ -81,7 +82,7 @@ export default{
     }
   },
   methods: {
-    updateCar () {
+    addCar () {
       var self = this
       console.log(self.form.account)
       axios.post('/test/car/', {
@@ -97,10 +98,10 @@ export default{
         car_creater: self.$store.state.user_ID
       })
             .then(function (response) {
-              self.$message('修改成功')
+              self.$message('添加成功')
             })
             .catch(e => {
-              self.$message('修改失败')
+              self.$message('添加失败')
               this.errors.push(e)
             })
     }
