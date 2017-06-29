@@ -87,7 +87,7 @@ export default{
   },
   created () {
     var self = this
-    axios.get('/test/order', {}).then(function (response) {
+    axios.get('/test/order/', {}).then(function (response) {
       self.tableData3 = response.data
     }).catch(e => {
       this.errors.push(e)

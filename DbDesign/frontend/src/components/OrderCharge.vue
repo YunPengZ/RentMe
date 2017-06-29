@@ -175,7 +175,7 @@ export default{
   methods: {
     handleSubmit () {
       var self = this
-      axios.post('/test/order/pay/', {
+      axios.post('/test/order/pay', {
         user_num: self.$store.state.order_user_id,
         car_num: self.$store.state.car_ID,
         relet_order: [],
@@ -186,9 +186,9 @@ export default{
         user_drive: self.$store.state.order_drive_id,
         record_create_admin: self.$store.state.user_ID
       }).then(function (response) {
-        self.$message('修改成功')
+        self.$message('订单成功')
       }).catch(e => {
-        self.$message('修改失败')
+        self.$message('订单失败')
         this.errors.push(e)
       })
     }
