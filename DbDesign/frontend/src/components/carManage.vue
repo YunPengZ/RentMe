@@ -79,8 +79,8 @@
       prop="desc"
       v-if="$route.path !== '/home/new_order/car_choose'"
       >
-            <template scope="scope">
-                <router-link :to="'/home/editCar'"  class="rid">
+            <template scope="props">
+                <router-link :to="'/home/editCar/'+props.row.car_num"  class="rid">
         <el-button size="small">编辑</el-button>
             </router-link>
         <el-button

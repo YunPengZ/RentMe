@@ -45,8 +45,8 @@
             .then(function (response) {
               self.$message('登录成功')
               self.$store.state.user_Name = response.data['admin_name']
-              self.$store.state.user_ID = response.data['user_ID']
-              self.$store.state.user_Status = response.data['user_Status']
+              self.$store.state.user_ID = response.data['admin_id']
+              self.$store.state.user_Status = response.data['admin_type']
               self.$router.push('/home')
               self.$router.go(1)
             })
