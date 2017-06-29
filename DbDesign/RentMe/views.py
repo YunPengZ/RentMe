@@ -28,12 +28,12 @@ def model_list(request,format=None):
         #print(serializer.data)
         return Response(serializer.data)
     elif request.method == 'POST':
-        if len(request.data)==0:
+        if len(request.query_params)==0:
             licenses = model_info.objects.all()
             serializer = ModelSerializer(licenses,many=True)
             return Response(serializer.data)
         else:
-            request_dict = request.data
+            request_dict = request.query_params
             licenses = driving_license.objects.all()
             if 'model_id' in request_dict:
                 licenses = licenses.filter(model_id=request_dict['model_id'])
@@ -268,6 +268,7 @@ def car_list(request,format=None):
                 return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
+
         if request.data['statu'][0] == 'add':
             serializer = CarSerializer(data=request.data)
             #print(type(serializer))
@@ -276,24 +277,6 @@ def car_list(request,format=None):
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             else:
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-        if request.data['statu'][0] == 'update':
-            a=request.data['car_num'][0]
-            #print(a)
-            licenses = car_info.objects.get(car_num=a)
-            #print(licenses)
-            #licenses.car_model_id=request.data['car_model_id'][0]
-            licenses.car_color=request.data['car_color'][0]
-            licenses.car_engine_num=request.data['car_engine_num'][0]
-            licenses.car_frame_num=request.data['car_frame_num'][0]
-            licenses.car_buy_date=request.data['car_buy_date'][0]
-            licenses.car_retailer=request.data['car_retailer'][0]
-            licenses.car_status=request.data['car_status'][0]
-            licenses.car_ins_num=request.data['car_ins_num'][0]
-            #licenses.car_record_create_time=request.data['car_record_create_time'][0]
-            #licenses.record_create_admin=request.data['record_create_admin'][0]
-            licenses.record_delete_status=request.data['record_delete_status'][0]
-            licenses.save()
-            return Response(status=status.HTTP_200_OK)
 
         licenses = car_info.objects.all()
         if len(request.data)==0:
@@ -885,73 +868,46 @@ def order_pay(request):
             return Response(json_query,status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_404_NOT_FOUND)
 
-'''#提交车型数据，返回车辆信息接口
+#避开框架的获得订单信息方法
 @api_view(['GET','POST'])
-def modelFindcar(request):
-    request_dict = request.data
-    licenses = driving_license.objects.all()
-    if 'model_id' in request_dict:
-        licenses = licenses.filter(model_id=request_dict['model_id'])
-    elif 'car_model_id' in request_dict:
-        licenses = licenses.filter(car_model_id=request_dict['car_model_id'])
-    elif 'car_type' in request_dict:
-        licenses = licenses.filter(car_type=request_dict['car_type'])
-    elif 'car_brand' in request_dict:
-        licenses = licenses.filter(car_brand=request_dict['car_brand'])
-    elif 'car_series' in request_dict:
-        licenses = licenses.filter(car_series=request_dict['car_series'])
-    elif 'car_issue_date' in request_dict:
-        licenses = licenses.filter(car_issue_date=request_dict['car_issue_date'])
-    elif 'car_config_model' in request_dict:
-        licenses = licenses.filter(car_config_model=request_dict['car_config_model'])
-    elif 'car_seats_num' in request_dict:
-        licenses = licenses.filter(car_seats_num=request_dict['car_seats_num'])
-    elif 'car_doors' in request_dict:
-        licenses = licenses.filter(car_doors=request_dict['car_doors'])
-    elif 'car_fuel_type' in request_dict:
-        licenses = licenses.filter(car_fuel_type=request_dict['car_fuel_type'])
-    elif 'car_gearbox_type' in request_dict:
-        licenses = licenses.filter(car_gearbox_type=request_dict['car_gearbox_type'])
-    elif 'car_displacement' in request_dict:
-        licenses = licenses.filter(car_displacement=request_dict['car_displacement'])
-    elif 'car_fuel_num' in request_dict:
-        licenses = licenses.filter(car_fuel_num=request_dict['car_fuel_num'])
-    elif 'car_drive_way' in request_dict:
-        licenses = licenses.filter(car_drive_way=request_dict['car_drive_way'])
-    elif 'car_engine_intake' in request_dict:
-        licenses = licenses.filter(car_engine_intake=request_dict['car_engine_intake'])
-    elif 'car_skylight' in request_dict:
-        licenses = licenses.filter(car_skylight=request_dict['car_skylight'])
-    elif 'car_tank_capa' in request_dict:
-        licenses = licenses.filter(car_tank_capa=request_dict['car_tank_capa'])
-    elif 'car_voicebox' in request_dict:
-        licenses = licenses.filter(car_voicebox=request_dict['car_voicebox'])
-    elif 'car_seats_type' in request_dict:
-        licenses = licenses.filter(car_seats_type=request_dict['car_seats_type'])
-    elif 'car_reverse_radar' in request_dict:
-        licenses = licenses.filter(car_reverse_radar=request_dict['car_reverse_radar'])
-    elif 'car_airbag' in request_dict:
-        licenses = licenses.filter(car_airbag=request_dict['car_airbag'])
-    elif 'car_dvd' in request_dict:
-        licenses = licenses.filter(car_dvd=request_dict['car_dvd'])
-    elif 'car_gps' in request_dict:
-        licenses = licenses.filter(car_gps=request_dict['car_gps'])
-    elif 'car_deposit' in request_dict:
-        licenses = licenses.filter(car_deposit=request_dict['car_deposit'])
-    elif 'car_day_price' in request_dict:
-        licenses = licenses.filter(car_day_price=request_dict['car_day_price'])
-    elif 'car_time_out_price' in request_dict:
-        licenses = licenses.filter(car_time_out_price=request_dict['car_time_out_price'])
-    elif 'car_over_kilo_price' in request_dict:
-        licenses = licenses.filter(car_over_kilo_price=request_dict['car_over_kilo_price'])
-    elif 'record_delete_status' in request_dict:
-        licenses = licenses.filter(record_delete_status=request_dict['record_delete_status'])
-    #print(licenses.values())
-    licenses_list=list()
-    for item in licenses.values():
-        licenses_list.append(item)
-    print(licenses)
-'''
+def get_order_defined(request):
+    result_list = []
+    for order in rent_order.objects.all():
+        car_name = order.car_num.car_num
+        user_name = order.user_num.user_name
+        drive_name = order.user_drive.drive_name
+        pick_addr = order.pick_addr.store_id
+        pick_time = order.pick_time
+        drop_time = order.drop_time
+        car_day_price = order.car_num.car_model_id.car_day_price
+        illegal_bill = order.illegal_bill
+        breaken_bill = order.breaken_bill
+        actual_deposit = order.actual_deposit
+        relet_records = []
+        relet_record = dict()
+        for relet in order.relet_order.all():
+            relet_record['relet_id'] = relet.relet_id
+            relet_record['relet_start_time'] = relet.relet_start_time
+            relet_record['relet_end_time'] = relet.relet_end_time
+            relet_records.append(relet_record)
+        result_list.append({'car_num':car_name,'user_name':user_name,'drive_name':drive_name,'pick_addr':pick_addr,'pick_time':pick_time,'drop_time':drop_time,'car_day_price':car_day_price,'illegal_bill':illegal_bill,'breaken_bill':breaken_bill,'actual_deposit':actual_deposit,'relet_records':relet_records})
+        print(result_list)
+    return Response(result_list,status=status.HTTP_200_OK)
+
+#每次新订单帮用户注册？
+@api_view(['GET','POST'])
+def order_by_create_user(request):
+    if request.method == 'POST':
+        data = request.data
+        admin = admin_info.objects.get(pk=data['record_create_admin'])
+        license = driving_license(drive_name=data['drive_name'],user_drive=data['user_drive'],drive_type=data['drive_type'],drive_start_date=data['drive_start_date'],drive_end_date=data['drive_end_date'],record_create_admin=admin)
+        license.save()
+        user = user_info(user_name=data['user_name'],user_sex=data['user_sex'],user_age=data['user_age'],user_ident=data['user_ident'],user_tel=data['user_tel'],user_office=data['user_office'],user_addr=data['user_addr'],user_post=data['user_post'],user_email=data['user_email'])
+        user.save()
+        json_result = {'order_user_id':user.user_id,'order_drive_id':license.drive_id}
+        return Response(json_result,status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class ModelList(generics.ListCreateAPIView):
     queryset = model_info.objects.all()
