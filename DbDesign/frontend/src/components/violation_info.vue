@@ -96,71 +96,59 @@ export default {
   data () {
     return {
       table: [
-        {
-          millegal_car_num: 'fuckyou',
-          illegal_date: '234',
-          illegal_bill: '1001000$',
-          illegal_info: 'xyz'
-        },
-        {
-          millegal_car_num: 'fuckyou-1',
-          illegal_date: '234',
-          illegal_bill: '1001000$',
-          illegal_info: 'xyz'
-        }
+        // {
+        //   millegal_car_num: 'fuckyou',
+        //   illegal_date: '234',
+        //   illegal_bill: '1001000$',
+        //   illegal_info: 'xyz'
+        // },
+        // {
+        //   millegal_car_num: 'fuckyou-1',
+        //   illegal_date: '234',
+        //   illegal_bill: '1001000$',
+        //   illegal_info: 'xyz'
+        // }
       ],
-      currentRow: {
-        match_ID: '123',
-        user_ID: '234',
-        match_Grade: null
-      },
       formInline: {
-        millegal_car_num: 'fuckyou',
+        millegal_car_num: '',
         illegal_date: '',
-        illegal_bill: '1001000$',
-        illegal_info: 'xyz'
+        illegal_bill: '',
+        illegal_info: ''
       },
       displayStatus: false
     }
+  },
+  created () {
+    var self = this
+        // var id = self.$route.params.id;
+    axios.get('/test/illegal_record/', {})
+         .then(function (response) {
+           self.table = response.data
+         })
+         .catch(e => {
+           this.errors.push(e)
+         })
+  },
+  methods: {
+    addCar () {
+      var self = this
+      axios.post('/test/illegal_record/', {
+        status: 'add',
+        millegal_car_num: self.formInline.millegal_car_num,
+        illegal_date: self.formInline.illegal_date,
+        illegal_bill: self.formInline.illegal_bill,
+        illegal_info: self.formInline.illegal_info
+      })
+            .then(function (response) {
+              self.$message('添加成功')
+              created()
+            })
+            .catch(e => {
+              self.$message('添加失败')
+              this.errors.push(e)
+            })
+    }
   }
-//     created() {
-//     var self = this;
-//     var id = self.$route.params.id;
-//     axios.get('/api/user/queryAllGrade',{
-//       params: {
-//       message : id
-//     }
-//     })
-//       .then( function (response) {
-//        self.users = response.data
-//       })
-//       .catch(e => {
-//       this.errors.push(e)
-//     })
-//   },
-//   methods: {
-//     handleCurrentChange (val) {
-//       this.currentRow = val
-//       this.displayStatus = true
-//     },
-//     submit(){
-//             var self = this;
-//             var grade = self.currentRow.match_Grade;
-//             var m_id = self.currentRow.match_ID;
-//             var u_id = self.currentRow.user_ID;
-//             axios.post('/api/user/inputGrade',{
-//             match_Grade: grade,
-//             match_ID: m_id,
-//             user_ID: u_id
-//             })
-//             .then(function (response) {
-//             self.$message('成绩提交成功')
-//             })
-//             .catch(e => {
-//               this.errors.push(e)
-//             })
-//     }
-//   }
 }
 </script>
 <style scoped>
