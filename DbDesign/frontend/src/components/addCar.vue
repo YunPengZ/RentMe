@@ -81,12 +81,28 @@ export default{
     }
   },
   methods: {
-    handleCheckAllChange (event) {
-    },
-    handleCheckedCitiesChange (value) {
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.options['car_type'].length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.options['car_type'].length
+    updateCar () {
+      var self = this
+      console.log(self.form.account)
+      axios.post('/test/car/', {
+        car_num: self.formInline.car_num,
+        car_model_id: self.formInline.car_model_id,
+        car_color: self.formInline.car_color,
+        car_engine_num: self.formInline.car_engine_num,
+        car_frame_num: self.formInline.car_frame_num,
+        car_buy_date: self.formInline.car_buy_date,
+        car_retailer: self.formInline.car_retailer,
+        car_status: self.formInline.car_status,
+        car_ins_num: self.formInline.car_ins_num,
+        car_creater: self.$store.state.user_ID
+      })
+            .then(function (response) {
+              self.$message('修改成功')
+            })
+            .catch(e => {
+              self.$message('修改失败')
+              this.errors.push(e)
+            })
     }
   }
 }
