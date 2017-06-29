@@ -70,10 +70,10 @@ export default{
   methods: {
     updateStore () {
       var self = this
+      var id = [self.$route.params.id]
       axios.post('/test/stores/', {
         'statu': 'update',
         store_id: id,
-        store_id: self.formInline.store_id,
         store_addr: self.formInline.store_addr,
         store_tel: self.formInline.store_tel,
         store_start_time: self.formInline.store_start_time,
