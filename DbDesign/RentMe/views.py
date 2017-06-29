@@ -868,7 +868,7 @@ def order_pay(request):
             return Response(json_query,status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_404_NOT_FOUND)
 
-<<<<<<< HEAD
+
 #提交车型数据，返回车辆信息接口
 @api_view(['GET','POST'])
 def modelFindcar(request):
@@ -947,9 +947,9 @@ def modelFindcar(request):
             #licenses_list.append(item.car_model_id)
         #print(licenses)
         licenses = car_info.objects.filter(car_model_id__in=licenses_list)
-        
+
         return Response(licenses.values(),status=status.HTTP_200_OK)
-=======
+
 #避开框架的获得订单信息方法
 @api_view(['GET','POST'])
 def get_order_defined(request):
@@ -989,7 +989,7 @@ def order_by_create_user(request):
         json_result = {'order_user_id':user.user_id,'order_drive_id':license.drive_id}
         return Response(json_result,status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_204_NO_CONTENT)
->>>>>>> e98af5848aa90f7cc4f1e2105a3441190210cc59
+
 
 
 class ModelList(generics.ListCreateAPIView):
