@@ -167,85 +167,47 @@
 export default {
   data () {
     return {
-      tableStore: [{
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
-      },
-      {
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
-      },
-      {
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
-      },
-      {
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
-      }
+      tableStore: [
+      //   {
+      //   store_addr: '12987132',
+      //   store_tel: '123',
+      //   store_start_time: '红色',
+      //   store_admin: '45432'
+      // }
       ],
-      tableManager: [{
-        admin_name: '12987132',
-        admin_sex: '123',
-        admin_age: '红色',
-        admin_ident: '45432',
-        admin_tel: '18756010918',
-        admin_email: '2087447114@qq.com',
-        admin_type: '大中华区管理员'
-      },
-      {
-        admin_name: '12987132',
-        admin_sex: '123',
-        admin_age: '红色',
-        admin_ident: '45432',
-        admin_tel: '18756010918',
-        admin_email: '2087447114@qq.com',
-        admin_type: '大中华区管理员'
-      },
-      {
-        admin_name: '12987132',
-        admin_sex: '123',
-        admin_age: '红色',
-        admin_ident: '45432',
-        admin_tel: '18756010918',
-        admin_email: '2087447114@qq.com',
-        admin_type: '大中华区管理员'
-      },
-      {
-        admin_name: '12987132',
-        admin_sex: '123',
-        admin_age: '红色',
-        admin_ident: '45432',
-        admin_tel: '18756010918',
-        admin_email: '2087447114@qq.com',
-        admin_type: '大中华区管理员'
-      }
+      tableManager: [
+      //   {
+      //   admin_name: '12987132',
+      //   admin_sex: '123',
+      //   admin_age: '红色',
+      //   admin_ident: '45432',
+      //   admin_tel: '18756010918',
+      //   admin_email: '2087447114@qq.com',
+      //   admin_type: '大中华区管理员'
+      // }
+
       ]
     }
+  },
+  created () {
+    var self = this
+        // var id = self.$route.params.id;
+    axios.get('/test/admin/?format=json', {})
+         .then(function (response) {
+           self.tableManager = response.data
+         })
+         .catch(e => {
+           this.errors.push(e)
+         })
+
+    axios.get('/test/stores/?format=json', {})
+         .then(function (response) {
+           self.tableStore = response.data
+         })
+         .catch(e => {
+           this.errors.push(e)
+         })
   }
-//     created() {
-//     var self = this;
-//     var id = self.$route.params.id;
-//     axios.get('/api/user/queryAllGrade',{
-//       params: {
-//       message : id
-//     }
-//     })
-//       .then( function (response) {
-//        self.users = response.data
-//       })
-//       .catch(e => {
-//       this.errors.push(e)
-//     })
-//   },
 //   methods: {
 //     handleCurrentChange (val) {
 //       this.currentRow = val
