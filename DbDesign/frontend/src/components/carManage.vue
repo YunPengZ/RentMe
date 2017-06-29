@@ -103,7 +103,7 @@
 </div>
 </template>
 <script>
-// import axios from 'axios';
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -159,16 +159,16 @@ export default {
       ]
     }
   },
-  created() {
-        var self = this;
-        var id = self.$route.params.id;
-        axios.get('/test/car/?format=json',{})
-         .then( function (response) {
-          self.table = response.data
-      })
+  created () {
+    var self = this
+        // var id = self.$route.params.id;
+    axios.get('/test/car/?format=json', {})
+         .then(function (response) {
+           self.table = response.data
+         })
          .catch(e => {
-          this.errors.push(e)
-    })
+           this.errors.push(e)
+         })
   }
 //   methods: {
 //     handleCurrentChange (val) {

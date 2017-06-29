@@ -8,9 +8,11 @@ import VCharts from 'v-charts'
 import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import axios from 'axios'
 
 Vue.use(VCharts)
 Vue.use(ElementUI)
+Vue.use(axios)
 // Vue.use(Vuex)
 
 /* eslint-disable no-new */
