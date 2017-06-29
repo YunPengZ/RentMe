@@ -107,72 +107,69 @@
 export default {
   data () {
     return {
-      table: [{
-        car_num: '12987132',
-        car_model_id: '123',
-        car_color: '红色',
-        car_engine_num: '45432',
-        car_frame_num: '47186',
-        car_buy_date: '2016-2-3',
-        car_retailer: '10333',
-        car_status: '已租',
-        car_ins_num: '123456',
-        car_creater: 'kinmin'
-      },
-      {
-        car_num: '12987133',
-        car_model_id: '123',
-        car_color: '红色',
-        car_engine_num: '45432',
-        car_frame_num: '47186',
-        car_buy_date: '2016-2-3',
-        car_retailer: '10333',
-        car_status: '已租',
-        car_ins_num: '123456',
-        car_creater: 'kinmin'
-      },
-      {
-        car_num: '12987134',
-        car_model_id: '123',
-        car_color: '红色',
-        car_engine_num: '45432',
-        car_frame_num: '47186',
-        car_buy_date: '2016-2-3',
-        car_retailer: '10333',
-        car_status: '已租',
-        car_ins_num: '123456',
-        car_creater: 'kinmin'
-      },
-      {
-        car_num: '12987135',
-        car_model_id: '123',
-        car_color: '红色',
-        car_engine_num: '45432',
-        car_frame_num: '47186',
-        car_buy_date: '2016-2-3',
-        car_retailer: '10333',
-        car_status: '已租',
-        car_ins_num: '123456',
-        car_creater: 'kinmin'
-      }
+      table: [
+      // {
+      //   car_num: '12987132',
+      //   car_model_id: '123',
+      //   car_color: '红色',
+      //   car_engine_num: '45432',
+      //   car_frame_num: '47186',
+      //   car_buy_date: '2016-2-3',
+      //   car_retailer: '10333',
+      //   car_status: '已租',
+      //   car_ins_num: '123456',
+      //   car_creater: 'kinmin'
+      // },
+      // {
+      //   car_num: '12987133',
+      //   car_model_id: '123',
+      //   car_color: '红色',
+      //   car_engine_num: '45432',
+      //   car_frame_num: '47186',
+      //   car_buy_date: '2016-2-3',
+      //   car_retailer: '10333',
+      //   car_status: '已租',
+      //   car_ins_num: '123456',
+      //   car_creater: 'kinmin'
+      // },
+      // {
+      //   car_num: '12987134',
+      //   car_model_id: '123',
+      //   car_color: '红色',
+      //   car_engine_num: '45432',
+      //   car_frame_num: '47186',
+      //   car_buy_date: '2016-2-3',
+      //   car_retailer: '10333',
+      //   car_status: '已租',
+      //   car_ins_num: '123456',
+      //   car_creater: 'kinmin'
+      // },
+      // {
+      //   car_num: '12987135',
+      //   car_model_id: '123',
+      //   car_color: '红色',
+      //   car_engine_num: '45432',
+      //   car_frame_num: '47186',
+      //   car_buy_date: '2016-2-3',
+      //   car_retailer: '10333',
+      //   car_status: '已租',
+      //   car_ins_num: '123456',
+      //   car_creater: 'kinmin'
+      // }
       ]
     }
+  },
+  created() {
+        var self = this;
+        var id = self.$route.params.id;
+        axios.get('/test/car/?format=json',{})
+         .then( function (response) {
+          self.table = response.data
+      })
+         .catch(e => {
+          this.errors.push(e)
+    })
   }
-//     created() {
-//     var self = this;
-//     var id = self.$route.params.id;
-//     axios.get('/api/user/queryAllGrade',{
-//       params: {
-//       message : id
-//     }
-//     })
-//       .then( function (response) {
-//        self.users = response.data
-//       })
-//       .catch(e => {
-//       this.errors.push(e)
-//     })
-//   },
 //   methods: {
 //     handleCurrentChange (val) {
 //       this.currentRow = val
