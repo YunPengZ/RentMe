@@ -27,7 +27,9 @@
 <el-col :offset="4" :span="17">
   <el-table
     :data="table"
-    style="width: 100%;height:100%">
+    height="800"
+    style="width: 100%">
+    
         <el-table-column
       type="index"
       >

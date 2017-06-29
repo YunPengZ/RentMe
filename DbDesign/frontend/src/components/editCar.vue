@@ -10,7 +10,7 @@
             </el-input>
             </el-form-item>
             <el-form-item label="车辆型号">
-            <el-input placeholder="请输入内容" v-model="formInline.car_model_id" type="number" >
+            <el-input placeholder="请输入内容" v-model="formInline.car_model_id_id" >
             </el-input>
             </el-form-item>
             <el-form-item label="车辆颜色">
@@ -99,10 +99,9 @@ export default{
   methods: {
     updateCar () {
       var self = this
-      console.log(self.form.account)
+      console.log(self.formInline.car_num)
       axios.post('/test/car/', {
         'statu': 'update',
-        car_id: self.formInline.car_id,
         car_num: self.formInline.car_num,
         car_model_id: self.formInline.car_model_id,
         car_color: self.formInline.car_color,
