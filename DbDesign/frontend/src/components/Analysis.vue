@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -83,7 +84,29 @@ export default {
       }
     }
   },
-  created: {
+  created () {
+    axios.get('/test/order/type/?format=json', {})
+    .then(function (response) {
+      this.typeData.rows = response.data
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    axios.get('/test/order/date/?format=json', {})
+    .then(function (response) {
+      this.dayData.rows = response.data
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    // axios.get('/test/order/date_type/?format=json', {})
+    // .then(function (response) {
+    //   for (var LenCount = 0; LenCount < response.data.length; LenCount++) {
+    //     var justifyData = response.data[LenCount]['store_count']
+    //     this.dayData.rows.push(response.data[LenCount])
+    //   }
+    //   this.dayData.rows = response.data
+    // }).catch(e => {
+    //   this.errors.push(e)
+    // })
   }
 }
 </script>
