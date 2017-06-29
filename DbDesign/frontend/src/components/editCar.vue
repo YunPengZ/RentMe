@@ -90,30 +90,33 @@ export default{
       }
     })
          .then(function (response) {
-           self.formInline = response.data[0]
+           self.formInline = response.data
          })
          .catch(e => {
            this.errors.push(e)
          })
   },
   methods: {
-        updateCar (car_num) {
+        updateCar (event) {
           var self = this
           console.log(self.form.account)
-          axios.post('/test/login/?format=json', {
-            admin_tel: self.form.account,
-            admin_pas: self.form.password
+          axios.post('/test/login', {
+            car_num: self.formInline.car_num,
+            car_model_id: self.formInline.car_num,
+            car_color: self.formInline.car_num,
+            car_engine_num: self.formInline.car_num,
+            car_frame_num: self.formInline.car_num,
+            car_buy_date: self.formInline.car_num,
+            car_retailer: self.formInline.car_num,
+            car_status: self.formInline.car_num,
+            car_ins_num: self.formInline.car_num,
+            car_creater: self.formInline.car_num
           })
             .then(function (response) {
-              self.$message('登录成功')
-              self.$store.state.user_Name = response.data['admin_name']
-              self.$store.state.user_ID = response.data['user_ID']
-              self.$store.state.user_Status = response.data['user_Status']
-              self.$router.push('/home')
-              self.$router.go(1)
+              self.$message('修改成功')
             })
             .catch(e => {
-              self.$message('账号或者密码错误，请重新输入')
+              self.$message('修改失败')
               this.errors.push(e)
             })
         }
