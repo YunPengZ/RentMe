@@ -447,7 +447,7 @@ def store_list(request,format=None):
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         if request.data['statu'][0] == 'update':
-                a=request.data['store_addr'][0]
+            a=request.data['store_addr'][0]
             licenses = store_info.objects.get(store_addr=a)
             licenses.store_tel=request.data['store_tel'][0]
             licenses.store_start_time=request.data['store_start_time'][0]
