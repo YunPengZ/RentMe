@@ -4,41 +4,41 @@
       <el-card>
         <h3>填写驾驶员信息</h3>
         <el-col :span="12">
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+          <el-form :model="form" :rules="rules" ref="form" label-width="100px">
             <el-form-item prop="checkPass">
-              <el-input v-model="ruleForm.password" auto-complete="off">
+              <el-input v-model="form.drive_name" auto-complete="off">
                 <template slot="prepend">姓名</template>
               </el-input>
             </el-form-item>
             <el-form-item prop="checkPass">
-              <el-input v-model="ruleForm.password" auto-complete="off">
+              <el-input v-model="form.user_drive" auto-complete="off">
                 <template slot="prepend">驾驶证号</template>
               </el-input>
             </el-form-item>
             <el-form-item prop="checkPass">
-              <el-input v-model="ruleForm.password" auto-complete="off">
+              <el-input v-model="form.drive_type" auto-complete="off">
                 <template slot="prepend">驾驶证类型</template>
               </el-input>
             </el-form-item>
           </el-form>
         </el-col>
         <el-col :span="12">
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+          <el-form :model="form" :rules="rules" ref="form" label-width="100px">
             <el-form-item prop="checkPass">
-              <el-input v-model="ruleForm.password" auto-complete="off" class="input">
+              <el-input v-model="form.drive_age" auto-complete="off" class="input">
                 <template slot="prepend">驾龄</template>
               </el-input>
             </el-form-item>
-            <el-form-item prop="checkPass">
+            <el-form-item prop="form">
               <el-date-picker
-                v-model="drive_start_date"
+                v-model="form.drive_start_date"
                 type="date"
                 placeholder="选择发证日期">
               </el-date-picker>
             </el-form-item>
-            <el-form-item prop="checkPass">
+            <el-form-item prop="form">
               <el-date-picker
-                v-model="drive_end_date"
+                v-model="form.drive_end_date"
                 type="date"
                 placeholder="选择失效日期">
               </el-date-picker>
@@ -51,58 +51,58 @@
       <el-card>
         <h3>填写用户信息</h3>
         <el-col :span="12">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+        <el-form :model="form" :rules="rules" ref="form" label-width="100px">
           <el-form-item prop="name">
-            <el-input v-model="ruleForm.name" auto-complete="off">
+            <el-input v-model="form.user_name" auto-complete="off">
               <template slot="prepend">姓名</template>
             </el-input>
           </el-form-item>
           <el-form-item>
             <span>性别：</span>
-            <el-radio class="radio" v-model="ruleForm.sex" label="男">男</el-radio>
-            <el-radio class="radio" v-model="ruleForm.sex" label="女">女</el-radio>
+            <el-radio class="radio" v-model="form.user_sex" label="男">男</el-radio>
+            <el-radio class="radio" v-model="form.user_sex" label="女">女</el-radio>
           </el-form-item>
           <el-form-item prop="age">
-            <el-input v-model.number="ruleForm.aage">
+            <el-input v-model.number="form.user_age">
               <template slot="prepend">年龄</template>
             </el-input>
           </el-form-item>
           <el-form-item prop="age">
-            <el-input v-model.number="ruleForm.aage">
+            <el-input v-model.number="form.user_tel">
               <template slot="prepend">电话</template>
             </el-input>
           </el-form-item>
           <el-form-item prop="age">
-            <el-input v-model.number="ruleForm.aage">
+            <el-input v-model.number="form.user_ident">
               <template slot="prepend">身份证号</template>
             </el-input>
           </el-form-item>
         </el-form>
         </el-col>
         <el-col :span="12">
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+          <el-form :model="form" :rules="rules" ref="form" label-width="100px">
           <el-form-item prop="pass">
-            <el-input type="password" v-model="ruleForm.password" auto-complete="off">
+            <el-input v-model="form.user_addr" auto-complete="off">
               <template slot="prepend">地址</template>
             </el-input>
           </el-form-item>
           <el-form-item prop="checkPass">
-            <el-input type="password" v-model="ruleForm.password" auto-complete="off">
+            <el-input v-model="form.user_post" auto-complete="off">
               <template slot="prepend">邮编</template>
             </el-input>
           </el-form-item>
           <el-form-item prop="age">
-            <el-input v-model.number="ruleForm.aage">
+            <el-input v-model.number="form.user_email">
               <template slot="prepend">Email</template>
             </el-input>
           </el-form-item>
           <el-form-item prop="age">
-            <el-input v-model.number="ruleForm.aage">
+            <el-input v-model.number="form.user_office">
               <template slot="prepend">工作单位</template>
             </el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+            <el-button type="primary" @click="submitForm()">提交</el-button>
           </el-form-item>
         </el-form>
         </el-col>
@@ -111,6 +111,7 @@
   </div> 
 </template>
 <script>
+import axios from 'axios'
 export default{
   data () {
     // var checkAge = (rule, value, callback) => {
@@ -138,11 +139,22 @@ export default{
     //   }
     // }
     return {
-      ruleForm: {
-        sex: '',
-        pass: '',
-        checkPass: '',
-        age: ''
+      form: {
+        drive_name: null,
+        user_drive: null,
+        drive_type: null,
+        drive_age: null,
+        drive_start_date: null,
+        drive_end_date: null,
+        user_name: null,
+        user_sex: null,
+        user_age: null,
+        user_ident: null,
+        user_tel: null,
+        user_office: null,
+        user_addr: null,
+        user_post: null,
+        user_email: null
       },
       rules: {
       }
@@ -150,14 +162,7 @@ export default{
   },
   methods: {
     submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+      axios.
     }
   }
 }
