@@ -1,6 +1,6 @@
 <template>
-  <div >
-    <el-row  class="background">
+  <div  class="background">
+    <el-row >
       <el-col :offset="9" :span="6">
         <!--<img src="../assets/car.jpg"></img>-->
         <el-card class="position">

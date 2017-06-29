@@ -256,8 +256,8 @@ def user_info_detail(request,pk,format=None):
 @api_view(['GET','POST'])
 def login(request):
     if request.method == 'POST':
-        tel = request.POST.get('admin_tel','18855121479')
-        pas = request.POST.get('admin_pas','wozhua')
+        tel = request.data['admin_tel']
+        pas = request.data['admin_pas']
         admin = admin_info.objects.filter(admin_tel__exact=tel,admin_pas__exact=pas)
         #filter返回QuerySet集合对象，遍历获得唯一元素
         if admin:
