@@ -197,6 +197,15 @@ def illegal_list(request,format=None):
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        if request.data['statu'][0] == 'update':
+            a=request.data['illegal_date'][0]
+            licenses = illegal_info.objects.get(illegal_date=a)
+            licenses.illegal_bill=request.data['illegal_bill'][0]
+            licenses.illegal_info=request.data['illegal_info'][0]
+            licenses.illegal_record_create_time=request.data['illegal_record_create_time'][0]
+            licenses.record_delete_status=request.data['record_delete_status'][0]
+            licenses.save()
+            return Response(status=status.HTTP_200_OK)
         licenses = illegal_record.objects.all()
         if len(request.data)==0:
             serializer = illegalSerializer(licenses,many=True)
@@ -365,7 +374,20 @@ def admin_list(request,format=None):
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
+        if request.data['statu'][0] == 'update':
+            a=request.data['admin_pas'][0]
+            licenses = admin_info.objects.get(admin_pas=a)
+            licenses.admin_name=request.data['admin_name'][0]
+            licenses.admin_sex=request.data['admin_sex'][0]
+            licenses.admin_age=request.data['admin_age'][0]
+            licenses.admin_ident=request.data['admin_ident'][0]
+            licenses.admin_tel=request.data['admin_tel'][0]
+            licenses.admin_email=request.data['admin_email'][0]
+            licenses.admin_type=request.data['admin_type'][0]
+            licenses.admin_record_create_time=request.data['admin_record_create_time'][0]
+            licenses.record_delete_status=request.data['record_delete_status'][0]
+            licenses.save()
+            return Response(status=status.HTTP_200_OK)
         if len(request.data)==0:
             licenses = admin_info.objects.all()
             serializer = AdminSerializer(licenses,many=True)
@@ -441,7 +463,15 @@ def store_list(request,format=None):
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
+        if request.data['statu'][0] == 'update':
+                a=request.data['store_addr'][0]
+            licenses = store_info.objects.get(store_addr=a)
+            licenses.store_tel=request.data['store_tel'][0]
+            licenses.store_start_time=request.data['store_start_time'][0]
+            licenses.store_record_create_time=request.data['store_record_create_time'][0]
+            licenses.record_delete_status=request.data['record_delete_status'][0]
+            licenses.save()
+            return Response(status=status.HTTP_200_OK)
 
         licenses = store_info.objects.all()
         if len(request.data)==0:
