@@ -194,13 +194,14 @@
       <el-row type="flex" justify="center">
         <el-col :span="6">
           <p class="text">*不选则默认不作要求</p>
-          <el-button type="primary">提交</el-button>
+          <el-button type="primary" @click="handleSubmit()">提交</el-button>
         </el-col>
       </el-row>
     </el-card>
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default{
   data () {
     return {
@@ -303,6 +304,33 @@ export default{
     }
   },
   methods: {
+    handleSubmit () {
+      var self = this
+      axios.post('/test/findcar/', {
+        car_brand: self.ruleForm.car_brand,
+        car_type: self.ruleForm.car_type,
+        car_seats_num: self.ruleForm.car_seats_num,
+        car_doors: self.ruleForm.car_doors,
+        car_fuel_type: self.ruleForm.car_fuel_type,
+        car_gearbox_type: self.ruleForm.car_gearbox_type,
+        car_displacement: self.ruleForm.car_displacement,
+        car_fuel_num: self.ruleForm.car_fuel_num,
+        car_drive_way: self.ruleForm.car_drive_way,
+        car_engine_intake: self.ruleForm.car_engine_intake,
+        car_skylight: self.ruleForm.car_skylight,
+        car_tank_capa: self.ruleForm.car_tank_capa,
+        car_voicebox: self.ruleForm.car_voicebox,
+        car_seats_type: self.ruleForm.car_seats_type,
+        car_reverse_radar: self.ruleForm.car_reverse_radar,
+        car_airbag: self.ruleForm.car_airbag,
+        car_dvd: self.ruleForm.car_dvd
+      }).then(function (response) {
+        self.$message('车型选择成功')
+      }).catch(e => {
+        self.$message('选择失败')
+        this.errors.push(e)
+      })
+    },
     handleCheckAllChange (event) {
     },
     handleCheckedCitiesChange (value) {
