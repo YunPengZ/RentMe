@@ -16,9 +16,6 @@ import datetime
 #filter(user_drive__in=['123456789','12345'])
 
 #license_info查询&添加
-
-
-
 @api_view(['GET','POST'])
 def license_list(request=[],format=None):
     if request.method == 'GET':
@@ -68,7 +65,7 @@ def illegal_list(request=[],format=None):
     if request.method == 'GET':
         licenses = illegal_record.objects.all()
         if len(request.data)==0:
-            serializer = LllegalSerializer(licenses,many=True)
+            serializer = illegalSerializer(licenses,many=True)
             return Response(serializer.data)
         else:
             request_dict = request.data
@@ -93,12 +90,12 @@ def illegal_list(request=[],format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-            serializer = LllegalSerializer(data=licenses_list,many=True)
+            serializer = illegalSerializer(data=licenses_list,many=True)
             if serializer.is_valid():
                 return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = DrivingSerializer(data=request.data)
+        serializer = illegalSerializer(data=request.data)
         print(type(serializer))
         if serializer.is_valid():
             serializer.save()
@@ -151,7 +148,272 @@ def car_list(request=[],format=None):
                 return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = DrivingSerializer(data=request.data)
+        serializer = CarSerializer(data=request.data)
+        print(type(serializer))
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET','PUT','DELETE'])
+def license_detail(request,pk,format=None):
+    try:
+        license = driving_license.objects.get(pk=pk)
+    except driving_license.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = DrivingSerializer(license)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = DrivingSerializer(license,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        license.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+#admin_info查询&添加
+@api_view(['GET','POST'])
+def admin_list(request=[],format=None):
+    if request.method == 'GET':
+        if len(request.data)==0:
+            licenses = admin_info.objects.all()
+            serializer = AdminSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            licenses = admin_info.objects.all()
+            if 'admin_id' in request_dict:
+                licenses = licenses.filter(admin_id__in=request_dict['admin_id'])
+            elif 'admin_pas' in request_dict:
+                licenses = licenses.filter(admin_pas__in=request_dict['admin_pas'])
+            elif 'admin_name' in request_dict:
+                licenses = licenses.filter(admin_name__in=request_dict['admin_name'])
+            elif 'admin_sex' in request_dict:
+                licenses = licenses.filter(admin_sex__in=request_dict['admin_sex'])
+            elif 'admin_age' in request_dict:
+                licenses = licenses.filter(admin_age__in=request_dict['admin_age'])
+            elif 'admin_ident' in request_dict:
+                licenses = licenses.filter(admin_ident__in=request_dict['admin_ident'])
+            elif 'admin_tel' in request_dict:
+                licenses = licenses.filter(admin_tel__in=request_dict['admin_tel'])
+            elif 'admin_email' in request_dict:
+                licenses = licenses.filter(admin_email__in=request_dict['admin_email'])
+            elif 'admin_type' in request_dict:
+                licenses = licenses.filter(admin_type__in=request_dict['admin_type'])
+            elif 'admin_record_create_time' in request_dict:
+                licenses = licenses.filter(admin_record_create_time__in=request_dict['admin_record_create_time'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])            
+            #print(licenses.values())
+            admin_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
+
+            serializer = AdminSerializer(data=licenses_list,many=True)
+            if serializer.is_valid():
+                return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = AdminSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            #print('post')
+            #print(Response(serializer.data))
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+#store_info查询&添加
+@api_view(['GET','POST'])
+def store_list(request=[],format=None):
+    if request.method == 'GET':
+        licenses = store_info.objects.all()
+        if len(request.data)==0:
+            serializer = StoreSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            #licenses = store_info.objects.all()
+            if 'store_id' in request_dict:
+                licenses = licenses.objects.filter(store_id__in=request_dict['store_id'])
+            elif 'store_addr' in request_dict:
+                licenses = licenses.filter(store_addr__in=request_dict['store_addr'])
+            elif 'store_tel' in request_dict:
+                licenses = licenses.filter(store_tel__in=request_dict['store_tel'])
+            elif 'store_start_time' in request_dict:
+                licenses = licenses.filter(store_start_time__in=request_dict['store_start_time'])
+            elif 'store_admin' in request_dict:
+                licenses = licenses.filter(store_admin__in=request_dict['store_admin'])
+            elif 'store_record_create_time' in request_dict:
+                licenses = licenses.filter(store_record_create_time__in=request_dict['store_record_create_time'])
+            elif 'record_create_admin' in request_dict:
+                licenses = licenses.filter(record_create_admin__in=request_dict['record_create_admin'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
+            #print(licenses.values())
+            licenses_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
+            serializer = StoreSerializer(data=licenses_list,many=True)
+            if serializer.is_valid():
+                return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = StoreSerializer(data=request.data)
+        print(type(serializer))
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+#rent_order查询&添加
+@api_view(['GET','POST'])
+def rent_list(request=[],format=None):
+    if request.method == 'GET':
+        licenses = rent_order.objects.all()
+        if len(request.data)==0:
+            serializer = OrderSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            #licenses = rent_info.objects.all()
+            if 'order_id' in request_dict:
+                licenses = licenses.objects.filter(order_id__in=request_dict['order_id'])
+            elif 'user_num' in request_dict:
+                licenses = licenses.filter(user_num__in=request_dict['user_num'])
+            elif 'car_num' in request_dict:
+                licenses = licenses.filter(car_num__in=request_dict['car_num'])
+            elif 'user_drive' in request_dict:
+                licenses = licenses.filter(user_drive__in=request_dict['user_drive'])
+            elif 'pick_addr' in request_dict:
+                licenses = licenses.filter(pick_addr__in=request_dict['pick_addr'])
+            elif 'pick_time' in request_dict:
+                licenses = licenses.filter(pick_time__in=request_dict['pick_time'])
+            elif 'drop_time' in request_dict:
+                licenses = licenses.filter(drop_time__in=request_dict['drop_time'])
+            elif 'actual_deposit' in request_dict:
+                licenses = licenses.filter(actual_deposit__in=request_dict['actual_deposit'])
+            elif 'breaken_bill' in request_dict:
+                licenses = licenses.filter(breaken_bill__in=request_dict['breaken_bill'])
+            elif 'illegal_info' in request_dict:
+                licenses = licenses.filter(illegal_info__in=request_dict['illegal_info'])
+            elif 'illegal_bill' in request_dict:
+                licenses = licenses.filter(illegal_bill__in=request_dict['illegal_bill'])
+            elif 'actual_money' in request_dict:
+                licenses = licenses.filter(actual_money__in=request_dict['actual_money'])
+            elif 'record_create_admin' in request_dict:
+                licenses = licenses.filter(record_create_admin__in=request_dict['record_create_admin'])
+            elif 'order_record_create_time' in request_dict:
+                licenses = licenses.filter(order_record_create_time__in=request_dict['order_record_create_time'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
+            #print(licenses.values())
+            licenses_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
+            serializer = OrderSerializer(data=licenses_list,many=True)
+            if serializer.is_valid():
+                return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = OrderSerializer(data=request.data)
+        print(type(serializer))
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+#relet_record查询&添加
+@api_view(['GET','POST'])
+def relet_list(request=[],format=None):
+    if request.method == 'GET':
+        licenses = relet_record.objects.all()
+        if len(request.data)==0:
+            serializer = ReletSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            #licenses = relet_info.objects.all()
+            if 'relet_id' in request_dict:
+                licenses = licenses.objects.filter(relet_id__in=request_dict['relet_id'])
+            elif 'order_num' in request_dict:
+                licenses = licenses.filter(order_num__in=request_dict['order_num'])
+            elif 'relet_start_time' in request_dict:
+                licenses = licenses.filter(relet_start_time__in=request_dict['relet_start_time'])
+            elif 'relet_end_time' in request_dict:
+                licenses = licenses.filter(relet_end_time__in=request_dict['relet_end_time'])
+            elif 'record_create_admin' in request_dict:
+                licenses = licenses.filter(record_create_admin__in=request_dict['record_create_admin'])
+            elif 'relet_record_create_time' in request_dict:
+                licenses = licenses.filter(relet_record_create_time__in=request_dict['relet_record_create_time'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
+            #print(licenses.values())
+            licenses_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
+            serializer = ReletSerializer(data=licenses_list,many=True)
+            if serializer.is_valid():
+                return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = ReletSerializer(data=request.data)
+        print(type(serializer))
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+#user_info查询&添加
+@api_view(['GET','POST'])
+def user_list(request=[],format=None):
+    if request.method == 'GET':
+        licenses = user_info.objects.all()
+        if len(request.data)==0:
+            serializer = UserSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            #licenses = user_info.objects.all()
+            if 'user_id' in request_dict:
+                licenses = licenses.objects.filter(user_id__in=request_dict['user_id'])
+            elif 'user_name' in request_dict:
+                licenses = licenses.filter(user_name__in=request_dict['user_name'])
+            elif 'user_sex' in request_dict:
+                licenses = licenses.filter(user_sex__in=request_dict['user_sex'])
+            elif 'user_age' in request_dict:
+                licenses = licenses.filter(user_age__in=request_dict['user_age'])
+            elif 'user_ident' in request_dict:
+                licenses = licenses.filter(user_ident__in=request_dict['user_ident'])
+            elif 'user_tel' in request_dict:
+                licenses = licenses.filter(user_tel__in=request_dict['user_tel'])
+            elif 'user_office' in request_dict:
+                licenses = licenses.filter(user_office__in=request_dict['user_office'])
+            elif 'user_addr' in request_dict:
+                licenses = licenses.filter(user_addr__in=request_dict['user_addr'])
+            elif 'user_post' in request_dict:
+                licenses = licenses.filter(user_post__in=request_dict['user_post'])
+            elif 'user_email' in request_dict:
+                licenses = licenses.filter(user_email__in=request_dict['user_email'])
+            elif 'record_create_admin' in request_dict:
+                licenses = licenses.filter(record_create_admin__in=request_dict['record_create_admin'])
+            elif 'user_record_create_time' in request_dict:
+                licenses = licenses.filter(user_record_create_time__in=request_dict['user_record_create_time'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
+            #print(licenses.values())
+            licenses_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
+            serializer = UserSerializer(data=licenses_list,many=True)
+            if serializer.is_valid():
+                return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
         print(type(serializer))
         if serializer.is_valid():
             serializer.save()
