@@ -12,7 +12,7 @@ urlpatterns = {
     #>>>>>>>>>>>>>>>>正在使用的url
     url(r'^model/$',views.model_list),
     url(r'^licenses/$',views.license_list),#驾驶证
-
+    url(r'^findcar/$',views.modelFindcar),
     url(r'^car/$',views.car_list),#车辆
     url(r'^car/$',views.car_list),
     url(r'^user/$',views.user_list),#用户
@@ -24,11 +24,11 @@ urlpatterns = {
     url(r'^login/$',views.login),#登录
 
     #url(r'^order_pay/$',views.OrderList.as_view()),#租车订单
-    url(r'^order/$',views.get_order_defined),
-    url(r'^order/type$',views.get_car_info_by_type),
-    url(r'^order/date$',views.get_car_info_by_date),
-    url(r'^order/pay$',views.OrderList.as_view()),
-    url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
+    #url(r'^order/$',views.get_order_defined),
+    #url(r'^order/type$',views.get_car_info_by_type),
+    #url(r'^order/date$',views.get_car_info_by_date),
+    #url(r'^order/pay$',views.OrderList.as_view()),
+    #url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
 
 
     #>>>>>>>>>>>>>>>未使用的url
