@@ -72,14 +72,14 @@ export default {
     }
   },
   created () {
-    axios.get('/test/order/type/?format=json', {})
+    axios.get('/test/order/type', {})
     .then(function (response) {
       this.typeData.rows = response.data
       console.log(response.data)
     }).catch(e => {
       this.errors.push(e)
     })
-    axios.get('/test/order/date/?format=json', {})
+    axios.get('/test/order/date', {})
     .then(function (response) {
       this.dayData.rows = response.data
       console.log(response.data)
