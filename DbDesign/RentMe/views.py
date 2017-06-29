@@ -18,7 +18,91 @@ import datetime
 '''def modify(request=[],format=None):
     model_info.objects.all().update(record_delete_status='no')'''
 
+#model_info查询&添加
+@api_view(['GET','POST'])
+def model_list(request=[],format=None):
+    if request.method == 'GET':
+        if len(request.data)==0:
+            licenses = model_info.objects.all()
+            serializer = ModelSerializer(licenses,many=True)
+            return Response(serializer.data)
+        else:
+            request_dict = request.data
+            licenses = driving_license.objects.all()
+            if 'model_id' in request_dict:
+                licenses = licenses.filter(model_id=request_dict['model_id'])
+            elif 'car_model_id' in request_dict:
+                licenses = licenses.filter(car_model_id=request_dict['car_model_id'])
+            elif 'car_type' in request_dict:
+                licenses = licenses.filter(car_type=request_dict['car_type'])
+            elif 'car_brand' in request_dict:
+                licenses = licenses.filter(car_brand=request_dict['car_brand'])
+            elif 'car_series' in request_dict:
+                licenses = licenses.filter(car_series=request_dict['car_series'])
+            elif 'car_issue_date' in request_dict:
+                licenses = licenses.filter(car_issue_date=request_dict['car_issue_date'])
+            elif 'car_config_model' in request_dict:
+                licenses = licenses.filter(car_config_model=request_dict['car_config_model'])
+            elif 'car_seats_num' in request_dict:
+                licenses = licenses.filter(car_seats_num=request_dict['car_seats_num'])
+            elif 'car_doors' in request_dict:
+                licenses = licenses.filter(car_doors=request_dict['car_doors'])
+            elif 'car_fuel_type' in request_dict:
+                licenses = licenses.filter(car_fuel_type=request_dict['car_fuel_type'])
+            elif 'car_gearbox_type' in request_dict:
+                licenses = licenses.filter(car_gearbox_type=request_dict['car_gearbox_type'])
+            elif 'car_displacement' in request_dict:
+                licenses = licenses.filter(car_displacement=request_dict['car_displacement'])
+            elif 'car_fuel_num' in request_dict:
+                licenses = licenses.filter(car_fuel_num=request_dict['car_fuel_num'])
+            elif 'car_drive_way' in request_dict:
+                licenses = licenses.filter(car_drive_way=request_dict['car_drive_way'])
+            elif 'car_engine_intake' in request_dict:
+                licenses = licenses.filter(car_engine_intake=request_dict['car_engine_intake'])
+            elif 'car_skylight' in request_dict:
+                licenses = licenses.filter(car_skylight=request_dict['car_skylight'])
+            elif 'car_tank_capa' in request_dict:
+                licenses = licenses.filter(car_tank_capa=request_dict['car_tank_capa'])
+            elif 'car_voicebox' in request_dict:
+                licenses = licenses.filter(car_voicebox=request_dict['car_voicebox'])
+            elif 'car_seats_type' in request_dict:
+                licenses = licenses.filter(car_seats_type=request_dict['car_seats_type'])
+            elif 'car_reverse_radar' in request_dict:
+                licenses = licenses.filter(car_reverse_radar=request_dict['car_reverse_radar'])
+            elif 'car_airbag' in request_dict:
+                licenses = licenses.filter(car_airbag=request_dict['car_airbag'])
+            elif 'car_dvd' in request_dict:
+                licenses = licenses.filter(car_dvd=request_dict['car_dvd'])
+            elif 'car_gps' in request_dict:
+                licenses = licenses.filter(car_gps=request_dict['car_gps'])
+            elif 'car_deposit' in request_dict:
+                licenses = licenses.filter(car_deposit=request_dict['car_deposit'])
+            elif 'car_day_price' in request_dict:
+                licenses = licenses.filter(car_day_price=request_dict['car_day_price'])
+            elif 'car_time_out_price' in request_dict:
+                licenses = licenses.filter(car_time_out_price=request_dict['car_time_out_price'])
+            elif 'car_over_kilo_price' in request_dict:
+                licenses = licenses.filter(car_over_kilo_price=request_dict['car_over_kilo_price'])
+            elif 'record_delete_status' in request_dict:
+                licenses = licenses.filter(record_delete_status=request_dict['record_delete_status'])
+            #print(licenses.values())
+            licenses_list=list()
+            for item in licenses.values():
+                licenses_list.append(item)
 
+            #serializer = ModelSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+                #return Response(serializer.data)
+            return Response(licenses_list)
+
+    elif request.method == 'POST':
+        serializer = ModelSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            #print('post')
+            #print(Response(serializer.data))
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 #license_info查询&添加
 @api_view(['GET','POST'])
 def license_list(request=[],format=None):
@@ -49,11 +133,12 @@ def license_list(request=[],format=None):
             #print(licenses.values())
             licenses_list=list()
             for item in licenses.values():
+                print(item)
                 licenses_list.append(item)
-
-            serializer = DrivingSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data)
+            #serializer = DrivingSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+                #return Response(serializer.data)
+            return Response(licenses_list)
     elif request.method == 'POST':
         serializer = DrivingSerializer(data=request.data)
         if serializer.is_valid():
@@ -93,9 +178,10 @@ def illegal_list(request=[],format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-            serializer = illegalSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data)
+            #serializer = illegalSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+            #return Response(serializer.data)
+            return Response(licenses_list)
 
     elif request.method == 'POST':
         serializer = illegalSerializer(data=request.data)
@@ -145,9 +231,12 @@ def car_list(request=[],format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-            serializer = CarSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data)
+                print(licenses_list)
+            #serializer = CarSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+            #print('>>>>>>>>>>>>>>')
+            #print(licenses_list)
+            return Response(licenses_list)
 
     elif request.method == 'POST':
         serializer = CarSerializer(data=request.data)
@@ -194,9 +283,10 @@ def admin_list(request=[],format=None):
             for item in licenses.values():
                 licenses_list.append(item)
 
-            serializer = AdminSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data)
+            #serializer = AdminSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+                #return Response(serializer.data)
+            #return Response(licenses_list)
     elif request.method == 'POST':
         serializer = AdminSerializer(data=request.data)
         if serializer.is_valid():
@@ -236,9 +326,10 @@ def store_list(request=[],format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-            serializer = StoreSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data)
+            #serializer = StoreSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+                #return Response(serializer.data)
+            return Response(licenses_list)
 
     elif request.method == 'POST':
         serializer = StoreSerializer(data=request.data)
@@ -292,9 +383,10 @@ def rent_list(request=[],format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-            serializer = OrderSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data)
+            #serializer = OrderSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+                #return Response(serializer.data)
+            return Response(licenses_list)
 
     elif request.method == 'POST':
         serializer = OrderSerializer(data=request.data)
@@ -332,9 +424,10 @@ def relet_list(request=[],format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-            serializer = ReletSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data)
+            #serializer = ReletSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+                #return Response(serializer.data)
+            return Response(licenses_list)
 
     elif request.method == 'POST':
         serializer = ReletSerializer(data=request.data)
@@ -384,9 +477,10 @@ def user_list(request=[],format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-            serializer = UserSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data)
+            #serializer = UserSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+                #return Response(serializer.data)
+            return Response(licenses_list)
 
     elif request.method == 'POST':
         serializer = UserSerializer(data=request.data)
@@ -553,7 +647,13 @@ def get_car_info_by_dateAndStore(request):
             query_dict[order.pick_time.date().isoformat()]['store_count'+str(store.store_id)] += 1
     for key,values in query_dict.items():
         dict_list.append({"pick_time":key,"store_count":values})
-    print(dict_list)
+    #print(dict_list)
+    #修改json格式的数据
+    count=1
+    for item in dict_list['store_count']:
+        dict_list[str(count)]=dict_list['store_count'][item]
+        count=count+1
+
     return Response(dict_list,status=status.HTTP_200_OK)
 @api_view(['GET','POST'])
 def order_pay(request):

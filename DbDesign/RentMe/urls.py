@@ -10,8 +10,9 @@ from RentMe import views
 
 urlpatterns = {
     #>>>>>>>>>>>>>>>>正在使用的url
+    url(r'^model/$',views.model_list),
     url(r'^licenses/$',views.license_list),#驾驶证
-    url(r'^car/$',views.car_list),#车型
+    url(r'^car/$',views.car_list),#车辆
     url(r'^user/$',views.user_list),#用户
     url(r'^admins/$',views.AdminList.as_view()),#管理员
     url(r'^stores/$',views.store_list),#门店
@@ -32,7 +33,6 @@ urlpatterns = {
     #url(r'^modify/$',views.modify),
     #url(r'licenses/(?P<pk>[0-9]+)$',views.license_detail),
     #url(r'^model/$',views.ModelList.as_view(),name='model-list'),
-    #url(r'^model/$',views.model_list),#车型
     #url(r'^model/(?P<pk>[0-9]+)$',views.model_info_detail),
     #url(r'^cars/$',views.CarList.as_view()),#车辆
     #url(r'^cars/(?P<pk>[0-9]+)$',views.CarDetail.as_view()),

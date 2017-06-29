@@ -10,7 +10,7 @@ class ModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = model_info
         #DELETED : 'car_record_create_time'
-        fields = ('model_id','car_model_id','car_type','car_brand','car_series','car_issue_date','car_config_model','car_seats_num','car_doors','car_fuel_type','car_gearbox_type','car_displacement','car_fuel_num','car_drive_way','car_engine_intake','car_skylight','car_tank_capa','car_voicebox','car_seats_type','car_reverse_radar','car_airbag','car_dvd','car_gps','car_deposit','car_day_price','car_time_out_price','car_over_kilo_price','record_delete_status')
+        fields = ('model_id','car_model','car_model_id','car_type','car_brand','car_series','car_issue_date','car_config_model','car_seats_num','car_doors','car_fuel_type','car_gearbox_type','car_displacement','car_fuel_num','car_drive_way','car_engine_intake','car_skylight','car_tank_capa','car_voicebox','car_seats_type','car_reverse_radar','car_airbag','car_dvd','car_gps','car_deposit','car_day_price','car_time_out_price','car_over_kilo_price','record_delete_status')
 #关联user_info
 class UserSerializer(serializers.ModelSerializer):
     user_rent = serializers.PrimaryKeyRelatedField(many=True,queryset=rent_order.objects.all())
@@ -26,6 +26,7 @@ class AdminSerializer(serializers.ModelSerializer):
         fields = ('admin_id','admin_tel','admin_pas','admin_name','store_manage','admin_sex','admin_age','admin_type','admin_email','admin_ident',)
 #关联car_info
 class CarSerializer(serializers.HyperlinkedModelSerializer):
+    car_model_id = serializers.PrimaryKeyRelatedField(many=True, queryset=model_info.objects.all())
     class Meta:
         model = car_info
         fields = ('car_id','car_num','car_model_id','car_color','car_engine_num','car_frame_num','car_buy_date','car_retailer','car_status','car_ins_num','car_record_create_time','record_create_admin','record_delete_status')
