@@ -57,7 +57,7 @@
       </el-row>
       <el-row type="flex" justify="center">
         
-          <el-button type="primary" @click="updateCar(this.$route.params.id)">提交</el-button>
+          <el-button type="primary" @click="updateCar">提交</el-button>
      
       </el-row>
   </div>
@@ -90,28 +90,29 @@ export default{
       }
     })
          .then(function (response) {
-           self.formInline = response.data
+           self.formInline = response.data[0]
          })
          .catch(e => {
            this.errors.push(e)
          })
   },
   methods: {
-        updateCar (event) {
-          var self = this
-          console.log(self.form.account)
-          axios.post('/test/login', {
-            car_num: self.formInline.car_num,
-            car_model_id: self.formInline.car_num,
-            car_color: self.formInline.car_num,
-            car_engine_num: self.formInline.car_num,
-            car_frame_num: self.formInline.car_num,
-            car_buy_date: self.formInline.car_num,
-            car_retailer: self.formInline.car_num,
-            car_status: self.formInline.car_num,
-            car_ins_num: self.formInline.car_num,
-            car_creater: self.formInline.car_num
-          })
+    updateCar () {
+      var self = this
+      console.log(self.form.account)
+      axios.post('/test/car', {
+        car_id: self.formInline.car_id,
+        car_num: self.formInline.car_num,
+        car_model_id: self.formInline.car_model_id,
+        car_color: self.formInline.car_color,
+        car_engine_num: self.formInline.car_engine_num,
+        car_frame_num: self.formInline.car_frame_num,
+        car_buy_date: self.formInline.car_buy_date,
+        car_retailer: self.formInline.car_retailer,
+        car_status: self.formInline.car_status,
+        car_ins_num: self.formInline.car_ins_num,
+        car_creater: self.formInline.car_creater
+      })
             .then(function (response) {
               self.$message('修改成功')
             })
@@ -119,7 +120,7 @@ export default{
               self.$message('修改失败')
               this.errors.push(e)
             })
-        }
+    }
   }
 }
 </script>
