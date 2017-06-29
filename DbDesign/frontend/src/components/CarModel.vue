@@ -242,7 +242,8 @@ export default{
         car_seats_type: [],
         car_reverse_radar: [],
         car_airbag: [],
-        car_dvd: []
+        car_dvd: [],
+        car_gps: []
       }
     }
   },
@@ -323,7 +324,8 @@ export default{
         car_seats_type: self.ruleForm.car_seats_type,
         car_reverse_radar: self.ruleForm.car_reverse_radar,
         car_airbag: self.ruleForm.car_airbag,
-        car_dvd: self.ruleForm.car_dvd
+        car_dvd: self.ruleForm.car_dvd,
+        car_gps: self.ruleForm.car_gps
       }).then(function (response) {
         self.$message('车型选择成功')
       }).catch(e => {

@@ -995,9 +995,9 @@ def order_by_create_user(request):
     if request.method == 'POST':
         data = request.data
         admin = admin_info.objects.get(pk=data['record_create_admin'])
-        license = driving_license(drive_name=data['drive_name'],user_drive=data['user_drive'],drive_type=data['drive_type'],drive_start_date=data['drive_start_date'],drive_end_date=data['drive_end_date'],record_create_admin=admin)
+        license = driving_license(drive_name=data['drive_name'],user_drive=data['user_drive'],drive_type=data['drive_type'],drive_start_date=data['drive_start_date'][0:10],drive_end_date=data['drive_end_date'][0:10])
         license.save()
-        user = user_info(user_name=data['user_name'],user_sex=data['user_sex'],user_age=data['user_age'],user_ident=data['user_ident'],user_tel=data['user_tel'],user_office=data['user_office'],user_addr=data['user_addr'],user_post=data['user_post'],user_email=data['user_email'])
+        user = user_info(user_name=data['user_name'],user_sex=data['user_sex'],user_age=data['user_age'],user_ident=data['user_ident'],user_tel=data['user_tel'],user_office=data['user_office'],user_addr=data['user_addr'],user_post=data['user_post'],user_email=data['user_email'],record_create_admin=admin)
         user.save()
         json_result = {'order_user_id':user.user_id,'order_drive_id':license.drive_id}
         return Response(json_result,status=status.HTTP_201_CREATED)
