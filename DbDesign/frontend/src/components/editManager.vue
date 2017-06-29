@@ -73,7 +73,10 @@ export default{
     var self = this
     var id = [self.$route.params.id]
     // console.log(id)
-    axios.post('/test/Manager/', {admin_id: id})
+    axios.post('/test/Manager/', {
+      'statu': 'query',
+      admin_id: id
+    })
          .then(function (response) {
            self.formInline = response.data[0]
          })
@@ -84,9 +87,10 @@ export default{
   methods: {
     updateManager () {
       var self = this
+      var id = [self.$route.params.id]
       axios.post('/test/admins/', {
-        status: 'update',
-        admin_id: self.formInline.admin_id,
+        'statu': 'update',
+        admin_id: id,
         admin_name: self.formInline.admin_name,
         admin_sex: self.formInline.admin_sex,
         admin_age: self.formInline.admin_age,

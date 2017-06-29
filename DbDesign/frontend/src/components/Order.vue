@@ -77,72 +77,21 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default{
   data () {
     return {
       input: '',
-      tableData3: [{
-        car_num: '皖A01234',
-        user_name: '小A',
-        drive_name: '小B',
-        pick_addr: '1',
-        pick_time: '2016-05-03',
-        drop_time: '2016-05-05',
-        car_day_price: 100,
-        illegal_bill: 1000,
-        breaken_bill: 500,
-        actual_deposit: 5000,
-        relet_records: [
-          {relet_id: 1, relet_start_time: '2016-05-03', relet_end_time: '2016-05-04'},
-          {relet_id: 2, relet_start_time: '2016-05-04', relet_end_time: '2016-05-05'}
-        ]
-      }, {
-        car_num: '皖A56789',
-        user_name: '小C',
-        drive_name: '小A',
-        pick_addr: '1',
-        pick_time: '2016-05-01',
-        drop_time: '2016-05-05',
-        car_day_price: 120,
-        illegal_bill: 1000,
-        breaken_bill: 500,
-        actual_deposit: 5000,
-        relet_records: [
-          {relet_id: 1, relet_start_time: '2016-05-02', relet_end_time: '2016-05-03'},
-          {relet_id: 2, relet_start_time: '2016-05-03', relet_end_time: '2016-05-05'}
-        ]
-      }, {
-        car_num: '皖A23333',
-        user_name: '小D',
-        drive_name: '小B',
-        pick_addr: '1',
-        pick_time: '2016-05-06',
-        drop_time: '2016-05-10',
-        car_day_price: 130,
-        illegal_bill: 1000,
-        breaken_bill: 500,
-        actual_deposit: 5000,
-        relet_records: [
-          {relet_id: 1, relet_start_time: '2016-05-06', relet_end_time: '2016-05-08'},
-          {relet_id: 2, relet_start_time: '2016-05-08', relet_end_time: '2016-05-10'}
-        ]
-      }, {
-        car_num: '皖A33323',
-        user_name: '小F',
-        drive_name: '小D',
-        pick_addr: '1',
-        pick_time: '2016-01-03',
-        drop_time: '2016-01-07',
-        car_day_price: 90,
-        illegal_bill: 1000,
-        breaken_bill: 500,
-        actual_deposit: 5000,
-        relet_records: [
-          {relet_id: 1, relet_start_time: '2016-01-03', relet_end_time: '2016-05-04'},
-          {relet_id: 2, relet_start_time: '2016-05-04', relet_end_time: '2016-05-07'}
-        ]
-      }]
+      tableData3: []
     }
+  },
+  created () {
+    var self = this
+    axios.get('/test/order', {}).then(function (response) {
+      self.tableData3 = response.data
+    }).catch(e => {
+      this.errors.push(e)
+    })
   },
   methods: {
     charge (order) {

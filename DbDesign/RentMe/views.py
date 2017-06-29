@@ -855,7 +855,7 @@ def order_pay(request):
             return Response(json_query,status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_404_NOT_FOUND)
 
-#提交车型数据，返回车辆信息接口
+'''#提交车型数据，返回车辆信息接口
 @api_view(['GET','POST'])
 def modelFindcar(request):
     request_dict = request.data
@@ -921,7 +921,7 @@ def modelFindcar(request):
     for item in licenses.values():
         licenses_list.append(item)
     print(licenses)
-
+'''
 
 class ModelList(generics.ListCreateAPIView):
     queryset = model_info.objects.all()
