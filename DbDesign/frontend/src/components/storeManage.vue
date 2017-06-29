@@ -192,7 +192,7 @@ export default {
   created () {
     var self = this
         // var id = self.$route.params.id;
-    axios.get('/test/admins/?format=json', {})
+    axios.get('/test/admins', {})
          .then(function (response) {
            self.tableManager = response.data
          })
@@ -200,7 +200,7 @@ export default {
            this.errors.push(e)
          })
 
-    axios.get('/test/stores/?format=json', {})
+    axios.get('/test/stores', {})
          .then(function (response) {
            self.tableStore = response.data
          })

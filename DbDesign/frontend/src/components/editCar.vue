@@ -57,7 +57,7 @@
       </el-row>
       <el-row type="flex" justify="center">
         
-          <el-button type="primary" @click="updateCar(this.$route.params.id)">提交</el-button>
+          <el-button type="primary" @click="updateCar">提交</el-button>
      
       </el-row>
   </div>
@@ -97,26 +97,30 @@ export default{
          })
   },
   methods: {
-        updateCar (car_num) {
-          var self = this
-          console.log(self.form.account)
-          axios.post('/test/login/?format=json', {
-            admin_tel: self.form.account,
-            admin_pas: self.form.password
-          })
+    updateCar () {
+      var self = this
+      console.log(self.form.account)
+      axios.post('/test/car', {
+        car_id: self.formInline.car_id,
+        car_num: self.formInline.car_num,
+        car_model_id: self.formInline.car_model_id,
+        car_color: self.formInline.car_color,
+        car_engine_num: self.formInline.car_engine_num,
+        car_frame_num: self.formInline.car_frame_num,
+        car_buy_date: self.formInline.car_buy_date,
+        car_retailer: self.formInline.car_retailer,
+        car_status: self.formInline.car_status,
+        car_ins_num: self.formInline.car_ins_num,
+        car_creater: self.formInline.car_creater
+      })
             .then(function (response) {
-              self.$message('登录成功')
-              self.$store.state.user_Name = response.data['admin_name']
-              self.$store.state.user_ID = response.data['user_ID']
-              self.$store.state.user_Status = response.data['user_Status']
-              self.$router.push('/home')
-              self.$router.go(1)
+              self.$message('修改成功')
             })
             .catch(e => {
-              self.$message('账号或者密码错误，请重新输入')
+              self.$message('修改失败')
               this.errors.push(e)
             })
-        }
+    }
   }
 }
 </script>
