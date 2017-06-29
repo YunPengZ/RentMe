@@ -247,25 +247,7 @@ export default{
   },
   computed: {
     form () {
-      var form = {
-        car_brand: [],
-        car_type: [],
-        car_seats_num: [],
-        car_doors: [],
-        car_fuel_type: [],
-        car_gearbox_type: [],
-        car_displacement: [],
-        car_fuel_num: [],
-        car_drive_way: [],
-        car_engine_intake: [],
-        car_skylight: [],
-        car_tank_capa: [],
-        car_voicebox: [],
-        car_seats_type: [],
-        car_reverse_radar: [],
-        car_airbag: [],
-        car_dvd: []
-      }
+      let form = this.ruleForm
       if (form['car_brand'].length === 0) {
         form['car_brand'] = this.options['car_brand']
       }
@@ -317,6 +299,7 @@ export default{
       if (form['car_dvd'].length === 0) {
         form['car_dvd'] = this.options['car_dvd']
       }
+      return form
     }
   },
   methods: {
