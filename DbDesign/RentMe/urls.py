@@ -12,7 +12,7 @@ urlpatterns = {
     #>>>>>>>>>>>>>>>>正在使用的url
     url(r'^model/$',views.model_list),
     url(r'^licenses/$',views.license_list),#驾驶证
-
+    url(r'^findcar/$',views.modelFindcar),
     url(r'^car/$',views.car_list),#车辆
     url(r'^car/$',views.car_list),
     url(r'^user/$',views.user_list),#用户
@@ -30,6 +30,7 @@ urlpatterns = {
     url(r'^order/pay$',views.OrderList.as_view()),
     url(r'^order/date_type$',views.get_car_info_by_dateAndStore),
     url(r'^order/create$',views.order_by_create_user),
+
 
     #>>>>>>>>>>>>>>>未使用的url
     #modify 临时修改数据库时建立的接口
