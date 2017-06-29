@@ -45,10 +45,10 @@ export default{
     return {
       formInline: {
         store_id: '',
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
+        store_addr: '',
+        store_tel: '',
+        store_start_time: '',
+        store_admin: ''
       }
     }
   },
