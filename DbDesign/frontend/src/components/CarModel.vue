@@ -245,6 +245,80 @@ export default{
       }
     }
   },
+  computed: {
+    form () {
+      var form = {
+        car_brand: [],
+        car_type: [],
+        car_seats_num: [],
+        car_doors: [],
+        car_fuel_type: [],
+        car_gearbox_type: [],
+        car_displacement: [],
+        car_fuel_num: [],
+        car_drive_way: [],
+        car_engine_intake: [],
+        car_skylight: [],
+        car_tank_capa: [],
+        car_voicebox: [],
+        car_seats_type: [],
+        car_reverse_radar: [],
+        car_airbag: [],
+        car_dvd: []
+      }
+      if (form['car_brand'].length === 0) {
+        form['car_brand'] = this.options['car_brand']
+      }
+      if (form['car_type'].length === 0) {
+        form['car_type'] = this.options['car_type']
+      }
+      if (form['car_seats_num'].length === 0) {
+        form['car_seats_num'] = this.options['car_seats_num']
+      }
+      if (form['car_doors'].length === 0) {
+        form['car_doors'] = this.options['car_doors']
+      }
+      if (form['car_fuel_type'].length === 0) {
+        form['car_fuel_type'] = this.options['car_fuel_type']
+      }
+      if (form['car_gearbox_type'].length === 0) {
+        form['car_gearbox_type'] = this.options['car_gearbox_type']
+      }
+      if (form['car_displacement'].length === 0) {
+        form['car_displacement'] = this.options['car_displacement']
+      }
+      if (form['car_fuel_num'].length === 0) {
+        form['car_fuel_num'] = this.options['car_fuel_num']
+      }
+      if (form['car_drive_way'].length === 0) {
+        form['car_drive_way'] = this.options['car_drive_way']
+      }
+      if (form['car_engine_intake'].length === 0) {
+        form['car_engine_intake'] = this.options['car_engine_intake']
+      }
+      if (form['car_skylight'].length === 0) {
+        form['car_skylight'] = this.options['car_skylight']
+      }
+      if (form['car_tank_capa'].length === 0) {
+        form['car_tank_capa'] = this.options['car_tank_capa']
+      }
+      if (form['car_voicebox'].length === 0) {
+        form['car_voicebox'] = this.options['car_voicebox']
+      }
+      if (form['car_seats_type'].length === 0) {
+        form['car_seats_type'] = this.options['car_seats_type']
+      }
+      if (form['car_reverse_radar'].length === 0) {
+        form['car_reverse_radar'] = this.options['car_reverse_radar']
+      }
+      if (form['car_airbag'].length === 0) {
+        form['car_airbag'] = this.options['car_airbag']
+      }
+      if (form['car_dvd'].length === 0) {
+        form['car_dvd'] = this.options['car_dvd']
+      }
+    }
+  },
   methods: {
     handleCheckAllChange (event) {
     },
