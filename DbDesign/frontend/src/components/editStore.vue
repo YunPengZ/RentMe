@@ -56,7 +56,7 @@ export default{
     var self = this
     var id = [self.$route.params.id]
     // console.log(id)
-    axios.post('/test/Store/', {
+    axios.post('/test/stores/', {
       'statu': 'query',
       store_id: id
     })
