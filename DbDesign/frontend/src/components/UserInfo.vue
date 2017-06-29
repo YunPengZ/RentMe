@@ -111,7 +111,7 @@
   </div> 
 </template>
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 export default{
   data () {
     // var checkAge = (rule, value, callback) => {
@@ -162,6 +162,29 @@ export default{
   },
   methods: {
     submitForm (formName) {
+      var self = this.form
+      axios.post('/test/order/create', {
+        drive_name: self.drive_name,
+        user_drive: self.user_drive,
+        drive_type: self.drive_type,
+        drive_age: self.drive_age,
+        drive_start_date: self.drive_start_date,
+        drive_end_date: self.drive_end_date,
+        user_name: self.user_name,
+        user_sex: self.user_sex,
+        user_age: self.user_age,
+        user_ident: self.user_ident,
+        user_tel: self.user_tel,
+        user_office: self.user_office,
+        user_addr: self.user_addr,
+        user_post: self.user_post,
+        user_email: self.user_email
+      }).then(function (response) {
+        self.$message('修改成功')
+      }).catch(e => {
+        self.$message('修改失败')
+        this.errors.push(e)
+      })
     }
   }
 }
