@@ -58,7 +58,6 @@ def license_list(request=[],format=None):
             #print(Response(serializer.data))
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
 #illegal_record查询&添加
 @api_view(['GET','POST'])
 def illegal_list(request=[],format=None):
@@ -101,7 +100,6 @@ def illegal_list(request=[],format=None):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
 #car_info查询&添加
 @api_view(['GET','POST'])
 def car_list(request=[],format=None):
@@ -154,28 +152,6 @@ def car_list(request=[],format=None):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
-
-
-@api_view(['GET','PUT','DELETE'])
-def license_detail(request,pk,format=None):
-    try:
-        license = driving_license.objects.get(pk=pk)
-    except driving_license.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    if request.method == 'GET':
-        serializer = DrivingSerializer(license)
-        return Response(serializer.data)
-    elif request.method == 'PUT':
-        serializer = DrivingSerializer(license,data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'DELETE':
-        license.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
 #admin_info查询&添加
 @api_view(['GET','POST'])
 def admin_list(request=[],format=None):
@@ -208,7 +184,7 @@ def admin_list(request=[],format=None):
             elif 'admin_record_create_time' in request_dict:
                 licenses = licenses.filter(admin_record_create_time__in=request_dict['admin_record_create_time'])
             elif 'record_delete_status' in request_dict:
-                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])            
+                licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
             #print(licenses.values())
             admin_list=list()
             for item in licenses.values():
@@ -225,7 +201,6 @@ def admin_list(request=[],format=None):
             #print(Response(serializer.data))
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
 #store_info查询&添加
 @api_view(['GET','POST'])
 def store_list(request=[],format=None):
@@ -268,7 +243,6 @@ def store_list(request=[],format=None):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
 #rent_order查询&添加
 @api_view(['GET','POST'])
 def rent_list(request=[],format=None):
@@ -325,7 +299,6 @@ def rent_list(request=[],format=None):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
 #relet_record查询&添加
 @api_view(['GET','POST'])
 def relet_list(request=[],format=None):
@@ -366,7 +339,6 @@ def relet_list(request=[],format=None):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
 #user_info查询&添加
 @api_view(['GET','POST'])
 def user_list(request=[],format=None):
@@ -419,7 +391,24 @@ def user_list(request=[],format=None):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
+#登陆
+@api_view(['GET','POST'])
+def login(request):
+    if request.method == 'POST':
+        tel = request.data['admin_tel']
+        pas = request.data['admin_pas']
+        admin = admin_info.objects.filter(admin_tel__exact=tel,admin_pas__exact=pas)
+        #filter返回QuerySet集合对象，遍历获得唯一元素
+        if admin:
+            for admin_item in admin:
+                #print(admin_item)
+                admin_serializer = AdminSerializer(admin_item)
+            return Response(admin_serializer.data,status=status.HTTP_200_OK)
+    elif request.method == 'GET':
+        admins = admin_info.objects.all()
+        serializer = AdminSerializer(admins,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    return  Response(status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['GET','PUT','DELETE'])
@@ -440,26 +429,24 @@ def license_detail(request,pk,format=None):
     elif request.method == 'DELETE':
         license.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-#model_info查询
-@api_view(['GET','POST'])
-def model_info_list(request,format=None):
-    #展示或者创建driving_license
+@api_view(['GET','PUT','DELETE'])
+def license_detail(request,pk,format=None):
+    try:
+        license = driving_license.objects.get(pk=pk)
+    except driving_license.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == 'GET':
-        models_ = model_info.objects.all()
-        serializer = ModelSerializer(models_,many=True)
-        #print('get')
-        #print(serializer.data)
+        serializer = DrivingSerializer(license)
         return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = ModelSerializer(data=request.data)
+    elif request.method == 'PUT':
+        serializer = DrivingSerializer(license,data=request.data)
         if serializer.is_valid():
             serializer.save()
-            #print('post')
-            #print(Response(serializer.data))
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
+            return Response(serializer.data)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
-
+    elif request.method == 'DELETE':
+        license.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 @api_view(['GET','PUT','DELETE'])
 def model_info_detail(request,pk,format=None):
     try:
@@ -514,25 +501,6 @@ def user_info_detail(request,pk,format=None):
     elif request.method == 'DELETE':
         users.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-#登陆
-@api_view(['GET','POST'])
-def login(request):
-    if request.method == 'POST':
-        tel = request.data['admin_tel']
-        pas = request.data['admin_pas']
-        admin = admin_info.objects.filter(admin_tel__exact=tel,admin_pas__exact=pas)
-        #filter返回QuerySet集合对象，遍历获得唯一元素
-        if admin:
-            for admin_item in admin:
-                #print(admin_item)
-                admin_serializer = AdminSerializer(admin_item)
-            return Response(admin_serializer.data,status=status.HTTP_200_OK)
-    elif request.method == 'GET':
-        admins = admin_info.objects.all()
-        serializer = AdminSerializer(admins,many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
-    return  Response(status=status.HTTP_404_NOT_FOUND)
-
 @api_view(['GET','POST'])
 def get_car_info_by_type(request):
     dict_type = dict()
@@ -553,7 +521,6 @@ def get_car_info_by_type(request):
         dict_list.append({'car_type':key,'car_count':values})
         print(dict_list)
     return Response(dict_list,status=status.HTTP_200_OK)
-
 @api_view(['GET','POST'])
 def get_car_info_by_date(request):
     query_dict = dict()
@@ -566,7 +533,6 @@ def get_car_info_by_date(request):
         dict_list.append({'pick_time':key,'car_count':values})
         print(dict_list)
     return Response(dict_list,status=status.HTTP_200_OK)
-
 @api_view(['GET','POST'])
 def get_car_info_by_dateAndStore(request):
     query_dict = dict()
@@ -585,8 +551,6 @@ def get_car_info_by_dateAndStore(request):
         dict_list.append({"pick_time":key,"store_count":values})
     print(dict_list)
     return Response(dict_list,status=status.HTTP_200_OK)
-
-
 @api_view(['GET','POST'])
 def order_pay(request):
     json_query = dict()
@@ -639,7 +603,6 @@ class StoreList(generics.ListCreateAPIView):
 class StoreDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = store_info.objects.all()
     serializer_class = StoreSerializer
-
 #车辆列表
 class CarList(generics.ListCreateAPIView):
     queryset = car_info.objects.all()
@@ -648,39 +611,31 @@ class CarList(generics.ListCreateAPIView):
        # print(self.request.POST)
        ## model_at = model_info.objects.get(pk=self.request.POST.car_model_id)
        # serializer.save(model_at)
-
 #车辆详情
 class CarDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = car_info.objects.all()
 
     serializer_class=CarSerializer
-
-
 #租车订单列表
 class OrderList(generics.ListCreateAPIView):
     queryset = rent_order.objects.all()
     serializer_class = OrderSerializer
-
 #租车订单详情
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = rent_order.objects.all()
     serializer_class = OrderSerializer
-
 #续租记录列表
 class ReletList(generics.ListCreateAPIView):
     queryset = relet_record.objects.all()
     serializer_class = ReletSerializer
-
 #续租记录详情
 class ReletDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = relet_record.objects.all()
     serializer_class = ReletSerializer
-
 #违章列表
 class IllegalList(generics.ListCreateAPIView):
     queryset = illegal_record.objects.all()
     serializer_class = illegalSerializer
-
 #违章详情
 class IllegalDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = illegal_record.objects.all()
