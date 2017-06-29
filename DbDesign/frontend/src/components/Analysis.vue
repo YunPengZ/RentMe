@@ -19,16 +19,13 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
       typeData: {
         columns: ['车型', '租出数'],
-        rows: [
-          { 'car_type': '商务车', 'car_count': 100 },
-          { 'car_type': 'SUV', 'car_count': 200 },
-          { 'car_type': 'ETC', 'car_count': 300 }
-        ]
+        rows: []
       },
       typeSettings: {
         dimension: 'car_type',
@@ -41,16 +38,7 @@ export default {
       },
       dayData: {
         columns: ['日期', '租出数'],
-        rows: [
-          { 'pick_time': '2017-01-01', 'car_count': 30 },
-          { 'pick_time': '2017-01-02', 'car_count': 10 },
-          { 'pick_time': '2017-01-03', 'car_count': 100 },
-          { 'pick_time': '2017-01-04', 'car_count': 40 },
-          { 'pick_time': '2017-01-05', 'car_count': 20 },
-          { 'pick_time': '2017-01-06', 'car_count': 60 },
-          { 'pick_time': '2017-01-07', 'car_count': 200 },
-          { 'pick_time': '2017-01-08', 'car_count': 150 }
-        ]
+        rows: []
       },
       daySettings: {
         dimension: ['pick_time'],
@@ -82,6 +70,26 @@ export default {
         }
       }
     }
+  },
+  created () {
+    axios.get('/test/order/type', {})
+    .then(function (response) {
+      this.typeData.rows = response.data
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    axios.get('/test/order/date', {})
+    .then(function (response) {
+      this.dayData.rows = response.data
+    }).catch(e => {
+      this.errors.push(e)
+    })
+    axios.get('/test/order/date_type', {})
+    .then(function (response) {
+      this.dayData.rows = response.data
+    }).catch(e => {
+      this.errors.push(e)
+    })
   }
 }
 </script>

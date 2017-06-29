@@ -48,8 +48,8 @@
       label="操作"
       prop="desc"
       >
-            <template scope="scope">
-                <router-link :to="'/home/editCar'"  class="rid">
+            <template scope="props">
+                <router-link :to="'/home/editStore/'+props.row.store_id"  class="rid">
         <el-button
           size="small">            
           
@@ -61,7 +61,7 @@
         <el-button
           size="small"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="deleteStore(props.row.store_id)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -141,8 +141,8 @@
       prop="desc"
       fixed="right"
       >
-            <template scope="scope">
-                <router-link :to="'/home/editCar'"  class="rid">
+            <template scope="props">
+                <router-link :to="'/home/editManager/'+props.row.admin_id"  class="rid">
         <el-button
           size="small">            
           
@@ -154,7 +154,7 @@
         <el-button
           size="small"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="deleteManager(props.row.admin_id)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -163,112 +163,83 @@
 </div>
 </template>
 <script>
-// import axios from 'axios';
+import axios from 'axios'
 export default {
   data () {
     return {
-      tableStore: [{
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
-      },
-      {
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
-      },
-      {
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
-      },
-      {
-        store_addr: '12987132',
-        store_tel: '123',
-        store_start_time: '红色',
-        store_admin: '45432'
-      }
+      tableStore: [
+      //   {
+      //   store_addr: '12987132',
+      //   store_tel: '123',
+      //   store_start_time: '红色',
+      //   store_admin: '45432'
+      // }
       ],
-      tableManager: [{
-        admin_name: '12987132',
-        admin_sex: '123',
-        admin_age: '红色',
-        admin_ident: '45432',
-        admin_tel: '18756010918',
-        admin_email: '2087447114@qq.com',
-        admin_type: '大中华区管理员'
-      },
-      {
-        admin_name: '12987132',
-        admin_sex: '123',
-        admin_age: '红色',
-        admin_ident: '45432',
-        admin_tel: '18756010918',
-        admin_email: '2087447114@qq.com',
-        admin_type: '大中华区管理员'
-      },
-      {
-        admin_name: '12987132',
-        admin_sex: '123',
-        admin_age: '红色',
-        admin_ident: '45432',
-        admin_tel: '18756010918',
-        admin_email: '2087447114@qq.com',
-        admin_type: '大中华区管理员'
-      },
-      {
-        admin_name: '12987132',
-        admin_sex: '123',
-        admin_age: '红色',
-        admin_ident: '45432',
-        admin_tel: '18756010918',
-        admin_email: '2087447114@qq.com',
-        admin_type: '大中华区管理员'
-      }
+      tableManager: [
+      //   {
+      //   admin_name: '12987132',
+      //   admin_sex: '123',
+      //   admin_age: '红色',
+      //   admin_ident: '45432',
+      //   admin_tel: '18756010918',
+      //   admin_email: '2087447114@qq.com',
+      //   admin_type: '大中华区管理员'
+      // }
+
       ]
     }
+  },
+  created () {
+    var self = this
+        // var id = self.$route.params.id;
+    axios.get('/test/admins', {})
+         .then(function (response) {
+           self.tableManager = response.data
+         })
+         .catch(e => {
+           this.errors.push(e)
+         })
+
+    axios.get('/test/stores', {})
+         .then(function (response) {
+           self.tableStore = response.data
+         })
+         .catch(e => {
+           this.errors.push(e)
+         })
+  },
+  methods: {
+    deleteStore (event) {
+      var self = this
+      // console.log(self.form.account)
+      axios.post('/test/stores', {
+        status: 'delete',
+        store_id: self.tableStore.store_id
+      })
+            .then(function (response) {
+              self.$message('删除成功')
+            })
+            .catch(e => {
+              self.$message('删除失败')
+              this.errors.push(e)
+            })
+    },
+    deleteManager (event) {
+      var self = this
+      // console.log(self.form.account)
+      axios.delete('/test/admins', {
+        status: 'delete',
+        admin_id: self.tableStore.admin_id
+      })
+            .then(function (response) {
+              self.$message('删除成功')
+            })
+            .catch(e => {
+              self.$message('删除失败')
+              this.errors.push(e)
+            })
+    }
   }
-//     created() {
-//     var self = this;
-//     var id = self.$route.params.id;
-//     axios.get('/api/user/queryAllGrade',{
-//       params: {
-//       message : id
-//     }
-//     })
-//       .then( function (response) {
-//        self.users = response.data
-//       })
-//       .catch(e => {
-//       this.errors.push(e)
-//     })
-//   },
-//   methods: {
-//     handleCurrentChange (val) {
-//       this.currentRow = val
-//       this.displayStatus = true
-//     },
-//     submit(){
-//             var self = this;
-//             var grade = self.currentRow.match_Grade;
-//             var m_id = self.currentRow.match_ID;
-//             var u_id = self.currentRow.user_ID;
-//             axios.post('/api/user/inputGrade',{
-//             match_Grade: grade,
-//             match_ID: m_id,
-//             user_ID: u_id
-//             })
-//             .then(function (response) {
-//             self.$message('成绩提交成功')
-//             })
-//             .catch(e => {
-//               this.errors.push(e)
-//             })
-//     }
-//   }
 }
 </script>
 <style scoped>

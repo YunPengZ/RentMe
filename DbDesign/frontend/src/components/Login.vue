@@ -43,22 +43,12 @@
             admin_pas: self.form.password
           })
             .then(function (response) {
-<<<<<<< HEAD
-              console.log('1233')
-              self.$router.push('/home')
-              self.$router.go(1)
-            // console.log(response.data[0])
-            // self.$store.commit('changeUser',response.data[0]) //改变选中的用户的姓名，值，以便寻找比赛
-            // $router.go({name: 'register', params: {id:'apply'}})
-            // console.log(self.$router.path)
-=======
               self.$message('登录成功')
               self.$store.state.user_Name = response.data['admin_name']
-              self.$store.state.user_ID = response.data['user_ID']
-              self.$store.state.user_Status = response.data['user_Status']
+              self.$store.state.user_ID = response.data['admin_id']
+              self.$store.state.user_Status = response.data['admin_type']
               self.$router.push('/home')
               self.$router.go(1)
->>>>>>> 223b7f8605fb9b4f5635c43be3e47ee52db3480a
             })
             .catch(e => {
               self.$message('账号或者密码错误，请重新输入')
