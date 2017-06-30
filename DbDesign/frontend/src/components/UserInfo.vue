@@ -183,8 +183,13 @@ export default{
         record_create_admin: mainself.$store.state.user_ID
       }).then(function (response) {
         mainself.$message('修改成功')
-        mainself.$route.push('/home/new_order/car_model')
-        mainself.$route.go(1)
+        mainself.$store.state.step = 1
+        mainself.$store.state.order_user_id = response.data.order_user_id
+        mainself.$store.state.order_drive_id = response.data.order_drive_id
+        console.log(mainself.$store.state.order_user_id)
+        console.log(mainself.$store.state.order_drive_id)
+        mainself.$router.push('/home/new_order/car_model')
+        mainself.$router.go(1)
       }).catch(e => {
         mainself.$message('修改失败')
         this.errors.push(e)

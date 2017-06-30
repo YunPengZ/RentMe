@@ -8,15 +8,15 @@ Vue.use(Vuex)
 const state = {
   // 跟踪新订单的状态
   // 新订单目前在第几步
-  step: '',
+  step: 0,
   // 该订单绑定的用户和驾驶员ID(第一步时完成)
-  order_user_id: 1,
-  order_drive_id: 1,
+  order_user_id: null,
+  order_drive_id: null,
   // 符合所选车型的车辆ID(第二步时完成)
   matched_car: [],
   // 该订单所绑定的车辆ID(第三步时完成)
-  car_ID: 1,
-  car_model_id: 1,
+  car_ID: null,
+  car_model_id: null,
   // 管理员ID
   user_ID: 1,
   // 管理员姓名

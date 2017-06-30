@@ -25,6 +25,7 @@ import editStore from '../components/editStore.vue'
 import addManager from '../components/addManager.vue'
 import editManager from '../components/editManager.vue'
 import Analysis from '../components/Analysis.vue'
+import CarChoose from '../components/CarChoose.vue'
 
 const router = new Router({
   routes: [
@@ -52,7 +53,7 @@ const router = new Router({
           children: [
             {path: '', component: UserInfo},
             {path: 'car_model', component: CarModel},
-            {path: 'car_choose', component: CarManage},
+            {path: 'car_choose', component: CarChoose},
             {path: 'order_charge', component: OrderCharge}
           ]
         },
