@@ -38,7 +38,7 @@
         login () {
           var self = this
           console.log(self.form.account)
-          axios.post('/test/login/?format=json', {
+          axios.post('/test/login/', {
             admin_tel: self.form.account,
             admin_pas: self.form.password
           })
