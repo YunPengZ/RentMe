@@ -214,7 +214,7 @@ def illegal_list(request,format=None):
             request_dict = request.data
             #licenses = illegal_record.objects.all()
             if 'illegal_id' in request_dict:
-                licenses = licenses.objects.filter(illegal_id__in=request_dict['illegal_id'])
+                licenses = licenses.filter(illegal_id__in=request_dict['illegal_id'])
             elif 'illegal_car_num' in request_dict:
                 licenses = licenses.filter(illegal_car_num__in=request_dict['illegal_car_num'])
             elif 'illegal_date' in request_dict:
@@ -299,7 +299,7 @@ def car_list(request,format=None):
             request_dict = request.data
             #licenses = car_info.objects.all()
             if 'car_id' in request_dict:
-                licenses = licenses.objects.filter(car_id__in=request_dict['car_id'])
+                licenses = licenses.filter(car_id__in=request_dict['car_id'])
             elif 'car_num' in request_dict:
                 licenses = licenses.filter(car_num__in=request_dict['car_num'])
             elif 'car_model_id' in request_dict:
@@ -414,15 +414,15 @@ def admin_list(request,format=None):
             elif 'record_delete_status' in request_dict:
                 licenses = licenses.filter(record_delete_status__in=request_dict['record_delete_status'])
             #print(licenses.values())
-            admin_list=list()
+            licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
 
-            serializer = AdminSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data,status=status.HTTP_201_CREATED)
-            else:
-                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            #serializer = AdminSerializer(data=licenses_list,many=True)
+            #if serializer.is_valid():
+            return Response(licenses_list,status=status.HTTP_200_OK)
+            #else:
+                #return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
         #serializer = AdminSerializer(data=request.data)
         #if serializer.is_valid():
@@ -477,7 +477,7 @@ def store_list(request,format=None):
             request_dict = request.data
             #licenses = store_info.objects.all()
             if 'store_id' in request_dict:
-                licenses = licenses.objects.filter(store_id__in=request_dict['store_id'])
+                licenses = licenses.filter(store_id__in=request_dict['store_id'])
             elif 'store_addr' in request_dict:
                 licenses = licenses.filter(store_addr__in=request_dict['store_addr'])
             elif 'store_tel' in request_dict:
@@ -496,11 +496,10 @@ def store_list(request,format=None):
             licenses_list=list()
             for item in licenses.values():
                 licenses_list.append(item)
-            serializer = StoreSerializer(data=licenses_list,many=True)
-            if serializer.is_valid():
-                return Response(serializer.data,status=status.HTTP_201_CREATED)
-            else:
-                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            ##if serializer.is_valid():
+            return Response(licenses_list,status=status.HTTP_200_OK)
+            ##else:
+                #return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
         #serializer = StoreSerializer(data=request.data)
         #print(type(serializer))
