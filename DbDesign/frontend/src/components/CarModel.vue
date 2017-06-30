@@ -206,7 +206,7 @@ export default{
   data () {
     return {
       options: {
-        car_type: ['商务车', 'SUV', 'ETC'],
+        car_type: [0, 1, 2],
         car_brand: ['MINI', '江淮', '传祺', '风行', '标致', '长城', '雪铁龙', '宝利格', '三菱', '奇瑞', '宝马', '雪佛兰', 'smart', '沃尔沃', '北京汽车', '东南汽车', '起亚', '别克', '长丰', '大众', '华颂', '日产', '依维柯', '猎豹', '斯柯达', '奥迪', '上汽大通', '野马', '戴姆勒', '马自达', '比亚迪', '江铃', '本田', '丰田', '菲亚特', '福特', '奔驰', '现代', '雪铁龙DS', '铃木', '凯迪拉克', '金杯'],
         car_seats_num: ['2', '3', '4', '5', '6', '7', '8', '9'],
         car_doors: ['5', '4', '3', '0', '2'],
@@ -242,7 +242,8 @@ export default{
         car_seats_type: [],
         car_reverse_radar: [],
         car_airbag: [],
-        car_dvd: []
+        car_dvd: [],
+        car_gps: []
       }
     }
   },
@@ -300,6 +301,9 @@ export default{
       if (form['car_dvd'].length === 0) {
         form['car_dvd'] = this.options['car_dvd']
       }
+      if (form['car_gps'].length === 0) {
+        form['car_gps'] = this.options['car_gps']
+      }
       return form
     }
   },
@@ -307,23 +311,24 @@ export default{
     handleSubmit () {
       var self = this
       axios.post('/test/findcar/', {
-        car_brand: self.ruleForm.car_brand,
-        car_type: self.ruleForm.car_type,
-        car_seats_num: self.ruleForm.car_seats_num,
-        car_doors: self.ruleForm.car_doors,
-        car_fuel_type: self.ruleForm.car_fuel_type,
-        car_gearbox_type: self.ruleForm.car_gearbox_type,
-        car_displacement: self.ruleForm.car_displacement,
-        car_fuel_num: self.ruleForm.car_fuel_num,
-        car_drive_way: self.ruleForm.car_drive_way,
-        car_engine_intake: self.ruleForm.car_engine_intake,
-        car_skylight: self.ruleForm.car_skylight,
-        car_tank_capa: self.ruleForm.car_tank_capa,
-        car_voicebox: self.ruleForm.car_voicebox,
-        car_seats_type: self.ruleForm.car_seats_type,
-        car_reverse_radar: self.ruleForm.car_reverse_radar,
-        car_airbag: self.ruleForm.car_airbag,
-        car_dvd: self.ruleForm.car_dvd
+        car_brand: self.form.car_brand,
+        car_type: self.form.car_type,
+        car_seats_num: self.form.car_seats_num,
+        car_doors: self.form.car_doors,
+        car_fuel_type: self.form.car_fuel_type,
+        car_gearbox_type: self.form.car_gearbox_type,
+        car_displacement: self.form.car_displacement,
+        car_fuel_num: self.form.car_fuel_num,
+        car_drive_way: self.form.car_drive_way,
+        car_engine_intake: self.form.car_engine_intake,
+        car_skylight: self.form.car_skylight,
+        car_tank_capa: self.form.car_tank_capa,
+        car_voicebox: self.form.car_voicebox,
+        car_seats_type: self.form.car_seats_type,
+        car_reverse_radar: self.form.car_reverse_radar,
+        car_airbag: self.form.car_airbag,
+        car_dvd: self.form.car_dvd,
+        car_gps: self.form.car_gps
       }).then(function (response) {
         self.$message('车型选择成功')
       }).catch(e => {

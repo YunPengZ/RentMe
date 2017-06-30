@@ -994,7 +994,9 @@ def order_by_create_user(request):
     if request.method == 'POST':
         data = request.data
         admin = admin_info.objects.get(pk=data['record_create_admin'])
-        license = driving_license(drive_name=data['drive_name'],user_drive=data['user_drive'],drive_type=data['drive_type'],drive_start_date=data['drive_start_date'],drive_end_date=data['drive_end_date'])
+       # drive_start_date = data['drive_start_date']
+        #drive_end_date = data['drive_end_date']
+        license = driving_license(drive_name=data['drive_name'],user_drive=data['user_drive'],drive_type=data['drive_type'],drive_start_date=data['drive_start_date'][0:10],drive_end_date=data['drive_end_date'][0:10])
         license.save()
         user = user_info(user_name=data['user_name'],user_sex=data['user_sex'],user_age=data['user_age'],user_ident=data['user_ident'],user_tel=data['user_tel'],user_office=data['user_office'],user_addr=data['user_addr'],user_post=data['user_post'],user_email=data['user_email'],record_create_admin=admin)
         user.save()
@@ -1005,22 +1007,22 @@ def order_by_create_user(request):
 
 
 class ModelList(generics.ListCreateAPIView):
-    queryset = model_info.objects.all()
+    queryset = model_info.objects.filter(record_delete_status__exact='no')
     serializer_class = ModelSerializer
 
 #管理员列表
 class AdminList(generics.ListCreateAPIView):
-    queryset = admin_info.objects.all()
+    queryset = admin_info.objects.filter(record_delete_status__exact='no')
     serializer_class = AdminSerializer
 
 #管理详情
 class AdminDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = admin_info.objects.all()
+    queryset = admin_info.objects.filter(record_delete_status__exact='no')
     serializer_class = AdminSerializer
 
 #门店列表
 class StoreList(generics.ListCreateAPIView):
-    queryset = store_info.objects.all()
+    queryset = store_info.objects.filter(record_delete_status__exact='no')
     serializer_class = StoreSerializer
 
     #def perform_create(self, serializer):
@@ -1028,11 +1030,11 @@ class StoreList(generics.ListCreateAPIView):
 
 #门店详情
 class StoreDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = store_info.objects.all()
+    queryset = store_info.objects.filter(record_delete_status__exact='no')
     serializer_class = StoreSerializer
 #车辆列表
 class CarList(generics.ListCreateAPIView):
-    queryset = car_info.objects.all()
+    queryset = car_info.objects.filter(record_delete_status__exact='no')
     serializer_class=CarSerializer
    # def perform_create(self, serializer):
        # print(self.request.POST)
@@ -1040,30 +1042,30 @@ class CarList(generics.ListCreateAPIView):
        # serializer.save(model_at)
 #车辆详情
 class CarDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = car_info.objects.all()
+    queryset = car_info.objects.filter(record_delete_status__exact='no')
 
     serializer_class=CarSerializer
 #租车订单列表
 class OrderList(generics.ListCreateAPIView):
-    queryset = rent_order.objects.all()
+    queryset = rent_order.objects.filter(record_delete_status__exact='no')
     serializer_class = OrderSerializer
 #租车订单详情
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = rent_order.objects.all()
+    queryset = rent_order.objects.filter(record_delete_status__exact='no')
     serializer_class = OrderSerializer
 #续租记录列表
 class ReletList(generics.ListCreateAPIView):
-    queryset = relet_record.objects.all()
+    queryset = relet_record.objects.filter(record_delete_status__exact='no')
     serializer_class = ReletSerializer
 #续租记录详情
 class ReletDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = relet_record.objects.all()
+    queryset = relet_record.objects.filter(record_delete_status__exact='no')
     serializer_class = ReletSerializer
 #违章列表
 class IllegalList(generics.ListCreateAPIView):
-    queryset = illegal_record.objects.all()
+    queryset = illegal_record.objects.filter(record_delete_status__exact='no')
     serializer_class = illegalSerializer
 #违章详情
 class IllegalDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = illegal_record.objects.all()
+    queryset = illegal_record.objects.filter(record_delete_status__exact='no')
     serializer_class = illegalSerializer

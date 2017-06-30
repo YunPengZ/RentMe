@@ -102,16 +102,16 @@ export default{
       console.log(self.formInline.car_num)
       axios.post('/test/car/', {
         'statu': 'update',
-        car_num: self.formInline.car_num,
-        car_model_id: self.formInline.car_model_id,
-        car_color: self.formInline.car_color,
-        car_engine_num: self.formInline.car_engine_num,
-        car_frame_num: self.formInline.car_frame_num,
-        car_buy_date: self.formInline.car_buy_date,
-        car_retailer: self.formInline.car_retailer,
-        car_status: self.formInline.car_status,
-        car_ins_num: self.formInline.car_ins_num,
-        car_creater: self.$store.state.user_ID
+        'car_num': [self.formInline.car_num],
+        'car_model_id': [self.formInline.car_model_id],
+        'car_color': [self.formInline.car_color],
+        'car_engine_num': [self.formInline.car_engine_num],
+        'car_frame_num': [self.formInline.car_frame_num],
+        'car_buy_date': [self.formInline.car_buy_date],
+        'car_retailer': [self.formInline.car_retailer],
+        'car_status': [self.formInline.car_status],
+        'car_ins_num': [self.formInline.car_ins_num],
+        'record_create_admin': [self.$store.state.record_create_admin]
       })
             .then(function (response) {
               self.$message('修改成功')

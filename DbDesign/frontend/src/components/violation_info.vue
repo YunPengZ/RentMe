@@ -60,7 +60,7 @@
     :default-sort = "{prop: 'date', order: 'descending'}"
     >
     <el-table-column
-      prop="millegal_car_num"
+      prop="illegal_car_num"
       label="车牌号码"
       width="120"
       sortable
@@ -91,7 +91,7 @@
 </div>
 </template>
 <script>
-// import axios from 'axios';
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -121,7 +121,7 @@ export default {
   created () {
     var self = this
         // var id = self.$route.params.id;
-    axios.get('/test/illegal_record/', {})
+    axios.get('/test/illegal', {})
          .then(function (response) {
            self.table = response.data
          })
@@ -132,16 +132,15 @@ export default {
   methods: {
     addCar () {
       var self = this
-      axios.post('/test/illegal_record/', {
+      axios.post('/test/illegal/', {
         status: 'add',
-        millegal_car_num: self.formInline.millegal_car_num,
+        illegal_car_num: self.formInline.illegal_car_num,
         illegal_date: self.formInline.illegal_date,
         illegal_bill: self.formInline.illegal_bill,
         illegal_info: self.formInline.illegal_info
       })
             .then(function (response) {
               self.$message('添加成功')
-              created()
             })
             .catch(e => {
               self.$message('添加失败')
