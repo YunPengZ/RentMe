@@ -497,7 +497,10 @@ def store_list(request,format=None):
             for item in licenses.values():
                 licenses_list.append(item)
             ##if serializer.is_valid():
-            return Response(licenses_list,status=status.HTTP_200_OK)
+            if len(licenses_list) == 0:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(licenses_list,status=status.HTTP_200_OK)
             ##else:
                 #return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
