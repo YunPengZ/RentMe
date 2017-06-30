@@ -60,7 +60,7 @@
     :default-sort = "{prop: 'date', order: 'descending'}"
     >
     <el-table-column
-      prop="millegal_car_num"
+      prop="illegal_car_num"
       label="车牌号码"
       width="120"
       sortable
@@ -132,9 +132,9 @@ export default {
   methods: {
     addCar () {
       var self = this
-      axios.post('/test/illegal_record/', {
+      axios.post('/test/illegal/', {
         status: 'add',
-        millegal_car_num: self.formInline.millegal_car_num,
+        illegal_car_num: self.formInline.illegal_car_num,
         illegal_date: self.formInline.illegal_date,
         illegal_bill: self.formInline.illegal_bill,
         illegal_info: self.formInline.illegal_info
