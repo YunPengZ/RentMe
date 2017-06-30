@@ -331,6 +331,10 @@ export default{
         car_gps: self.form.car_gps
       }).then(function (response) {
         self.$message('车型选择成功')
+        self.$store.state.matched_car = response.data
+        self.$store.state.step = 2
+        self.$router.push('/home/new_order/car_choose')
+        self.$router.go(1)
       }).catch(e => {
         self.$message('选择失败')
         this.errors.push(e)
