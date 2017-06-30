@@ -265,7 +265,7 @@ def car_list(request,format=None):
             try:
                 licenses.record_delete_status='dele'
                 licenses.save()
-                return Response(licenses.data,status=status.HTTP_200_OK)
+                return Response(status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
