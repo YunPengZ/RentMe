@@ -102,6 +102,7 @@ export default{
       console.log(self.formInline.car_num)
       axios.post('/test/car/', {
         'statu': 'update',
+        // 'car_id': [self.formInine.car_id],
         'car_num': [self.formInline.car_num],
         'car_model_id': [self.formInline.car_model_id],
         'car_color': [self.formInline.car_color],
@@ -112,6 +113,8 @@ export default{
         'car_status': [self.formInline.car_status],
         'car_ins_num': [self.formInline.car_ins_num],
         'record_create_admin': [self.$store.state.record_create_admin]
+        // 'car_record_create_time':['2017-06-29T04:47:25.671313Z'],
+        // 'record_delete_status': "no"
       })
             .then(function (response) {
               self.$message('修改成功')
